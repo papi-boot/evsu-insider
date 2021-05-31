@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Palanquin:wght@300;400;500;600;700&display=swap");
+
+// Root variable
+
+// Fonts
+$fonts: "Palanquin", sans serif;
+$secondary-font: "Segoe UI", sans-serif;
+// Font weight
+$fw_300: 300;
+$fw_400: 400;
+$fw_500: 500;
+$fw_600: 600;
+$fw_700: 700;
+
+// Color theme.
+$primary-color: #730000;
+$white: #fff;
+
+//Font size
+$desktop-fs: 0.9rem;
+
+//Hover effect
+$bg-hover-primary: rgb(115, 0, 0, 0.1);
+
+//shadow
+$shadow-1: 3px 3px 10px rgba(50, 50, 50, 0.2);
+
+//margin
+$mar-1: 1rem;
+$mar-2: 0.8rem;
+$mar-3: 0.6rem;
+$mar-4: 0.4rem;
+
+//padding
+$pad-1: 1rem;
+$pad-2: 0.8rem;
+$pad-3: 0.6rem;
+$pad-4: 0.4rem;
+
+//transitions
+$transition-1: all 100ms linear;
+$transition-2: all .3s ease-in;
+
+html {
+  overflow-x: hidden;
+}
+body {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: $fonts;
+  padding: 0;
+  position: relative;
+}

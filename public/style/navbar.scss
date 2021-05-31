@@ -1,0 +1,209 @@
+@use 'root' as root;
+
+@mixin nav-link-style {
+  border-radius: 5px;
+  color: root.$primary-color;
+  font-family: root.$secondary-font;
+  font-size: root.$desktop-fs;
+  font-weight: root.$fw_600;
+  padding: root.$pad-4;
+  text-decoration: none;
+  transition: root.$transition-1;
+}
+
+.--navbar-heading {
+  color: root.$white;
+}
+
+.logo {
+  width: 200px;
+}
+.--nav-list-container {
+  > .--navbar-list {
+    list-style: none;
+  }
+}
+.--navbar-list {
+  min-width: 6rem;
+  > .--nav-item {
+    margin: 0 root.$mar-1;
+  }
+}
+
+.--acc-option {
+  left: unset;
+  min-width: 6rem;
+  right: 0;
+}
+
+.--nav-item {
+  > .--nav-link {
+    @include nav-link-style;
+  }
+  .--acc-option-btn {
+    @include nav-link-style;
+    background: transparent;
+    border: 0;
+    outline: 0;
+  }
+}
+
+.--acc-option-btn {
+  &:focus {
+    background: root.$bg-hover-primary;
+  }
+}
+.--nav-link {
+  &:hover {
+    background: root.$bg-hover-primary;
+  }
+}
+.--signout-icon {
+  font-size: 1rem;
+  font-weight: root.$fw_600;
+}
+
+// Navbar burger
+@mixin nav-burger-style {
+  background-color: root.$primary-color;
+  border: 0;
+  border-radius: 20px;
+  content: "";
+  cursor: pointer;
+  display: block;
+  height: 2px;
+  // margin: 0 auto;
+  outline: 0;
+  transition: root.$transition-2;
+  width: 32px;
+}
+
+@mixin nav-toggler {
+  background: transparent;
+  border: 0;
+  height: 35px;
+  outline: 0;
+  width: 35px;
+}
+
+.burger-toggler {
+  @include nav-toggler;
+
+  &:hover > .nav-burger {
+    width: 25px;
+
+    &::before {
+      width: 32px;
+    }
+    &::after {
+      width: 32px;
+    }
+  }
+  &:focus {
+    box-shadow: none;
+  }
+
+  > .nav-burger {
+    @include nav-burger-style;
+
+    &::after {
+      @include nav-burger-style;
+      transform: translateY(6px);
+      width: 24px;
+    }
+
+    &::before {
+      @include nav-burger-style;
+      transform: translateY(-8px);
+      width: 24px;
+    }
+  }
+
+  &.open > .nav-burger {
+    background: transparent;
+    transform: rotate(90deg);
+    width: 32px;
+  }
+
+  &.open > .nav-burger {
+    &::after {
+      transform: rotate(45deg) translate(0);
+      width: 30px;
+    }
+  }
+
+  &.open > .nav-burger {
+    &::before {
+      width: 30px;
+      transform: rotate(-45deg) translate(-1px, 1px);
+    }
+  }
+}
+
+// Mobile Nav design
+
+@mixin navbar-mobile {
+  .--nav-list-container {
+    align-items: center;
+    background: root.$white;
+    box-shadow: root.$shadow-1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    left: -100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    transition: root.$transition-2;
+    width: 10rem;
+  }
+  .--navbar-list {
+    > .--nav-item {
+      margin: root.$mar-3;
+    }
+  }
+
+  .open-navbar {
+    left: 0;
+  }
+  .close-navbar {
+    left: -100%;
+  }
+}
+
+@mixin navbar-desktop {
+  .--nav-list-container {
+    background: transparent;
+    box-shadow: none;
+    left: 0;
+    position: relative;
+    width: max-content;
+  }
+  .--nav-item {
+    margin: inherit root.$mar-1;
+  }
+}
+
+// MEDIA QUERY
+@mixin navbar-max-320px {
+  @include navbar-mobile;
+}
+@mixin navbar-max-576px {
+  @include navbar-mobile;
+}
+@mixin navbar-min-576px {
+  @include navbar-mobile;
+}
+@mixin navbar-min-768px {
+  @include navbar-mobile;
+}
+@mixin navbar-min-992px {
+  @include navbar-desktop;
+}
+@mixin navbar-min-1024px {
+  @include navbar-desktop;
+}
+@mixin navbar-min-1200px {
+}
+@mixin navbar-min-1400px {
+}

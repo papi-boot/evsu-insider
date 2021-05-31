@@ -1,0 +1,12 @@
+@use 'root' as root;
+.footer-info {
+  background: root.$primary-color;
+  bottom: 0;
+  color: root.$white;
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  z-index: -1;
+}

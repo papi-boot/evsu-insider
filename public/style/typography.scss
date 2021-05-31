@@ -1,0 +1,38 @@
+@use 'root' as root;
+
+.pr-color {
+  color: root.$primary-color;
+}
+
+.fw_700 {
+  font-weight: root.$fw_700;
+}
+
+.fw_600 {
+  font-weight: root.$fw_600;
+}
+
+.fw_500 {
+  font-weight: root.$fw_500;
+}
+
+.fw_400 {
+  font-weight: root.$fw_400;
+}
+
+.fw_300 {
+  font-weight: root.$fw_300;
+}
+
+.p-theme-color {
+  color: root.$primary-color;
+}
+
+.primary-heading {
+  font-family: root.$secondary-font;
+}
+
+.alert-text {
+  box-sizing: border-box;
+  font-size: 0.9rem;
+}

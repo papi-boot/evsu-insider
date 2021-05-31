@@ -1,0 +1,41 @@
+<navbar class="navbar navbar-expand-lg">
+  <div class="--navbar-content container d-lg-flex justify-content-between align-items-center py-3">
+    <div class="--navbar-heading">
+      <a class="--navlogo-link" href="/evsu-insider/dashboard">
+        <img class="--navbar-logo logo" alt="Evsu Insider">
+      </a>
+    </div>
+    <button class="navbar-toggler burger-toggler p-0" data-bs-target="#navContainer">
+      <div class="nav-burger"></div>
+    </button>
+    <div class="--nav-list-container flex-grow-0" id="navContainer">
+      <ul class="--navbar-list d-lg-flex align-items-center justify-content-between m-0 p-0">
+        <li class="--nav-item">
+          <a class="--nav-link" href="/">Home</a>
+        </li>
+        <li class="--nav-item">
+          <a class="--nav-link" href="<%= auth_link.share_answer %>">Share Answer 🐱‍👤</a>
+        </li>
+        <li class="--nav-item">
+          <a class="--nav-link" href="/">About</a>
+        </li>
+        <li class="--nav-item">
+          <div class="btn-group">
+            <button class="--nav-link dropdown-toggle --acc-option-btn" type="button" data-bs-toggle="dropdown">
+              Account
+            </button>
+            <ul class="dropdown-menu --acc-option p-1">
+              <li class="--nav-item mx-0">
+                <a class="--nav-link dropdown-item" href="/">Profile</a>
+              </li>
+              <li class="--nav-item mx-0">
+                <a class="--nav-link dropdown-item" href="/evsu-insider/sign-out">Sign Out <span><i
+                      class="bi bi-box-arrow-in-right --signout-icon"></i></span> </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</navbar>

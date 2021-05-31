@@ -1,0 +1,44 @@
+@use 'root' as root;
+
+@mixin global__input {
+  background: #e9e9e9;
+  border: none;
+  border-radius: 5px;
+  caret-color: root.$primary-color;
+  outline: none;
+  padding: 0.3rem 0.5rem;
+}
+
+@mixin trans_50ms {
+  transition: all 70ms linear;
+}
+
+.h-vh {
+  height: 100vh;
+}
+
+.input__global {
+  @include global__input;
+  @include trans_50ms;
+
+  &:focus {
+    @include global__input;
+    background: transparent;
+    outline: 2px solid root.$primary-color;
+    box-shadow: 3px 5px root.$primary-color;
+  }
+}
+
+.btn__global {
+  @include trans_50ms;
+  background: root.$white;
+  border: 2px solid root.$primary-color;
+  border-radius: 5px;
+  color: root.$primary-color;
+  padding: 0.3rem 0.5rem;
+
+  &:hover {
+    background: root.$primary-color;
+    color: root.$white;
+  }
+}

@@ -1,0 +1,26 @@
+.a_bounce-in {
+  animation: bounce 1.5s ease;
+}
+.a_from-left {
+  animation: comefromleft 3.2s;
+}
+
+@keyframes comefromleft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  25% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(-900px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

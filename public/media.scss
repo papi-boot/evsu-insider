@@ -1,0 +1,31 @@
+@media screen and(max-width: 320px) {
+  @include navbar-max-320px;
+}
+
+@media screen and (max-width: 576px) {
+  @include navbar-max-576px;
+}
+
+@media screen and (min-width: 576px) {
+  @include navbar-min-576px;
+}
+
+@media screen and (min-width: 768px) {
+  @include navbar-min-768px;
+}
+
+@media screen and (min-width: 992px) {
+  @include navbar-min-992px;
+}
+
+@media screen and (min-width: 1024px) {
+  @include navbar-min-1024px;
+}
+
+@media screen and (min-width: 1200px) {
+  @include navbar-min-1200px;
+}
+
+@media screen and (min-width: 1400px) {
+  @include navbar-min-1400px;
+}
