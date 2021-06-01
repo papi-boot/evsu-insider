@@ -21,6 +21,10 @@ module.exports = {
           key: "user_id",
         },
       },
+      post_tag: {
+        allowNull: false,
+        type: DataTypes.STRING(100),
+      },
       post_body: {
         allowNull: false,
         type: DataTypes.TEXT,

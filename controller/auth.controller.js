@@ -2,9 +2,7 @@
 const verifyRegister = require("../middleware/verify.register");
 const passport = require("passport");
 const passportConfig = require("../middleware/passport.config.js"); //Require the passport config;
-const {
-  checkNotAuthenticated,
-} = require("../middleware/check.authenticated");
+const { checkNotAuthenticated } = require("../middleware/check.authenticated");
 
 /* @TODO: initialize the passport */
 passportConfig.initializePassport(passport);

@@ -22,7 +22,7 @@ module.exports = {
       {
         test: /\.(css|scss)$/i,
         exclude: /node_modules/,
-        use: [ 
+        use: [
           MiniCssExtractPlugin.loader,
           "css-loader",
           "postcss-loader",
@@ -32,7 +32,6 @@ module.exports = {
       {
         test: /\.(png|jpeg|jpg|ico|svg|gif)$/i,
         exclude: /node_modules/,
-        type: "asset/resource",
         use: ["file-loader"],
       },
     ],

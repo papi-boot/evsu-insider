@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <%- include("../partial/head") %> 
-</head>
-<body>
-  <h1>Share Answer</h1>
-  <form action="">
-    <input type="text" name="" id="">
-    <input type="text" name="" id="">
-    <input type="text" name="" id="">
-  </form>
-  
-  <%- include("../partial/footer") %>
-  <%- include("../partial/script") %> 
-</body>
+
+  <head>
+    <%- include("../partial/head") %>
+      <script src="/tinymce/tinymce.min.js"></script>
+  </head>
+
+  <body>
+    <h1>Share Answer</h1>
+    <form action="">
+      <textarea class="--share-answer-form" name="share_asnwer_form" id="shareAnswerForm" cols="30"
+        rows="10"></textarea>
+    </form>
+
+    <%- include("../partial/footer") %>
+    <%- include("../partial/script") %>
+  </body>
+
 </html>

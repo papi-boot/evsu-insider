@@ -23,7 +23,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge:  60 * 60000,
+      maxAge: 60 * 60000,
     },
   })
 ); //set cookies to save on local storage on the browser
