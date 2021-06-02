@@ -1,17 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <%- include("../partial/head") %> 
-</head>
-<body>
-  <h1>Share Answer</h1>
-  <form action="">
-    <input type="text" name="" id="">
-    <input type="text" name="" id="">
-    <input type="text" name="" id="">
-  </form>
-  
-  <%- include("../partial/footer") %>
-  <%- include("../partial/script") %> 
-</body>
+
+  <head>
+    <%- include("../partial/head") %>
+      <script src="/tinymce/tinymce.min.js"></script>
+
+  </head>
+
+  <body>
+    <form action="">
+      <div class="--nav-item back d-flex justify-content-start align-items-center w-100 my-2 mx-3">
+        <a class="text-decoration-none --nav-link" href="/evsu-insider/dashboard">&leftarrow; Back to Dashboard</a>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="group">
+            <input class="__material-input" type="text" name="post_title" required>
+            <span class="bar"></span>
+            <label class="__material-label">Add Title...</label>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="group">
+            <input class="__material-input" type="text" name="post_tag" required>
+            <span class="bar"></span>
+            <label class="__material-label">Add Tag/Subject/Unit</label>
+          </div>
+        </div>
+      </div>
+      <textarea class="--share-answer-form" name="post_body" id="shareAnswerForm" cols="30" rows="10"></textarea>
+    </form>
+
+
+    <%- include("../partial/script") %>
+  </body>
+
 </html>

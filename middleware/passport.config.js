@@ -21,7 +21,7 @@ const initializePassport = (passport) => {
         }
       );
       /* @TODO: authenticate the user and compare the user password input from haspassword */
-      if (results) {
+      if (results.length > 0) {
         bcrypt.compare(
           password,
           results[0].user_password,
@@ -59,11 +59,11 @@ const initializePassport = (passport) => {
     /* @TODO: deserialize user */
     passport.deserializeUser(async (id, done) => {
       const results = await sequelize.query(
-        "SELECT * FROM users WHERE user_id = $1", 
+        "SELECT * FROM users WHERE user_id = $1",
         {
           bind: [id],
           type: QueryTypes.SELECT,
-        } 
+        }
       );
       if (results) {
         return done(null, results[0]);
