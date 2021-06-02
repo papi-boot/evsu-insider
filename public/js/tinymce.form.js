@@ -3,14 +3,14 @@ import tinymce from "tinymce";
 window.addEventListener("DOMContentLoaded", () => {
   tinymce.init({
     selector: "#shareAnswerForm",
-    content_css: "writer",
+    content_css: "document",
     plugins:
-      "anchor emoticons charmap wordcount  codesample lists advlist table hr pagebreak nonbreaking print image media imagetools autolink link preview fullscreen visualblocks spellchecker visualchars autolink help searchreplace",
-    height: "85vh",
+      "anchor code emoticons charmap wordcount  codesample lists advlist table hr pagebreak nonbreaking print image media imagetools autolink link preview fullscreen visualblocks spellchecker visualchars autolink help searchreplace",
+    height: "90vh",
     toolbar:
       "insertfile undo redo | styleselect | bold italic forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify bullist numlist table outdent indent | image media codesample emoticons charmap link  | anchor hr pagebreak nonbreaking | print help addTab",
     help_tabs: ["shortcuts", "keyboardnav"],
-    
+
     a11y_advanced_options: true,
     media_filter_html: true,
     image_advtab: true,

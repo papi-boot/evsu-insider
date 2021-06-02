@@ -48,11 +48,13 @@ const getHomeDashboard = async (req, res) => {
 };
 
 // -- GET HTTP REQUEST : get create/share new answer form
-
 const getCreateAnswerForm = async (req, res) => {
   try {
     if (req.user) {
-      res.render("dashboard/create_answer", { doc_title: "Share Answer ⭐" });
+      res.render("dashboard/create_answer", {
+        doc_title: "Share Answer ⭐",
+        auth_link: "",
+      });
     } else {
       checkNotAuthenticated(req, res);
     }
