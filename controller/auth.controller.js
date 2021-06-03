@@ -3,6 +3,7 @@ const verifyRegister = require("../middleware/verify.register");
 const passport = require("passport");
 const passportConfig = require("../middleware/passport.config.js"); //Require the passport config;
 const { checkNotAuthenticated } = require("../middleware/check.authenticated");
+const submitShareAnswer = require("../middleware/share.answer.submit");
 
 /* @TODO: initialize the passport */
 passportConfig.initializePassport(passport);
@@ -71,7 +72,11 @@ const postLoginForm = passport.authenticate("local", {
   successRedirect: "/evsu-insider/dashboard",
   failureRedirect: "/evsu-insider/sign-in",
   failureFlash: true,
+  failureMessage: "Please provide a valid credentials",
 });
+
+// POST HTTP REQUEST: submit my share answer
+const postShareAnswer = submitShareAnswer.submitAnswer;
 
 module.exports = {
   getRegisterForm,
@@ -80,4 +85,5 @@ module.exports = {
   getCreateAnswerForm,
   postRegisterForm,
   postLoginForm,
+  postShareAnswer,
 };

@@ -5,7 +5,7 @@
   border-color: root.$primary-color;
 }
 .group {
-  margin: root.$mar-4 auto;
+  margin: root.$mar-2 auto;
   position: relative;
   max-width: 70%;
   width: 50%;
@@ -76,6 +76,7 @@
 /* active state */
 .__material-input:focus ~ .bar:before,
 .__material-input:focus ~ .bar:after {
+  background: root.$primary-color;
   width: 50%;
 }
 
@@ -83,4 +84,18 @@
   font-size: 1rem;
 }
 
-/* ANIMATIONS ================ */
+@mixin answer-form-mobile {
+  .group {
+    margin: root.$mar-2 auto;
+    max-width: 90%;
+    width: 90%;
+  }
+  .__material-input {
+    width: 100%;
+  }
+}
+
+//MEDIA QUERY
+@mixin answer-form-max-576px {
+  @include answer-form-mobile;
+}

@@ -3,7 +3,7 @@
 // Root variable
 
 // Fonts
-$fonts: "Palanquin", sans serif;
+$fonts: "Palanquin", sans-serif;
 $secondary-font: "Segoe UI", sans-serif;
 // Font weight
 $fw_300: 300;
@@ -51,3 +51,8 @@ body {
   padding: 0;
   position: relative;
 }
+
+.z-index-n1{
+  z-index: -1;
+}
+

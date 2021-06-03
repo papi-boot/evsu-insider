@@ -30,7 +30,7 @@ const initialize = async (req, res) => {
     }
 
     if (validateFormMessage.length > 0) {
-      req.flash("error_message", validateFormMessage);
+      req.flash("error", validateFormMessage);
       return res.redirect("/evsu-insider/sign-up");
     } else {
       const results = await sequelize.query(
@@ -42,7 +42,7 @@ const initialize = async (req, res) => {
       );
       /* @TODO: Check email if it is exist and return flash message */
       if (results.length > 0) {
-        req.flash("error_message", `Email ${email} is already taken.`);
+        req.flash("error", `Email ${email} is already taken.`);
         return res.redirect("/evsu-insider/sign-up");
       } else {
         /* @TODO: Register the user if the email is not exisiting in database */

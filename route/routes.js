@@ -31,16 +31,18 @@ routes.get(
 );
 
 // -- GET: create new answer from
-
 routes.get("/evsu-insider/share-answer", authController.getCreateAnswerForm);
 
-
+//-- GET: sign out request for user;
 routes.get("/evsu-insider/sign-out", signOutUser);
+
 /* --ALL POST REQUEST */
 // -- POST: verify and register account
 routes.post("/evsu-insider/sign-up", authController.postRegisterForm);
 
 // -- POST: sign in user and verify
 routes.post("/evsu-insider/sign-in", authController.postLoginForm);
+
+routes.post("/evsu-insider/share-answer", authController.postShareAnswer)
 
 module.exports = routes;

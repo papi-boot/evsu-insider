@@ -21,7 +21,7 @@ const checkNotAuthenticated = async (req, res, next) => {
     if (req.isAuthenticated()) {
       return await next();
     }
-    req.flash("error", " Please sign in first 🤠.");
+    req.flash("error", "Please sign in first 🤠.");
     await res.redirect("/evsu-insider/sign-in");
   } catch (err) {
     console.error(err);

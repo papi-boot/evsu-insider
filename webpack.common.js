@@ -3,14 +3,17 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: "./public/index.js",
+  entry: {
+    main: "./public/index.js",
+    form: "./public/js/tinymce.form.js"
+  },
   performance: {
     hints: false,
   },
   devtool: false,
   output: {
     path: path.resolve(__dirname, "./public/dist"),
-    filename: "compiled.js",
+    filename: "[name].compiled.js",
   },
   module: {
     rules: [
