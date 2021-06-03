@@ -1,9 +1,11 @@
 import tinymce from "tinymce";
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
   tinymce.init({
     selector: "#shareAnswerForm",
     content_css: "document",
+    content_style:
+      'body { font-family: "Palanquin",sans-serif; font-size: 0.9rem } pre { font-family: "Palanquin",sans-serif; font-size: 0.7rem } code[class*="language-"], pre[class*="language-"]{ } ',
     plugins:
       "anchor code emoticons charmap wordcount  codesample lists advlist table hr pagebreak nonbreaking print image media imagetools autolink link preview fullscreen visualblocks spellchecker visualchars autolink help searchreplace",
     height: "90vh",

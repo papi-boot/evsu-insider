@@ -34,5 +34,20 @@
 
 .alert-text {
   box-sizing: border-box;
-  font-size: 0.9rem;
+  font-size: 0.9rem !important;
+}
+.f_size-1 {
+  font-size: 1rem !important;
+}
+.f_size-2 {
+  font-size: 0.9rem !important;
+}
+.f_size-3 {
+  font-size: 0.8rem !important;
+}
+.f_size-4 {
+  font-size: 0.6rem !important;
+}
+.f_size-5 {
+  font-size: 0.5rem !important;
 }

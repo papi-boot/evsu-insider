@@ -4,6 +4,7 @@
 
 @media screen and (max-width: 576px) {
   @include navbar-max-576px;
+  @include answer-form-max-576px;
 }
 
 @media screen and (min-width: 576px) {
