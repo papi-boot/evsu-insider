@@ -2,8 +2,10 @@
 const verifyRegister = require("../middleware/verify.register");
 const passport = require("passport");
 const passportConfig = require("../middleware/passport.config.js"); //Require the passport config;
-const { checkNotAuthenticated } = require("../middleware/check.authenticated");
-const submitShareAnswer = require("../middleware/share.answer.submit");
+const { checkNotAuthenticated } = require("../middleware/check.authenticated"); // middleware for cehcking authorization
+const submitShareAnswer = require("../middleware/share.answer.submit"); // submit asnwer
+const { getAllPost } = require("../query/fetch_post"); //Fetch all data
+const { formatDistanceToNow, format } = require("date-fns");
 
 /* @TODO: initialize the passport */
 passportConfig.initializePassport(passport);
@@ -41,6 +43,9 @@ const getHomeDashboard = async (req, res) => {
         auth_link: {
           share_answer: "/evsu-insider/share-answer",
         },
+        post: await getAllPost(),
+        formatDistanceToNow,
+        format
       });
     }
   } catch (err) {

@@ -28,6 +28,14 @@
   color: root.$primary-color;
 }
 
+.div-primary-bg-color {
+  background: root.$primary-color;
+}
+.div-second-bg-color {
+  background: rgba(230, 230, 230, 0.5);
+  height: 50px !important;
+}
+
 .primary-heading {
   font-family: root.$secondary-font;
 }
@@ -35,6 +43,9 @@
 .alert-text {
   box-sizing: border-box;
   font-size: 0.9rem !important;
+}
+.f_size-heading {
+  font-size: 1.2rem;
 }
 .f_size-1 {
   font-size: 1rem !important;

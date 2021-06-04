@@ -7,10 +7,21 @@
 
   <body>
     <!-- navbar -->
+    <div class="divider div-primary-bg-color"></div>
     <%- include("../partial/navbar") %>
-    <%- include("../partial/success_alert.ejs") %> 
+    <div class="divider div-second-bg-color"></div>
+
+    <%- include("../partial/success_alert") %>
+
+    <div class="container my-3">
+      <div class="date-today">
+        <h2 class="primary-heading fw_700 text-grey">Today</h2><span class="fw_600 f_size-2 primary-heading  mx-1"><%= format(new Date(Date.now()), 'EEEE, MMMM dd, yyyy')%></span>
+      </div>
+      <div class="row">
+        <%- include("../data/posts") %> 
+      </div>
+    </div>
     
-    <%- include("../partial/footer") %>
     <%- include("../partial/script") %>
   </body>
 

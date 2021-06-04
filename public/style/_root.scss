@@ -24,6 +24,7 @@ $bg-hover-primary: rgb(115, 0, 0, 0.1);
 
 //shadow
 $shadow-1: 3px 3px 10px rgba(50, 50, 50, 0.2);
+$shadow-2: 3px 3px 10px rgba(200, 200, 200, 0.4);
 
 //margin
 $mar-1: 1rem;
@@ -39,20 +40,24 @@ $pad-4: 0.4rem;
 
 //transitions
 $transition-1: all 100ms linear;
-$transition-2: all .3s ease-in;
+$transition-2: all 0.3s ease-in;
 
 html {
   overflow-x: hidden;
 }
 body {
-  margin: 0;
   box-sizing: border-box;
   font-family: $fonts;
+  margin: 0 0 4rem;
   padding: 0;
   position: relative;
 }
 
-.z-index-n1{
+.z-index-n1 {
   z-index: -1;
+}
+
+.divider {
+  height: 30px;
 }
 
