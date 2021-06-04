@@ -1,0 +1,40 @@
+@use "navbar" as nav;
+@use "root" as root;
+
+.w-max-content {
+  width: max-content;
+}
+.post-clickable {
+  .post__card {
+    @include nav-link-style;
+    background: rgba(245, 245, 245, 0.9);
+    border: 1px solid #ddd;
+    border-bottom: 5px solid #ddd;
+    box-shadow: root.$shadow-2;
+    margin: root.$mar-1 0;
+
+    &:hover {
+      background: root.$bg-hover-primary;
+      border: 1px solid rgba(root.$primary-color, 0.3);
+      border-bottom: 5px solid rgba(root.$primary-color, 0.7);
+    }
+  }
+}
+.post__header {
+  > .post__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  > .post__tag {
+    background: rgba(root.$primary-color, 0.9);
+    border-radius: 7px;
+    color: root.$white;
+    padding: 2px 5px;
+  }
+}
+.post__sub-header {
+  word-wrap: break-word;
+  flex-wrap: wrap;
+}
