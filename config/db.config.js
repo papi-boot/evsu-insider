@@ -10,11 +10,11 @@ module.exports = {
     dialect: "postgres",
   },
   production: {
-    username: process.env._USER,
-    password: process.env._PASS,
-    database: process.env._DB,
-    host: process.env._HOST,
-    port: process.env._PORT,
+    username: process.env.P_USER,
+    password: process.env.P_PASS,
+    database: process.env.P_DB,
+    host: process.env.P_HOST,
+    port: process.env.P_PORT,
     dialect: "postgres",
   },
 };
