@@ -16,5 +16,9 @@ module.exports = {
     host: process.env.P_HOST,
     port: process.env.P_PORT,
     dialect: "postgres",
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
   },
 };
