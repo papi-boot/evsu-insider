@@ -4,7 +4,7 @@ const passport = require("passport");
 const passportConfig = require("../middleware/passport.config.js"); //Require the passport config;
 const { checkNotAuthenticated } = require("../middleware/check.authenticated"); // middleware for cehcking authorization
 const submitShareAnswer = require("../middleware/share.answer.submit"); // submit asnwer
-const { getAllPost } = require("../query/fetch_post"); //Fetch all data
+const { getAllPost, getOnePost } = require("../query/fetch_post"); //Fetch all data
 const { formatDistanceToNow, format } = require("date-fns");
 
 /* @TODO: initialize the passport */
@@ -45,8 +45,31 @@ const getHomeDashboard = async (req, res) => {
         },
         post: await getAllPost(),
         formatDistanceToNow,
-        format
+        format,
       });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// -- GET HTTP REQUEST: get and show specific/one post
+const getSpecificPost = async (req, res) => {
+  try {
+    if (req.user) {
+      const doc_title = await getOnePost(req);
+      console.log(doc_title[0].post_title);
+      res.render("dashboard/show", {
+        doc_title: doc_title[0].post_title,
+        post: await getOnePost(req),
+        auth_link: {
+          share_answer: "/evsu-insider/share-answer",
+        },
+        formatDistanceToNow,
+        format,
+      });
+    } else {
+      checkNotAuthenticated(req, res);
     }
   } catch (err) {
     console.error(err);
@@ -87,6 +110,7 @@ module.exports = {
   getRegisterForm,
   getLoginForm,
   getHomeDashboard,
+  getSpecificPost,
   getCreateAnswerForm,
   postRegisterForm,
   postLoginForm,

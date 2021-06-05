@@ -36,6 +36,8 @@ routes.get("/evsu-insider/share-answer", authController.getCreateAnswerForm);
 //-- GET: sign out request for user;
 routes.get("/evsu-insider/sign-out", signOutUser);
 
+routes.get("/evsu-insider/post/:id", authController.getSpecificPost);
+
 /* --ALL POST REQUEST */
 // -- POST: verify and register account
 routes.post("/evsu-insider/sign-up", authController.postRegisterForm);
@@ -43,6 +45,6 @@ routes.post("/evsu-insider/sign-up", authController.postRegisterForm);
 // -- POST: sign in user and verify
 routes.post("/evsu-insider/sign-in", authController.postLoginForm);
 
-routes.post("/evsu-insider/share-answer", authController.postShareAnswer)
+routes.post("/evsu-insider/share-answer", authController.postShareAnswer);
 
 module.exports = routes;
