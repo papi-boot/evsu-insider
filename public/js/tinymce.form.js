@@ -20,6 +20,7 @@ window.addEventListener("load", () => {
     image_title: true,
     //for Mobile
     mobile: {
+      theme: "mobile",
       menubar: true,
       toolbar_mode: false,
       toolbar_sticky: true,
