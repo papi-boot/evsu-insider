@@ -26,7 +26,7 @@
                 <%= post[0].user_fullname %> <span class="text-dark"> @ </span>
               </h6>
               <h6 class="spec__post-created-at primary-heading m-0 f_size-2 fw_600 mx-sm-1">
-                <%= format(post[0].created_at, 'EEEE, MMMM dd, yyyy p' ) %>
+                <%= format(add(post[0].created_at, {hours: 12}), 'EEEE, MMMM dd, yyyy p' ) %>
               </h6>
             </div>
             <hr>

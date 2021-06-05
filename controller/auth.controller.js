@@ -5,7 +5,7 @@ const passportConfig = require("../middleware/passport.config.js"); //Require th
 const { checkNotAuthenticated } = require("../middleware/check.authenticated"); // middleware for cehcking authorization
 const submitShareAnswer = require("../middleware/share.answer.submit"); // submit asnwer
 const { getAllPost, getOnePost } = require("../query/fetch_post"); //Fetch all data
-const { formatDistanceToNow, format } = require("date-fns");
+const { formatDistanceToNow, format, add } = require("date-fns");
 
 /* @TODO: initialize the passport */
 passportConfig.initializePassport(passport);
@@ -46,6 +46,7 @@ const getHomeDashboard = async (req, res) => {
         post: await getAllPost(),
         formatDistanceToNow,
         format,
+        add
       });
     }
   } catch (err) {
@@ -67,6 +68,7 @@ const getSpecificPost = async (req, res) => {
         },
         formatDistanceToNow,
         format,
+        add
       });
     } else {
       checkNotAuthenticated(req, res);
