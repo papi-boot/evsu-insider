@@ -1,19 +1,19 @@
 <% if (post) { %>
   <% post.forEach(item=> { %>
   <div class="col-lg-3">
-    <a href="" class="post-clickable text-decoration-none">
+    <a href="/evsu-insider/post/<%= item.post_id %> " class="post-clickable text-decoration-none">
       <div class="post__card">
         <div class="post__header">
           <h6 class="post__title primary-heading fw_600 f_size-heading">
             <%= item.post_title %>
           </h6>
-          <h6 class="post__tag f_size-2 w-max-content">
+          <h6 class="post__tag f_size-3 w-max-content">
             <%= item.post_tag %>
           </h6>
         </div>
         <div class="post__sub-header d-flex align-items-center text-dark">
           <h6 class="post__author f_size-3">
-            <span><em>Published By: </em></span>
+            <span><em>Shared By: </em></span>
             <span class="fw_600">
               <%= item.user_fullname %>
             </span> -

@@ -3,19 +3,20 @@ import tinymce from "tinymce";
 window.addEventListener("load", () => {
   tinymce.init({
     selector: "#shareAnswerForm",
-    content_css: "document",
+    content_css: "default",
     content_style:
       'body { font-family: "Palanquin",sans-serif; font-size: 0.9rem } pre { font-family: "Palanquin",sans-serif; font-size: 0.7rem } code[class*="language-"], pre[class*="language-"]{ } ',
     plugins:
-      "anchor code emoticons charmap wordcount  codesample lists advlist table hr pagebreak nonbreaking print image media imagetools autolink link preview fullscreen visualblocks spellchecker visualchars autolink help searchreplace",
+      "anchor code emoticons charmap wordcount  codesample lists advlist table hr pagebreak nonbreaking print image media imagetools autolink link preview fullscreen visualblocks spellchecker visualchars autolink paste help searchreplace",
     height: "90vh",
     toolbar:
-      "insertfile undo redo | styleselect | bold italic forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify bullist numlist table outdent indent | image media codesample emoticons charmap link  | anchor hr pagebreak nonbreaking | print help addTab",
+      "insertfile undo redo | styleselect | bold italic forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify bullist numlist table outdent indent | image media codesample emoticons charmap link  | anchor hr pagebreak nonbreaking paste | print help addTab",
     help_tabs: ["shortcuts", "keyboardnav"],
 
     a11y_advanced_options: true,
     media_filter_html: true,
     image_advtab: true,
+    images_file_types: "png,jpeg,jpg,ico,svg,gif",
     image_title: true,
     //for Mobile
     mobile: {

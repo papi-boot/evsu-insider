@@ -5,7 +5,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   entry: {
     main: "./public/index.js",
-    form: "./public/js/tinymce.form.js"
+    form: "./public/js/tinymce.form.js",
+    prism: "./public/prism.asset.js"
   },
   performance: {
     hints: false,
@@ -41,7 +42,8 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "bundle.css",
+      
+      filename: "[name].css",
     }),
   ],
 };
