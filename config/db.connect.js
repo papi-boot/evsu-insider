@@ -15,8 +15,13 @@ console.log(connectionString);
 
 const sequelize = new Sequelize(connectionString, {
   logging: false,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
 });
-
 
 try {
   sequelize
