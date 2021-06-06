@@ -155,7 +155,7 @@
     position: fixed;
     top: 0;
     transition: root.$transition-2;
-    width: 10rem;
+    width: calc(max-content * 2rem);
   }
   .--navbar-list {
     > .--nav-item {

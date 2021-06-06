@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3030; // initialize port
 const flash = require("express-flash"); // flash incoming messages for alert
 const routes = require("./route/routes"); //get all the routes
 const passport = require("passport");
+const PostgreSQLStore = require("connect-pg-simple")(session);
 
 /* INITIALIZE MIDDLEWARE */
 app.use(express.json()); // initialize this to enable parsing the json file request sent from the browser I.E form data
@@ -19,11 +20,15 @@ app.use(cors());
 app.use(morgan("dev")); // initialize for debugging http request method
 app.use(
   session({
+    store: new PostgreSQLStore({
+      conString: process.env.NODE_ENV === "production" ? process.env.DATABASE_URL : process.env.SESSION_STORE,
+    }),
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: false,
     cookie: {
       maxAge: 1140 * 60000,
+      secure: true
     },
   })
 ); //set cookies to save on local storage on the browser

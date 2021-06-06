@@ -8,10 +8,13 @@
     "dev": "nodemon main.js",
     "wp:dev": "webpack -w --mode development --config webpack.dev.js",
     "wp:prod": "webpack -w --config webpack.prod.js",
+    "session-init:dev": "psql -U jspostgres -d evsu_insider < node_modules/connect-pg-simple/table.sql",
+    "session-init:prod": "psql -Atx postgres://ihjrzkzfvukowo:69df01de6a6a63d5258f8305aedce98e28580af0f8dda2fbeb0e8f29881dadfe@ec2-18-214-195-34.compute-1.amazonaws.com:5432/d4i7tsi81q308h < node_modules/connect-pg-simple/table.sql",
     "db:init": "npx sequelize-cli init",
-    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:migrate:dev": "npx sequelize-cli db:migrate",
+    "db:unmigrate:dev": "npx sequelize-cli db:migrate:undo:all",
     "db:migrate:prod": "heroku run npx sequelize-cli --env production db:migrate",
-    "db:unmigrate": "npx sequelize-cli db:migrate:undo:all"
+    "db:unmigrate:prod": "heroku run npx sequelize-cli --env production db:migrate:undo:all"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +23,7 @@
     "@popperjs/core": "^2.9.2",
     "bcrypt": "^5.0.1",
     "clean": "^4.0.2",
+    "connect-pg-simple": "^6.2.1",
     "cors": "^2.8.5",
     "date-fns": "^2.22.1",
     "dompurify": "^2.2.9",

@@ -62,6 +62,7 @@ const getSpecificPost = async (req, res) => {
       console.log(doc_title[0].post_title);
       res.render("dashboard/show", {
         doc_title: doc_title[0].post_title,
+        user: req.user,
         post: await getOnePost(req),
         auth_link: {
           share_answer: "/evsu-insider/share-answer",

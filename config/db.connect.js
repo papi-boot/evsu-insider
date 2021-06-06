@@ -1,5 +1,5 @@
 "use strict";
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config({ path: __dirname + "/.env" });
 const { Sequelize, DataTypes, QueryTypes } = require("sequelize");
 
 let connectionString;
@@ -15,12 +15,6 @@ console.log(connectionString);
 
 const sequelize = new Sequelize(connectionString, {
   logging: false,
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
 });
 
 try {
@@ -29,7 +23,7 @@ try {
     .then(() => console.log("Connected to Database"))
     .catch((err) => console.error(err));
 } catch (err) {
-  console.error(err);
+  console.error(err.message);
 }
 
 module.exports = { sequelize, DataTypes, QueryTypes };
