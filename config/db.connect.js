@@ -1,5 +1,5 @@
 "use strict";
-require("dotenv").config({ path: __dirname + "/.env" });
+require("dotenv").config({ path: "../.env" });
 const { Sequelize, DataTypes, QueryTypes } = require("sequelize");
 
 let connectionStringOption = {};
