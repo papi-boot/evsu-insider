@@ -9,6 +9,7 @@ const isProduction = process.env.NODE_ENV === "production";
 if (isProduction) {
   connectionStringOption = {
     connectionString: process.env.DATABASE_URL,
+    dialect: "postgres",
     dialectOptions: {
       ssl: {
         require: true,
@@ -20,6 +21,7 @@ if (isProduction) {
 } else {
   connectionStringOption = {
     connectionString: `postgres://${process.env.LOCAL_DATABASE_URL}`,
+    dialect: "postgres",
     logging: false,
   };
 }
