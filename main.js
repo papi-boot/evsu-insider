@@ -21,14 +21,23 @@ app.use(morgan("dev")); // initialize for debugging http request method
 app.use(
   session({
     store: new PostgreSQLStore({
-      conString: process.env.NODE_ENV === "production" ? process.env.DATABASE_URL : process.env.SESSION_STORE,
+      conString:
+        process.env.NODE_ENV === "production"
+          ? process.env.DATABASE_URL
+          : process.env.SESSION_STORE,
+      dialectOptions: {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false,
+        },
+      },
     }),
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: false,
     cookie: {
       maxAge: 1140 * 60000,
-      secure: true
+      secure: true,
     },
   })
 ); //set cookies to save on local storage on the browser
