@@ -9,14 +9,17 @@
     width: max-content;
   }
 }
-img {
-  display: block;
-  height: auto;
-  margin: 0 auto;
-  width: 85%;
-}
-iframe {
-  display: block;
-  margin: 0 auto;
-  width: 100% !important;
+
+@mixin specific-post-max-576px {
+  img {
+    display: block;
+    height: auto;
+    margin: 0 auto;
+    width: 85%;
+  }
+  iframe {
+    display: block;
+    margin: 0 auto;
+    width: 100% !important;
+  }
 }

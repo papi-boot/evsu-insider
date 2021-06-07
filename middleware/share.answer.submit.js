@@ -5,9 +5,9 @@ const { JSDOM } = require("jsdom");
 
 const submitAnswer = async (req, res) => {
   try {
-    const { post_title, post_tag, post_body } = await req.body;
+    const { post_title, post_subject, post_tag, post_body } = await req.body;
     // -- cleaning the html input to prevent XSS
-    if (!post_title && !post_tag && !post_body) {
+    if (!post_title && !post_subject && !post_tag && !post_body) {
       req.flash("error", "All fields must be fulfilled with content");
       console.log("No data");
     } else if (!post_body) {
@@ -16,6 +16,7 @@ const submitAnswer = async (req, res) => {
     } else {
       const htmlPurify = domPurify(new JSDOM().window);
       const cleanTitle = htmlPurify.sanitize(post_title);
+      const cleanSubject = htmlPurify.sanitize(post_subject);
       const cleanTag = htmlPurify.sanitize(post_tag);
       const cleanBody = htmlPurify.sanitize(post_body, {
         ALLOWED_TAGS: [
@@ -68,12 +69,13 @@ const submitAnswer = async (req, res) => {
 
       // @TODO: after the cleaning -- proceed to query to add the content in database
       const results = await sequelize.query(
-        "INSERT INTO posts(post_title, post_author, post_tag, post_body, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+        "INSERT INTO posts(post_title, post_author, post_subject, post_tag, post_body, post_created_at, post_updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
         {
           type: QueryTypes.INSERT,
           bind: [
             cleanTitle,
             req.user.user_id,
+            cleanSubject,
             cleanTag,
             cleanBody,
             new Date(),
@@ -82,7 +84,7 @@ const submitAnswer = async (req, res) => {
         }
       );
       if (results) {
-        req.flash("success", "Salamat Lodi Cakes. 🤠❤");
+        req.flash("success", "Answer successfully shared.");
         res.redirect("/evsu-insider/dashboard");
       }
       return results[1];

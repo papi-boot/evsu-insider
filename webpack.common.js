@@ -1,12 +1,13 @@
 "use strict";
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   entry: {
     main: "./public/index.js",
     form: "./public/js/tinymce.form.js",
-    prism: "./public/prism.asset.js"
+    prism: "./public/prism.asset.js",
   },
   performance: {
     hints: false,
@@ -15,6 +16,10 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "./public/dist"),
     filename: "[name].compiled.js",
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
   },
   module: {
     rules: [
@@ -42,7 +47,6 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      
       filename: "[name].css",
     }),
   ],

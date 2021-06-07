@@ -17,20 +17,30 @@
               Dashboard</a>
           </div>
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-4">
               <!-- Title -->
               <div class="group">
                 <input class="__material-input" type="text" name="post_title" required>
                 <span class="bar"></span>
-                <label class="__material-label">Add Title...</label>
+                <label class="__material-label">Title</label>
               </div>
             </div>
-            <!-- Tag -->
-            <div class="col-lg-6">
+            <div class="col-lg-4">
+              <!-- Subject -->
+              <div class="group">
+                <select class="__material-input" name="post_subject" id="postSubject" required>
+                  <% subject.forEach(subj => { %>
+                    <option value="<%= subj.subject_id %>"><%= subj.subject_name %> </option>
+                  <% }) %>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <!-- Tag -->
               <div class="group">
                 <input class="__material-input" type="text" name="post_tag" required>
                 <span class="bar"></span>
-                <label class="__material-label">Add Tag/Subject/Unit</label>
+                <label class="__material-label">Tag/Unit</label>
               </div>
             </div>
           </div>
@@ -41,7 +51,5 @@
           </div>
         </form>
     </div>
-
   </body>
-
 </html>
