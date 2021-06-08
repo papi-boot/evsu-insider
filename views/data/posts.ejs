@@ -19,10 +19,10 @@
               <span>Shared By: </span>
               <span class="fw_600">
                 <%= item.user_fullname %>
-              </span> -
+              </span>-
             </h6>
-            <h6 class="post__created f_size-3 mx-1 fw_700">
-              Posted <%= formatDistanceToNow(item.post_created_at, { addSuffix: true }) %>
+            <h6 class="post__created f_size-3 mx-1 fw_600">
+              <%= formatDistanceToNow(item.post_created_at, { addSuffix: true }) %>
             </h6>
           </div>
         </div>
