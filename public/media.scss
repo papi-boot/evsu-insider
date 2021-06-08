@@ -15,6 +15,10 @@
   @include navbar-min-768px;
 }
 
+@media screen and (max-width: 992px) {
+  @include specific-post-max-576px;
+} //img iframe for fit content
+
 @media screen and (min-width: 992px) {
   @include navbar-min-992px;
 }

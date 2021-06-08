@@ -37,14 +37,14 @@ tr {
   border: 1px solid #999;
 }
 
-img {
+/* img {
   width: 100% !important;
   height: auto !important;
 }
 
 iframe {
   width: 250% !important;
-}
+} */
 
 table:not([cellpadding]) td, table:not([cellpadding]) th {
   padding: .4rem

@@ -21,6 +21,14 @@ module.exports = {
           key: "user_id",
         },
       },
+      post_subject: {
+        type: DataTypes.BIGINT,
+        allowNull: false,
+        references: {
+          model: "subjects",
+          key: "subject_id",
+        },
+      },
       post_tag: {
         allowNull: false,
         type: DataTypes.STRING(100),
@@ -29,11 +37,11 @@ module.exports = {
         allowNull: false,
         type: DataTypes.TEXT,
       },
-      created_at: {
+      post_created_at: {
         allowNull: false,
         type: DataTypes.DATE,
       },
-      updated_at: {
+      post_updated_at: {
         allowNull: false,
         type: DataTypes.DATE,
       },

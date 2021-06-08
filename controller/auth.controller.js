@@ -4,7 +4,11 @@ const passport = require("passport");
 const passportConfig = require("../middleware/passport.config.js"); //Require the passport config;
 const { checkNotAuthenticated } = require("../middleware/check.authenticated"); // middleware for cehcking authorization
 const submitShareAnswer = require("../middleware/share.answer.submit"); // submit asnwer
-const { getAllPost, getOnePost } = require("../query/fetch_post"); //Fetch all data
+const {
+  getAllPost,
+  getOnePost,
+  getAllSubject,
+} = require("../query/fetch_data"); //Fetch all data
 const { formatDistanceToNow, format, add } = require("date-fns");
 
 /* @TODO: initialize the passport */
@@ -46,7 +50,7 @@ const getHomeDashboard = async (req, res) => {
         post: await getAllPost(),
         formatDistanceToNow,
         format,
-        add
+        add,
       });
     }
   } catch (err) {
@@ -69,7 +73,7 @@ const getSpecificPost = async (req, res) => {
         },
         formatDistanceToNow,
         format,
-        add
+        add,
       });
     } else {
       checkNotAuthenticated(req, res);
@@ -86,6 +90,7 @@ const getCreateAnswerForm = async (req, res) => {
       res.render("dashboard/create_answer", {
         doc_title: "Share Answer ⭐",
         auth_link: "",
+        subject: await getAllSubject(),
       });
     } else {
       checkNotAuthenticated(req, res);
