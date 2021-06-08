@@ -11,9 +11,9 @@
 }
 
 .spec__post-subject {
+  border: 2px solid root.$primary-color;
   border-radius: 12px;
   color: root.$primary-color;
-  outline: 2px solid root.$primary-color;
   padding: 1px root.$pad-2;
   width: max-content;
 }

@@ -4,14 +4,14 @@
       <a href="/evsu-insider/post/<%= item.post_id %> " class="post-clickable text-decoration-none">
         <div class="post__card">
           <div class="post__header">
-            <h6 class="post__title primary-heading fw_600 f_size-heading">
+            <h5 class="post__title primary-heading f_size-heading fw_700">
               <%= item.post_title %>
-            </h6>
+            </h5>
             <h6 class="post__tag f_size-3 w-max-content">
               <%= item.post_tag %>
             </h6>
             <h6 class="post__subject fw_700 f_size-3 w-max-content">
-              <%= item.subject_name %>
+              <%= item.subject_name %> ⭐
             </h6>
           </div>
           <div class="post__sub-header d-flex align-items-center text-dark">
@@ -21,8 +21,8 @@
                 <%= item.user_fullname %>
               </span> -
             </h6>
-            <h6 class="post__created f_size-3 mx-1 fw_600">
-              <%= formatDistanceToNow(item.post_created_at, { addSuffix: true }) %>
+            <h6 class="post__created f_size-3 mx-1 fw_700">
+              Posted <%= formatDistanceToNow(item.post_created_at, { addSuffix: true }) %>
             </h6>
           </div>
         </div>
