@@ -1,13 +1,21 @@
 @use "root" as root;
 .spec__post-detail {
   border-left: 5px solid root.$bg-hover-primary;
-  > .spec__post-tag {
-    background: root.$primary-color;
-    border-radius: 12px;
-    color: root.$white;
-    padding: 2px root.$pad-2;
-    width: max-content;
-  }
+}
+.spec__post-tag {
+  background: root.$primary-color;
+  border-radius: 12px;
+  color: root.$white;
+  padding: 3px root.$pad-2;
+  width: max-content;
+}
+
+.spec__post-subject {
+  border-radius: 12px;
+  color: root.$primary-color;
+  outline: 2px solid root.$primary-color;
+  padding: 1px root.$pad-2;
+  width: max-content;
 }
 
 @mixin specific-post-max-576px {

@@ -41,4 +41,12 @@
     background: root.$primary-color;
     color: root.$white;
   }
+
+  &:disabled {
+    background: root.$bg-hover-primary;
+    filter: brightness(80%);
+    border: none;
+    color: root.$primary-color;
+    cursor: not-allowed;
+  }
 }

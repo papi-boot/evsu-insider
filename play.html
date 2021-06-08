@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+      .loading-container {
+        background: #fff;
+        width: max-content;
+      }
+
+      .loading-container>.loading-circle {
+        animation: loading linear infinite 800ms;
+        animation-play-state: running;
+        border: 5px solid #fff;
+        border-radius: 50%;
+        border-bottom: 5px solid #730000;
+        border-top: 5px solid #730000;
+        margin: 5px auto;
+        height: 30px;
+        width: 30px;
+      }
+
+      @keyframes loading {
+        from {
+          transform: rotate(0);
+        }
+
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="loading-container">
+      <div class="loading-circle"></div>
+      <div class="loading-text">Loading...</div>
+    </div>
+  </body>
+
+</html>

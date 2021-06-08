@@ -11,6 +11,20 @@
   <body>
     <div class="container">
       <%- include("../partial/error_alert.ejs") %>
+      <% if (!subject.length > 0) { %>
+          <div class="alert alert-warning d-flex justify-content-center align-items-center p-2 alert-text fw_600 my-3 z-index-n1" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+              class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+              <path
+                d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+            </svg>
+            <div>
+              Service Unavailable. It will take effect until subject has been set
+            </div>
+          </div>
+      <% } else { %>
+        <div></div>
+      <% } %>
         <form method="POST" action="/evsu-insider/share-answer">
           <div class="--nav-item d-flex justify-content-start align-items-center w-100 my-2 mx-1">
             <a class="text-decoration-none --nav-link f_size-2" href="/evsu-insider/dashboard">&leftarrow; Back to
@@ -20,7 +34,11 @@
             <div class="col-lg-4">
               <!-- Title -->
               <div class="group">
-                <input class="__material-input" type="text" name="post_title" required>
+                <% if (subject.length > 0 ) { %>
+                  <input class="__material-input" type="text" name="post_title" required>
+                <% } else { %>
+                  <input class="__material-input" type="text" name="post_title" disabled>
+                <% } %> 
                 <span class="bar"></span>
                 <label class="__material-label">Title</label>
               </div>
@@ -28,28 +46,73 @@
             <div class="col-lg-4">
               <!-- Subject -->
               <div class="group">
-                <select class="__material-input" name="post_subject" id="postSubject" required>
-                  <% subject.forEach(subj => { %>
-                    <option value="<%= subj.subject_id %>"><%= subj.subject_name %> </option>
-                  <% }) %>
-                </select>
+                <% if (subject.length > 0 ) { %>
+                  <select class="__material-input" name="post_subject" id="postSubject" required>
+                    <% subject.forEach(subj=> { %>
+                      <option value="<%= subj.subject_id %>">
+                        <%= subj.subject_name %>
+                      </option>
+                    <% }) %>
+                  </select>
+                  <span class="bar"></span>
+                <% } else { %>
+                    <select class="__material-input" name="post_subject" id="postSubject" disabled>
+                      <% subject.forEach(subj=> { %>
+                        <option value="<%= subj.subject_id %>">
+                          <%= subj.subject_name %>
+                        </option>
+                      <% }) %>
+                    </select>
+                    <span class="bar"></span>
+                <% } %>
               </div>
             </div>
             <div class="col-lg-4">
               <!-- Tag -->
               <div class="group">
-                <input class="__material-input" type="text" name="post_tag" required>
+                <% if (subject.length > 0 ) { %>
+                  <input class="__material-input" type="text" name="post_tag" required>
+                <% } else { %>
+                  <input class="__material-input" type="text" name="post_tag" disabled>
+                <% } %> 
                 <span class="bar"></span>
                 <label class="__material-label">Tag/Unit</label>
               </div>
             </div>
           </div>
+          <!-- load-content -->
+          <div class="loading-container">
+            <div class="loading-circle loading-content"></div>
+            <div class="loading-text">Loading...</div>
+          </div>
           <!-- Body -->
-          <textarea class="--share-answer-form" name="post_body" id="shareAnswerForm"></textarea>
+          <% if (subject.length > 0 ) { %>
+            <textarea class="--share-answer-form" name="post_body" id="shareAnswerForm"></textarea>
+          <% } else { %>
+          <% } %> 
+          
           <div class="d-flex justify-content-lg-start justify-content-center align-items-center w-100 my-2 mx-1">
-            <input class="btn__global form-control-sm mx-1 my-2 fw_600 f_size-2" type="submit" value="Post Answer 😎">
+            <% if (subject.length > 0) { %>
+              <input class="btn__global form-control-sm mx-1 my-2 fw_600 f_size-2" type="submit" value="Post Answer">
+            <% } else { %>
+              <div class="d-block">
+                <input class="btn__global  form-control-sm mx-1 my-2 fw_600 f_size-2" type="submit" value="Post Answer" disabled>
+                <p class="f_size-3 p-theme-color"><em>Service Unavailable. It will take effect until subject has been set</em></p>
+              </div>
+            <% } %> 
           </div>
         </form>
     </div>
+    <script>
+      window.addEventListener("load", () => {
+        const postBody = document.querySelector(".--share-answer-form");
+        if (postBody.value > 0) {
+          window.onbeforeunload = () => {
+            return "Do you want leave this page?"
+          }
+        }
+      });
+    </script>
   </body>
+
 </html>

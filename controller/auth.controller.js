@@ -41,7 +41,7 @@ const getHomeDashboard = async (req, res) => {
   try {
     console.log(req.user);
     if (req.user) {
-      await res.render("dashboard/index", {
+      return await res.render("dashboard/index", {
         doc_title: "EVSU Insider | Dashboard",
         user: req.user,
         auth_link: {

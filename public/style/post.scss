@@ -33,7 +33,13 @@
     color: root.$white;
     padding: 2px 5px;
   }
+  > .post__subject {
+    border: 1.5px solid root.$primary-color;
+    border-radius: 7px;
+    padding: 2px 5px;
+  }
 }
+
 .post__sub-header {
   word-wrap: break-word;
   flex-wrap: wrap;

@@ -1,6 +1,8 @@
 import tinymce from "tinymce";
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
+  const loadingDialog = document.querySelector(".loading-container");
+
   tinymce.init({
     selector: "#shareAnswerForm",
     theme: "silver",
@@ -50,5 +52,8 @@ window.addEventListener("load", () => {
       resize: true,
       object_resizing: true,
     },
-  });
+  }).then(() => {
+    loadingDialog.classList.add("close-loading")
+  })
+  .catch((err) => console.error(err));
 });
