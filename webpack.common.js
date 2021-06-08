@@ -18,7 +18,7 @@ module.exports = {
     filename: "[name].compiled.js",
   },
   optimization: {
-    minimize: true,
+    // minimize: true,
     minimizer: [new TerserPlugin()],
   },
   module: {
