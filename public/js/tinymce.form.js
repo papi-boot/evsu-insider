@@ -22,7 +22,7 @@ window.addEventListener("load", () => {
     mobile: {
       theme: "mobile",
       plugins: "emoticons charmap wordcount  codesample lists advlist table hr pagebreak autolink link preview fullscreen visualblocks spellchecker visualchars autolink paste help searchreplace",
-      toolbar: "insertfile undo redo | styleselect | bold italic forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify bullist numlist table outdent indent codesample emoticons charmap link",
+      toolbar: "undo redo styleselect bold italic forecolor backcolor fontsizeselect alignleft aligncenter alignright alignjustify bullist numlist table outdent indent codesample emoticons charmap link",
       menubar: true,
       toolbar_mode: false,
       toolbar_sticky: true,
