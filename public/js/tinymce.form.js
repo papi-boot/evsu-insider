@@ -25,27 +25,27 @@ window.addEventListener("load", () => {
     object_resizing: true,
     //for Mobile
     mobile: {
-      theme: "mobile",
+      theme: "silver",
       menubar: true,
-      // plugins:
-      //   "anchor emoticons charmap wordcount codesample lists advlist table hr pagebreak nonbreaking print autolink link preview fullscreen spellchecker autolink paste help",
-      // toolbar:
-      //   "insertfile undo redo | styleselect | bold italic forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify bullist numlist table indent | codesample emoticons charmap link | anchor hr pagebreak | help",
-      plugins: ["autosave", "lists", "autolink"],
-      toolbar: [
-        "undo",
-        "redo",
-        "bold",
-        "underline",
-        "italic",
-        "styleselect",
-        "forecolor",
-        "fontsizeselect",
-        "bullist",
-        "numlist",
-        "link",
-        "unlink"
-      ],
+      plugins:
+        "emoticons charmap wordcount codesample lists advlist table hr autolink link fullscreen autolink",
+      toolbar:
+        "insertfile undo redo | styleselect | bold italic forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify bullist numlist table indent | codesample emoticons charmap link hr",
+      // plugins: ["autosave", "lists", "autolink", "forecolor", "fontsizeselect"],
+      // toolbar: [
+      //   "undo",
+      //   "redo",
+      //   "bold",
+      //   "underline",
+      //   "italic",
+      //   "styleselect",
+      //   "forecolor",
+      //   "fontsizeselect",
+      //   "bullist",
+      //   "numlist",
+      //   "link",
+      //   "unlink"
+      // ],
       toolbar_sticky: true,
       resize: true,
       object_resizing: true,
