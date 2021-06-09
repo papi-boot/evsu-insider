@@ -8,6 +8,8 @@
   </head>
 
   <body>
+    <div class="divider div-primary-bg-color"></div>
+    <div class="divider div-second-bg-color"></div>
     <div class="container">
       <%- include("../partial/error_alert.ejs") %>
       <% if (!subject.length > 0) { %>
@@ -25,7 +27,7 @@
         <div></div>
       <% } %>
         <form method="POST" action="/evsu-insider/share-answer">
-          <div class="--nav-item d-flex justify-content-start align-items-center w-100 my-2 mx-1">
+          <div class="--nav-item d-flex justify-content-start align-items-center w-100 my-3 mx-1">
             <a class="text-decoration-none --nav-link f_size-2" href="/evsu-insider/dashboard">&leftarrow; Back to
               Dashboard</a>
           </div>
@@ -92,7 +94,9 @@
           
           <div class="d-flex justify-content-lg-start justify-content-center align-items-center w-100 my-2 mx-1">
             <% if (subject.length > 0) { %>
-              <input class="btn__global form-control-sm mx-1 my-2 fw_600 f_size-2" type="submit" value="Post Answer">
+              <button class="btn__global form-control-sm mx-1 my-2 fw_600 f_size-2" type="submit">
+                Share Answer <span><i class="bi bi-check-circle-fill f_size-1"></i></span>
+              </button>
             <% } else { %>
               <div class="d-block">
                 <input class="btn__global  form-control-sm mx-1 my-2 fw_600 f_size-2" type="submit" value="Post Answer" disabled>

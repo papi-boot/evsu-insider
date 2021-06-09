@@ -38,6 +38,8 @@ routes.get("/evsu-insider/sign-out", signOutUser);
 
 routes.get("/evsu-insider/post/:id", authController.getSpecificPost);
 
+routes.get("/evsu-insider/post-options/:id", authController.getOptionForm)
+
 /* --ALL POST REQUEST */
 // -- POST: verify and register account
 routes.post("/evsu-insider/sign-up", authController.postRegisterForm);

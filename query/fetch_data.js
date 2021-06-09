@@ -1,7 +1,7 @@
 "use strict";
 const { sequelize, QueryTypes } = require("../config/db.connect");
 
-const getAllPost = async () => {
+const fetchAllPost = async () => {
   try {
     const results = await sequelize.query(
       "SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_created_at, user_fullname, subject_name FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id ORDER BY post_created_at DESC;",
@@ -16,7 +16,7 @@ const getAllPost = async () => {
   }
 };
 
-const getOnePost = async (req) => {
+const fetchOnePost = async (req) => {
   try {
     const post_id = req.params.id;
     const results = await sequelize.query(
@@ -32,7 +32,7 @@ const getOnePost = async (req) => {
   }
 };
 
-const getAllSubject = async () => {
+const fetchAllSubject = async () => {
   try {
     const results = await sequelize.query("SELECT * FROM subjects", {
       type: QueryTypes.SELECT,
@@ -44,4 +44,4 @@ const getAllSubject = async () => {
   }
 };
 
-module.exports = { getAllPost, getOnePost, getAllSubject };
+module.exports = { fetchAllPost, fetchOnePost, fetchAllSubject };

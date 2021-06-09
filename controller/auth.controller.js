@@ -5,9 +5,9 @@ const passportConfig = require("../middleware/passport.config.js"); //Require th
 const { checkNotAuthenticated } = require("../middleware/check.authenticated"); // middleware for cehcking authorization
 const submitShareAnswer = require("../middleware/share.answer.submit"); // submit asnwer
 const {
-  getAllPost,
-  getOnePost,
-  getAllSubject,
+  fetchAllPost,
+  fetchOnePost,
+  fetchAllSubject,
 } = require("../query/fetch_data"); //Fetch all data
 const { formatDistanceToNow, format, add } = require("date-fns");
 
@@ -47,7 +47,7 @@ const getHomeDashboard = async (req, res) => {
         auth_link: {
           share_answer: "/evsu-insider/share-answer",
         },
-        post: await getAllPost(),
+        post: await fetchAllPost(),
         formatDistanceToNow,
         format,
         add,
@@ -58,16 +58,33 @@ const getHomeDashboard = async (req, res) => {
   }
 };
 
+// -- GET HTTP REQUEST : get create/share new answer form
+const getCreateAnswerForm = async (req, res) => {
+  try {
+    if (req.user) {
+      await res.render("dashboard/create_answer", {
+        doc_title: "Share Answer ⭐",
+        auth_link: "",
+        subject: await fetchAllSubject(),
+      });
+    } else {
+      checkNotAuthenticated(req, res);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 // -- GET HTTP REQUEST: get and show specific/one post
 const getSpecificPost = async (req, res) => {
   try {
     if (req.user) {
-      const doc_title = await getOnePost(req);
+      const doc_title = await fetchOnePost(req);
       console.log(doc_title[0].post_title);
       res.render("dashboard/show", {
         doc_title: doc_title[0].post_title,
         user: req.user,
-        post: await getOnePost(req),
+        post: await fetchOnePost(req),
         auth_link: {
           share_answer: "/evsu-insider/share-answer",
         },
@@ -83,17 +100,23 @@ const getSpecificPost = async (req, res) => {
   }
 };
 
-// -- GET HTTP REQUEST : get create/share new answer form
-const getCreateAnswerForm = async (req, res) => {
+// -- GET HTTP REQUEST : get options view: Update/Delete
+const getOptionForm = async (req, res) => {
   try {
+    const doc_title = await fetchOnePost(req);
     if (req.user) {
-      res.render("dashboard/create_answer", {
-        doc_title: "Share Answer ⭐",
-        auth_link: "",
-        subject: await getAllSubject(),
+      await res.render("dashboard/options", {
+        doc_title: doc_title[0].post_title,
+        user: req.user,
+        post: await fetchOnePost(req),
+        subject: await fetchAllSubject(),
+        auth_link: {
+          share_answer: "/evsu-insider/share-answer",
+        },
+        formatDistanceToNow,
+        format,
+        add,
       });
-    } else {
-      checkNotAuthenticated(req, res);
     }
   } catch (err) {
     console.error(err);
@@ -118,8 +141,9 @@ module.exports = {
   getRegisterForm,
   getLoginForm,
   getHomeDashboard,
-  getSpecificPost,
   getCreateAnswerForm,
+  getSpecificPost,
+  getOptionForm,
   postRegisterForm,
   postLoginForm,
   postShareAnswer,

@@ -15,7 +15,9 @@ $fw_700: 700;
 // Color theme.
 $primary-color: #730000;
 $white: #fff;
-
+$green: #198754;
+$red: #dc3545;
+// $delete
 //Font size
 $desktop-fs: 0.9rem;
 
@@ -56,7 +58,7 @@ body {
 .z-index-n1 {
   z-index: -1;
 }
-.z-index-p1{
+.z-index-p1 {
   z-index: 3000;
 }
 

@@ -2,7 +2,6 @@ import tinymce from "tinymce";
 
 window.addEventListener("load", async () => {
   const loadingDialog = document.querySelector(".loading-container");
-
   tinymce
     .init({
       selector: "#shareAnswerForm",
@@ -12,11 +11,10 @@ window.addEventListener("load", async () => {
         'body { font-family: "Palanquin",sans-serif; font-size: 0.9rem } pre { font-family: "Palanquin",sans-serif; font-size: 0.7rem } code[class*="language-"], pre[class*="language-"]{ } ',
       plugins:
         "autosave anchor code emoticons charmap wordcount codesample lists advlist table hr pagebreak nonbreaking print image media imagetools autolink link preview fullscreen visualblocks spellchecker visualchars autolink paste help searchreplace",
-      height: "80vh",
+      height: "70vh",
       toolbar:
         "insertfile undo redo | styleselect | bold italic forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify bullist numlist table outdent indent | image media codesample emoticons charmap link  | anchor hr pagebreak nonbreaking paste | print help addTab",
       help_tabs: ["shortcuts", "keyboardnav"],
-
       a11y_advanced_options: true,
       media_filter_html: true,
       image_advtab: true,
@@ -59,6 +57,10 @@ window.addEventListener("load", async () => {
     })
     .then(() => {
       loadingDialog.classList.add("close-loading");
+      const editPostBodyContent = tinymce
+        .get("shareAnswerForm")
+        .getContent();
+      console.log(editPostBodyContent);
     })
     .catch((err) => console.error(err));
 });

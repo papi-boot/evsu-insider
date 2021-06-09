@@ -1,12 +1,15 @@
-<% if (post.length > 0) { %>
-  <% post.forEach(item => { %>
+<% if (post.length> 0) { %>
+  <% post.forEach(item=> { %>
     <div class="col-lg-3">
       <a href="/evsu-insider/post/<%= item.post_id %> " class="post-clickable text-decoration-none">
         <div class="post__card">
-          <div class="post__header">
-            <h5 class="post__title primary-heading f_size-heading fw_700">
+          <!-- Modify Button -->
+          <div class="post__title-container">
+            <h5 class="post__title secondary-heading  f_size-heading fw_700">
               <%= item.post_title %>
             </h5>
+          </div>
+          <div class="post__header">
             <h6 class="post__tag f_size-3 w-max-content">
               <%= item.post_tag %>
             </h6>
@@ -16,10 +19,9 @@
           </div>
           <div class="post__sub-header d-flex align-items-center text-dark">
             <h6 class="post__author f_size-3">
-              <span>Shared By: </span>
               <span class="fw_600">
-                <%= item.user_fullname %>
-              </span>-
+              Shared by <span class="fw_700 p-theme-color"><%= item.user_fullname %></span>,
+              </span>
             </h6>
             <h6 class="post__created f_size-3 mx-1 fw_600">
               <%= formatDistanceToNow(item.post_created_at, { addSuffix: true }) %>
@@ -27,8 +29,13 @@
           </div>
         </div>
       </a>
+      <% if (user.user_id === item.post_author) { %>
+        <div class="post__option mb-3">
+          <a class="option__link f_size-2 fw_600" href="/evsu-insider/post-options/<%= item.post_id %> ">Options <span><i class="bi fw_600 bi-arrow-up-right-square"></i></span></a>
+        </div>
+      <% } %> 
     </div>
     <% }) %>
   <% } else { %>
-        <h5 class="primary-heading fw_600 text-center my-5">No such data, Add one by clicking "Share Answer"</h5>
+      <h5 class="primary-heading fw_600 text-center my-5">No such data, Add one by clicking "Share Answer"</h5>
   <% } %>
