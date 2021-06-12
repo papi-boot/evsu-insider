@@ -10,57 +10,62 @@
   <body>
     <div class="divider div-primary-bg-color"></div>
       <div class="divider div-second-bg-color"></div>
-      <div class="container">
+      <div class="container g-0">
         <% if (post) { %>
-          <form method="POST" action="/evsu-insider/share-answer">
-          <div class="--nav-item d-flex justify-content-start align-items-center w-100 my-3 mx-1">
-            <a class="text-decoration-none --nav-link f_size-2" href="/evsu-insider/dashboard">&leftarrow; Back to
-              Dashboard</a>
-          </div>
-          <div class="row">
-            <div class="col-lg-4">
-              <!-- Title -->
-              <div class="group">
-                  <input class="__material-input" type="text" name="post_title" value="<%= post[0].post_title %>" required>
-                <span class="bar"></span>
-                <label class="__material-label">Title</label>
+          <form class="update__form">
+            <%- include("../partial/dialog_delete") %>
+            <%- include("../partial/dialog_update") %>
+            <h2 class="primary-heading fw_700 text-grey mx-2 my-4">Make changes for this Post</h2>
+            <div class="--nav-item d-flex justify-content-start align-items-center w-100 mx-1">
+              <a class="text-decoration-none --nav-link f_size-2" href="/evsu-insider/dashboard">&leftarrow; Back to
+                Dashboard</a>
+            </div>
+            <div class="my-4"></div>
+            <div class="row">
+              <div class="col-lg-4">
+                <!-- Title -->
+                <div class="group">
+                    <input class="__material-input update__title" type="text" name="post_title" value="<%= post[0].post_title %>" required>
+                  <span class="bar"></span>
+                  <label class="__material-label">Title</label>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <!-- Subject -->
+                <div class="group">
+                  <select class="__material-input" name="post_subject" id="postSubject" aria-readonly="true" disabled>
+                    <option selected value="<%= post[0].post_subject %>"><%= post[0].subject_name %> </option>
+                  </select>
+                  <span class="bar"></span>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <!-- Tag -->
+                <div class="group">
+                  <input class="__material-input update__tag" type="text" name="post_tag" value="<%= post[0].post_tag %> " required>
+                  <span class="bar"></span>
+                  <label class="__material-label">Tag/Unit</label>
+                </div>
               </div>
             </div>
-            <div class="col-lg-4">
-              <!-- Subject -->
-              <div class="group">
-                <select class="__material-input" name="post_subject" id="postSubject" aria-readonly="true" disabled>
-                  <option selected value="<%= post[0].post_subject %>"><%= post[0].subject_name %> </option>
-                </select>
-                <span class="bar"></span>
-              </div>
+            <!-- load-content -->
+            <div class="loading-container">
+              <img class="logo" alt="Evsu Insider">
+              <div class="loading-circle loading-content"></div>
+              <div class="loading-text">Loading...</div>
             </div>
-            <div class="col-lg-4">
-              <!-- Tag -->
-              <div class="group">
-                <input class="__material-input" type="text" name="post_tag" value="<%= post[0].post_tag %> " required>
-                <span class="bar"></span>
-                <label class="__material-label">Tag/Unit</label>
-              </div>
+            <!-- Body -->
+              <textarea class="--share-answer-form update__body" name="post_body" id="shareAnswerForm">
+                <%= post[0].post_body %> 
+              </textarea>
+            <div class="d-flex justify-content-lg-start justify-content-center align-items-center my-2 mx-1">
+              <button class="btn__global btn__update-answer mx-1 my-2 fw_600 f_size-2" type="button" data-bs-toggle="modal" data-bs-target="#dialogConfirmUpdate">
+                Update Answer <span><i class="bi bi-check-circle-fill f_size-1"></i></span>
+              </button>
+              <button class="btn__global btn__delete-answer mx-1 my-2 fw_600 f_size-2" type="button" data-bs-toggle="modal" data-bs-target="#dialogConfirmDelete">
+                Delete Answer <span><i class="bi bi-trash-fill f_size-1"></i></span>
+              </button> 
             </div>
-          </div>
-          <!-- load-content -->
-          <div class="loading-container">
-            <div class="loading-circle loading-content"></div>
-            <div class="loading-text">Loading...</div>
-          </div>
-          <!-- Body -->
-            <textarea class="--share-answer-form" name="post_body" id="shareAnswerForm">
-              <%= post[0].post_body %> 
-            </textarea>
-          <div class="d-flex justify-content-lg-start justify-content-center align-items-center w-100 my-2 mx-1">
-            <button class="btn__global btn__update-answer mx-1 my-2 fw_600 f_size-2" type="submit">
-              Update Answer <span><i class="bi bi-check-circle-fill f_size-1"></i></span>
-            </button>
-            <button class="btn__global btn__delete-answer mx-1 my-2 fw_600 f_size-2" type="submit">
-              Delete Answer <span><i class="bi bi-trash-fill f_size-1"></i></span>
-            </button>
-          </div>
         </form>
         <% } %>
       </div>

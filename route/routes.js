@@ -49,4 +49,13 @@ routes.post("/evsu-insider/sign-in", authController.postLoginForm);
 
 routes.post("/evsu-insider/share-answer", authController.postShareAnswer);
 
+/* -- ALL UPDATE REQUEST  */
+// -- UPDATE: update one post
+routes.put("/evsu-insider/post-options/:id", authController.updateSpecificPost);
+
+/* --ALL DELETE REQUEST */
+
+//-- DELETE: delete specific post
+routes.delete("/evsu-insider/post-options/:id", authController.deleteSpecificPost);
+
 module.exports = routes;

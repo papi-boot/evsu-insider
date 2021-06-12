@@ -2,13 +2,18 @@
 const verifyRegister = require("../middleware/verify.register");
 const passport = require("passport");
 const passportConfig = require("../middleware/passport.config.js"); //Require the passport config;
-const { checkNotAuthenticated } = require("../middleware/check.authenticated"); // middleware for cehcking authorization
-const submitShareAnswer = require("../middleware/share.answer.submit"); // submit asnwer
+const {
+  checkNotAuthenticated,
+  checkAuthenticated,
+} = require("../middleware/check.authenticated"); // middleware for cehcking authorization
+const submitShareAnswer = require("../query/insert_data");
 const {
   fetchAllPost,
   fetchOnePost,
   fetchAllSubject,
-} = require("../query/fetch_data"); //Fetch all data
+} = require("../query/fetch_data"); //Fetch all data method
+const { deleteOnePost } = require("../query/delete_data"); //Delete specific data
+const { updateOnePost } = require("../query/update_data");
 const { formatDistanceToNow, format, add } = require("date-fns");
 
 /* @TODO: initialize the passport */
@@ -18,7 +23,7 @@ passportConfig.initializePassport(passport);
 const getLoginForm = async (req, res) => {
   try {
     await res.render("authentication/login", {
-      doc_title: "Sign In 🐱‍👤 | EVSU Insider",
+      doc_title: "Sign In | EVSU Insider",
     });
   } catch (err) {
     console.error(err);
@@ -29,7 +34,7 @@ const getLoginForm = async (req, res) => {
 const getRegisterForm = async (req, res) => {
   try {
     await res.render("authentication/register", {
-      doc_title: "Join EVSU Insider Today 🐱‍👤",
+      doc_title: "Join EVSU Insider Today",
     });
   } catch (err) {
     console.error(err);
@@ -63,7 +68,7 @@ const getCreateAnswerForm = async (req, res) => {
   try {
     if (req.user) {
       await res.render("dashboard/create_answer", {
-        doc_title: "Share Answer ⭐",
+        doc_title: "Share Answer⭐",
         auth_link: "",
         subject: await fetchAllSubject(),
       });
@@ -117,6 +122,8 @@ const getOptionForm = async (req, res) => {
         format,
         add,
       });
+    } else {
+      checkNotAuthenticated(req, res);
     }
   } catch (err) {
     console.error(err);
@@ -134,8 +141,43 @@ const postLoginForm = passport.authenticate("local", {
   failureMessage: "Please provide a valid credentials",
 });
 
-// POST HTTP REQUEST: submit my share answer
+// -- POST HTTP REQUEST: submit my share answer
 const postShareAnswer = submitShareAnswer.submitAnswer;
+
+// -- PUT/UPDATE REQUEST: update specific post
+const updateSpecificPost = async (req, res) => {
+  try {
+    const post_id = await req.params.id;
+    if(req.user){
+      updateOnePost(req)
+        .then(() => {
+          req.flash("success", "Answer was successfully update.");
+          return res.json({url: "/evsu-insider/dashboard", preview_url: `/evsu-insider/post-options/${post_id}`});
+        })
+        .catch((err) => console.error(err));
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// --DELETE HTTP REQEUST : delete specific post
+const deleteSpecificPost = async (req, res) => {
+  try {
+    if (req.user) {
+      deleteOnePost(req)
+        .then(() => {
+          req.flash("success", "Answer was successfully deleted.");
+          return res.json({ url: "/evsu-insider/dashboard" });
+        })
+        .catch((err) => console.error(err));
+    } else {
+      checkNotAuthenticated(req, res);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 module.exports = {
   getRegisterForm,
@@ -147,4 +189,6 @@ module.exports = {
   postRegisterForm,
   postLoginForm,
   postShareAnswer,
+  updateSpecificPost,
+  deleteSpecificPost,
 };

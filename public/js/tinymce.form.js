@@ -8,7 +8,7 @@ window.addEventListener("load", async () => {
       theme: "silver",
       content_css: "document",
       content_style:
-        'body { font-family: "Palanquin",sans-serif; font-size: 0.9rem } pre { font-family: "Palanquin",sans-serif; font-size: 0.7rem } code[class*="language-"], pre[class*="language-"]{ } ',
+        'body { font-family: "Segoe UI",sans-serif, Consolas, sans-serif; font-size: 0.9rem } pre { font-family: "Palanquin",sans-serif; font-size: 0.7rem } code[class*="language-"], pre[class*="language-"]{ } ',
       plugins:
         "autosave anchor code emoticons charmap wordcount codesample lists advlist table hr pagebreak nonbreaking print image media imagetools autolink link preview fullscreen visualblocks spellchecker visualchars autolink paste help searchreplace",
       height: "70vh",
@@ -24,9 +24,6 @@ window.addEventListener("load", async () => {
       branding: false,
       resize: true,
       object_resizing: true,
-      plugin: "a_tinymce_plugin",
-      a_plugin_option: true,
-      a_configuration_option: 400,
       //for Mobile
       mobile: {
         theme: "silver",
@@ -57,10 +54,7 @@ window.addEventListener("load", async () => {
     })
     .then(() => {
       loadingDialog.classList.add("close-loading");
-      const editPostBodyContent = tinymce
-        .get("shareAnswerForm")
-        .getContent();
-      console.log(editPostBodyContent);
+      tinymce.get("shareAnswerForm").getContent();
     })
     .catch((err) => console.error(err));
 });
