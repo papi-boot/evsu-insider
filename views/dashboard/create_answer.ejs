@@ -8,7 +8,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="divider div-primary-bg-color"></div>
+    <div class="divider div-second-bg-color"></div>
+    <div class="container g-0">
       <%- include("../partial/error_alert.ejs") %>
       <% if (!subject.length > 0) { %>
           <div class="alert alert-warning d-flex justify-content-center align-items-center p-2 alert-text fw_600 my-3 z-index-n1" role="alert">
@@ -25,7 +27,7 @@
         <div></div>
       <% } %>
         <form method="POST" action="/evsu-insider/share-answer">
-          <div class="--nav-item d-flex justify-content-start align-items-center w-100 my-2 mx-1">
+          <div class="--nav-item d-flex justify-content-start align-items-center w-100 my-3 mx-1">
             <a class="text-decoration-none --nav-link f_size-2" href="/evsu-insider/dashboard">&leftarrow; Back to
               Dashboard</a>
           </div>
@@ -81,18 +83,20 @@
           </div>
           <!-- load-content -->
           <div class="loading-container">
+            <img class="logo" alt="Evsu Insider">
             <div class="loading-circle loading-content"></div>
             <div class="loading-text">Loading...</div>
           </div>
           <!-- Body -->
           <% if (subject.length > 0 ) { %>
-            <textarea class="--share-answer-form" name="post_body" id="shareAnswerForm"></textarea>
-          <% } else { %>
-          <% } %> 
+            <textarea class="--share-answer-form-create" name="post_body" id="shareAnswerForm"></textarea>
+          <% }  %>
           
           <div class="d-flex justify-content-lg-start justify-content-center align-items-center w-100 my-2 mx-1">
             <% if (subject.length > 0) { %>
-              <input class="btn__global form-control-sm mx-1 my-2 fw_600 f_size-2" type="submit" value="Post Answer">
+              <button class="btn__global form-control-sm mx-1 my-2 fw_600 f_size-2" type="submit">
+                Share Answer <span><i class="bi bi-check-circle-fill f_size-1"></i></span>
+              </button>
             <% } else { %>
               <div class="d-block">
                 <input class="btn__global  form-control-sm mx-1 my-2 fw_600 f_size-2" type="submit" value="Post Answer" disabled>
@@ -102,16 +106,8 @@
           </div>
         </form>
     </div>
-    <script>
-      window.addEventListener("load", () => {
-        const postBody = document.querySelector(".--share-answer-form");
-        if (postBody.value > 0) {
-          window.onunload = () => {
-            return "Do you want leave this page?"
-          }
-        }
-      });
-    </script>
+    
+    <%- include("../partial/script.ejs") %>
   </body>
 
 </html>

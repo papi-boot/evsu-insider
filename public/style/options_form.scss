@@ -1,0 +1,34 @@
+@use "root" as root;
+
+%btn-style-shared {
+  border: 2px solid root.$green;
+  color: root.$green;
+}
+
+.btn__update-answer {
+  @extend %btn-style-shared;
+  &:hover {
+    background: root.$green;
+    color: root.$white;
+  }
+}
+
+.btn__delete-answer {
+  @extend %btn-style-shared;
+  border-color: root.$red;
+  color: root.$red;
+  &:hover {
+    background: root.$red;
+    color: root.$white;
+  }
+}
+
+.btn__cancel {
+  @extend %btn-style-shared;
+  border-color: root.$black;
+  color: root.$black;
+  &:hover {
+    background: root.$black;
+    color: root.$white;
+  }
+}

@@ -5,13 +5,17 @@
   width: max-content;
 }
 .post-clickable {
+  z-index: 2999;
   .post__card {
     @include nav-link-style;
     background: rgba(245, 245, 245, 0.9);
     border: 1px solid #ddd;
     border-bottom: 5px solid #ddd;
     box-shadow: root.$shadow-2;
-    margin: root.$mar-3 0;
+    margin-top: root.$mar-2;
+    overflow-x: hidden;
+    position: relative;
+    
 
     &:hover {
       background: root.$bg-hover-primary;
@@ -20,13 +24,27 @@
     }
   }
 }
-.post__header {
+
+.post__title-container {
+  background: root.$primary-color;
+  left: 0;
+  padding: root.$pad-3;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
   > .post__title {
+    color: root.$white;
+    margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+}
 
+.post__header {
+  margin-top: 2.5rem;
+  position: static;
   > .post__tag {
     background: rgba(root.$primary-color, 0.9);
     border-radius: 7px;
@@ -43,4 +61,18 @@
 .post__sub-header {
   word-wrap: break-word;
   flex-wrap: wrap;
+}
+
+.post__option {
+  width: 100%;
+  > .option__link {
+    color: root.$primary-color;
+    display: block;
+    text-align: right;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

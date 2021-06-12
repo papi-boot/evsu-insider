@@ -18,12 +18,12 @@
   width: max-content;
 }
 
-@mixin specific-post-max-576px {
+@mixin specific-post-max-992px {
   img {
     display: block;
     height: auto;
     margin: 0 auto;
-    width: 85%;
+    width: 90%;
   }
   iframe {
     display: block;

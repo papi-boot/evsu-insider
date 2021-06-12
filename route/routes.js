@@ -38,6 +38,8 @@ routes.get("/evsu-insider/sign-out", signOutUser);
 
 routes.get("/evsu-insider/post/:id", authController.getSpecificPost);
 
+routes.get("/evsu-insider/post-options/:id", authController.getOptionForm)
+
 /* --ALL POST REQUEST */
 // -- POST: verify and register account
 routes.post("/evsu-insider/sign-up", authController.postRegisterForm);
@@ -46,5 +48,14 @@ routes.post("/evsu-insider/sign-up", authController.postRegisterForm);
 routes.post("/evsu-insider/sign-in", authController.postLoginForm);
 
 routes.post("/evsu-insider/share-answer", authController.postShareAnswer);
+
+/* -- ALL UPDATE REQUEST  */
+// -- UPDATE: update one post
+routes.put("/evsu-insider/post-options/:id", authController.updateSpecificPost);
+
+/* --ALL DELETE REQUEST */
+
+//-- DELETE: delete specific post
+routes.delete("/evsu-insider/post-options/:id", authController.deleteSpecificPost);
 
 module.exports = routes;

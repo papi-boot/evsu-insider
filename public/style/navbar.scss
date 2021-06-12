@@ -157,6 +157,7 @@
     top: 0;
     transition: root.$transition-2;
     width: max-content;
+    z-index: 3010;
   }
   .--navbar-list {
     > .--nav-item {
@@ -179,6 +180,7 @@
 
   .open-navbar {
     left: 0;
+    z-index: 3010;
   }
   .close-navbar {
     left: -100%;
@@ -193,9 +195,10 @@
     padding: 0;
     position: relative;
     width: max-content;
+    
   }
   .--nav-item {
-    margin: root.$mar-4 root.$mar-4 !important;
+    margin: 0.3rem !important;
   }
   .--nav-item {
     > .--nav-link {
