@@ -8,7 +8,18 @@ const {
   checkNotAuthenticated,
 } = require("../middleware/check.authenticated.js");
 
+
 /* -- ALL GET HTTP REQUEST -- */
+
+// -- GET: redirect to page check authenticated or not
+routes.get("/", (req, res) => {
+  try {
+    return res.redirect("/evsu-insider/sign-in");
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 // -- GET: login form
 routes.get(
   "/evsu-insider/sign-in",
@@ -57,5 +68,7 @@ routes.put("/evsu-insider/post-options/:id", authController.updateSpecificPost);
 
 //-- DELETE: delete specific post
 routes.delete("/evsu-insider/post-options/:id", authController.deleteSpecificPost);
+
+// Middleware
 
 module.exports = routes;
