@@ -90,6 +90,7 @@ const getSpecificPost = async (req, res) => {
         doc_title: doc_title[0].post_title,
         user: req.user,
         post: await fetchOnePost(req),
+        related_post: await fetchAllPost(),
         auth_link: {
           share_answer: "/evsu-insider/share-answer",
         },

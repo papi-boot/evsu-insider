@@ -66,13 +66,66 @@
 .post__option {
   width: 100%;
   > .option__link {
-    color: root.$primary-color;
-    display: block;
-    text-align: right;
-    text-decoration: none;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    outline: none;
+    padding: 0 4px;
+    transition: root.$transition-1;
 
-    &:hover {
-      text-decoration: underline;
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(root.$black, .2);
+    }
+  }
+  > .option-container {
+    background: root.$white;
+    border-radius: 5px;
+    border: 1px solid root.$bg-hover-primary;
+    box-shadow: root.$shadow-1;
+    right: 1rem;
+    padding: root.$pad-3;
+    position: absolute;
+    transition: root.$transition-1;
+    top: -7.9rem;
+    z-index: 3004;
+  }
+}
+.bi-three-dots {
+  line-height: 1em;
+}
+
+.delete__option-btn{
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.custom__delete-dialog {
+  align-items: center;
+  background: rgba(root.$black, .7);
+  border-radius: 5px;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  right: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3006;
+  > .dialog-delete{
+    background: root.$white;
+    border-radius: 5px;
+    margin: root.$mar-1;
+    padding: root.$pad-1;
+  }
+}
+
+@mixin post-max-576px {
+  .post__option {
+    > .option-container {
+      right: 2rem;
+      top: -9rem;
     }
   }
 }

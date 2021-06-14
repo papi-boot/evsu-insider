@@ -1,8 +1,7 @@
 /* JAVASCRIPT */
-window.addEventListener("beforeunload", () => {
-
-});
+window.addEventListener("beforeunload", () => {});
 require("./js/image-load");
+require("./js/option_post_toggle")
 require("./bootstrap/js/bootstrap.min");
 require("./js/navburger.anim");
 require("./js/options_post");
@@ -11,3 +10,5 @@ require("./js/options_post");
 /* STYLE */
 require("./bootstrap/css/bootstrap.min.css");
 require("./main.scss");
+
+
