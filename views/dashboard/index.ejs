@@ -16,16 +16,19 @@
     <div class="container my-3">
 
       <%- include("../ads/dashboard_ad") %> 
-      <div class="date-today">
-        <h2 class="primary-heading fw_700">Recent Post</h2><span class="fw_600 f_size-2 primary-heading p-theme-color mx-1"><%= format(add(new Date(Date.now()), {hours: 8}), 'EEEE, MMMM dd, yyyy')%></span>
+      <div class="date-today my-4">
+        <h2 class="primary-heading fw_700">Recent Post 📰</h2><span class="fw_600 f_size-2 primary-heading p-theme-color mx-1"><%= format(add(new Date(Date.now()), {hours: 8}), 'EEEE, MMMM dd, yyyy')%></span>
       </div>
       <div class="row">
         <%- include("../data/posts") %> 
       </div>
     </div>
     <div class="divider div-second-bg-color"></div>
-    <div class="container my-3">
-      <h2 class="primary-heading fw_700">Explore by Subject</h2>
+    <div class="container my-4">
+      <h2 class="primary-heading fw_700">Explore by Subject 📁</h2>
+      <div class="row">
+        <%- include("../data/subject.ejs") %> 
+      </div>
     </div>
     
     <%- include("../partial/script") %>

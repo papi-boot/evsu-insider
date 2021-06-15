@@ -53,6 +53,7 @@ const getHomeDashboard = async (req, res) => {
           share_answer: "/evsu-insider/share-answer",
         },
         post: await fetchAllPost(),
+        subject: await fetchAllSubject(),
         formatDistanceToNow,
         format,
         add,
@@ -84,10 +85,10 @@ const getCreateAnswerForm = async (req, res) => {
 const getSpecificPost = async (req, res) => {
   try {
     if (req.user) {
-      const doc_title = await fetchOnePost(req);
-      console.log(doc_title[0].post_title);
+      const one_post = await fetchOnePost(req);
+      
       res.render("dashboard/show", {
-        doc_title: doc_title[0].post_title,
+        doc_title: one_post[0].post_title,
         user: req.user,
         post: await fetchOnePost(req),
         related_post: await fetchAllPost(),

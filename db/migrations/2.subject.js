@@ -13,6 +13,14 @@ module.exports = {
         allowNUll: false,
         type: DataTypes.STRING(100),
       },
+      subject_description: {
+        allowNull: false,
+        type: DataTypes.STRING(100)
+      },
+      subject_quarter: {
+        allowNull: false,
+        type: DataTypes.INTEGER
+      },
       subject_created_at: {
         allowNull: false,
         type: DataTypes.DATE,
