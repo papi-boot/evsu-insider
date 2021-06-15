@@ -18,9 +18,19 @@
   width: max-content;
 }
 
-.related__post{
+.related__post {
   position: sticky;
   top: 5rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: root.$secondary-font;
+  font-weight: root.$fw_700;
 }
 
 @mixin specific-post-max-992px {
