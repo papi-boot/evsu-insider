@@ -1,20 +1,44 @@
 <% if (subject.length > 0) { %>
-  <% subject.forEach( item => { %>
-    <div class="col-lg-3">
-      <a class="subject-clickable text-decoration-none" href="/evsu-insider/subjects/<%= item.subject_name %>">
-        <div class="subject__folder">
-          <div class="subject__header">
-            <h5 class="subject__title primary-heading m-0"><%= item.subject_name %> 📄</h5>
-          </div>
-          <div class="subject__sub-header">
-            <h6 class="subject__description primary-heading text-black-50 f_size-2 m-0"><%= item.subject_description %> </h6>
-            <h6 class="subject__semester primary-heading text-black-50 f_size-2">Semester: <%= item.subject_quarter %> </h6>
-            <h6 class="subject__created text-black-50 primary-heading f_size-3 fw_700"><%= format(add(item.subject_created_at, {hours: 8}), 'MMMM yyyy' ) %></h6>
-          </div>
+    <% switch(subject[0].subject_quarter) { 
+      case 1: %>
+      <h5 class="fw_600 primary-heading p-theme-color my-1 text-decoration-underline">1st Semester</h5>
+      <% subject.forEach( item => { %>
+        <div class="col-lg-3">
+          <a class="subject-clickable text-decoration-none" href="/evsu-insider/subjects?subject_id=<%= item.subject_id %>&subject_name=<%= item.subject_name.trim() %>">
+            <div class="subject__folder">
+              <div class="subject__header">
+                <h5 class="subject__title primary-heading m-0"><%= item.subject_name %> 📄</h5>
+              </div>
+              <div class="subject__sub-header">
+                <h6 class="subject__description primary-heading p-theme-color f_size-2 m-0"><%= item.subject_description %> </h6>
+                <h6 class="subject__semester primary-heading text-black-50 f_size-3">Semester: <%= item.subject_quarter %> </h6>
+                <h6 class="subject__created text-black-50 primary-heading f_size-3 fw_700"><%= format(add(item.subject_created_at, {hours: 8}), 'MMMM yyyy' ) %></h6>
+              </div>
+            </div>
+          </a>
         </div>
-      </a>
-    </div>
-  <% }) %>
+      <% }) %>
+      <% break; %>
+      case 2: %>
+      <h5 class="fw_600 primary-heading p-theme-color my-1">2nd Semester</h5>
+      <% subject.forEach( item => { %>
+        <div class="col-lg-3">
+          <a class="subject-clickable text-decoration-none" href="/evsu-insider/subjects/<%= item.subject_id %>">
+            <div class="subject__folder">
+              <div class="subject__header">
+                <h5 class="subject__title primary-heading m-0"><%= item.subject_name %> 📄</h5>
+              </div>
+              <div class="subject__sub-header">
+                <h6 class="subject__description primary-heading p-theme-color f_size-2 m-0"><%= item.subject_description %> </h6>
+                <h6 class="subject__semester primary-heading text-black-50 f_size-3">Semester: <%= item.subject_2 %> </h6>
+                <h6 class="subject__created text-black-50 primary-heading f_size-3 fw_700"><%= format(add(item.subject_created_at, {hours: 8}), 'MMMM yyyy' ) %></h6>
+              </div>
+            </div>
+          </a>
+        </div>
+      <% }) %>
+      <% break; %>
+  <%  } %>
 <% } else { %>
   <div class="alert alert-warning d-flex justify-content-center align-items-center p-2 alert-text fw_600 my-3 z-index-n1" role="alert">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"

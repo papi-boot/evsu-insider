@@ -1,13 +1,13 @@
 "use strict";
 const express = require("express");
 const routes = express();
-const authController = require("../controller/auth.controller");
+const dashboardController = require("../controller/dashboard_controller");
+const authenticationController = require("../controller/authentication_controller");
 const {
   checkAuthenticated,
   signOutUser,
   checkNotAuthenticated,
 } = require("../middleware/check.authenticated.js");
-
 
 /* -- ALL GET HTTP REQUEST -- */
 
@@ -24,50 +24,67 @@ routes.get("/", (req, res) => {
 routes.get(
   "/evsu-insider/sign-in",
   checkAuthenticated,
-  authController.getLoginForm
+  authenticationController.getLoginForm
 );
 
 // -- GET: register form
 routes.get(
   "/evsu-insider/sign-up",
   checkAuthenticated,
-  authController.getRegisterForm
+  authenticationController.getRegisterForm
 );
 
 // -- GET: dashboard when authenticated
 routes.get(
   "/evsu-insider/dashboard",
   checkNotAuthenticated,
-  authController.getHomeDashboard
+  dashboardController.getHomeDashboard
 );
 
 // -- GET: create new answer from
-routes.get("/evsu-insider/share-answer", authController.getCreateAnswerForm);
+routes.get(
+  "/evsu-insider/share-answer",
+  dashboardController.getCreateAnswerForm
+);
 
 //-- GET: sign out request for user;
 routes.get("/evsu-insider/sign-out", signOutUser);
 
-routes.get("/evsu-insider/post/:id", authController.getSpecificPost);
+//-- GET: get the specific one post/answer
+routes.get("/evsu-insider/post", dashboardController.getSpecificPost);
 
-routes.get("/evsu-insider/post-options/:id", authController.getOptionForm)
+//-- GET: get the option page for specific post/answer
+routes.get("/evsu-insider/post-options", dashboardController.getOptionForm);
+
+//-- GET: get specific subject and its all post/answer
+routes.get(
+  "/evsu-insider/subjects",
+  dashboardController.getSpecificSubjectAndPost
+);
 
 /* --ALL POST REQUEST */
 // -- POST: verify and register account
-routes.post("/evsu-insider/sign-up", authController.postRegisterForm);
+routes.post("/evsu-insider/sign-up", authenticationController.postRegisterForm);
 
 // -- POST: sign in user and verify
-routes.post("/evsu-insider/sign-in", authController.postLoginForm);
+routes.post("/evsu-insider/sign-in", authenticationController.postLoginForm);
 
-routes.post("/evsu-insider/share-answer", authController.postShareAnswer);
+routes.post("/evsu-insider/share-answer", dashboardController.postShareAnswer);
 
 /* -- ALL UPDATE REQUEST  */
 // -- UPDATE: update one post
-routes.put("/evsu-insider/post-options/:id", authController.updateSpecificPost);
+routes.put(
+  "/evsu-insider/post-options/:id",
+  dashboardController.updateSpecificPost
+);
 
 /* --ALL DELETE REQUEST */
 
 //-- DELETE: delete specific post
-routes.delete("/evsu-insider/post-options/:id", authController.deleteSpecificPost);
+routes.delete(
+  "/evsu-insider/post-options/:id",
+  dashboardController.deleteSpecificPost
+);
 
 // Middleware
 

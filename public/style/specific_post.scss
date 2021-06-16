@@ -1,6 +1,6 @@
 @use "root" as root;
 .spec__post-detail {
-  border-left: 5px solid root.$bg-hover-primary;
+  border-left: 1px solid rgba(root.$black, .1);
 }
 .spec__post-tag {
   background: root.$primary-color;
