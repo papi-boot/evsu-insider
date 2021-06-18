@@ -52,7 +52,24 @@ const fetchSelectedSubject = async (req) => {
   try {
     const { subject_id } = req.query;
     const results = await sequelize.query(
-      "SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_created_at, post_updated_at, user_fullname, subject_id, subject_name, subject_description, subject_quarter FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id WHERE subject_id = $1;",
+      "SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_created_at, post_updated_at, user_fullname, subject_id, subject_name, subject_description, subject_quarter FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id WHERE subject_id = $1 ORDER BY subject_created_at DESC;",
+      {
+        type: QueryTypes.SELECT,
+        bind: [subject_id],
+      }
+    );
+
+    return results;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
+const fetchSubjectPostResult = async (subject_id) => {
+  try {
+    const results = await sequelize.query(
+      "SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_created_at, post_updated_at, user_fullname, subject_id, subject_name, subject_description, subject_quarter FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id WHERE subject_id = $1 ORDER BY subject_created_at DESC;",
       {
         type: QueryTypes.SELECT,
         bind: [subject_id],
@@ -70,4 +87,5 @@ module.exports = {
   fetchOnePost,
   fetchAllSubject,
   fetchSelectedSubject,
+  fetchSubjectPostResult
 };

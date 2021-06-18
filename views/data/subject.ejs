@@ -3,16 +3,16 @@
       case 1: %>
       <h5 class="fw_600 primary-heading p-theme-color my-1 text-decoration-underline">1st Semester</h5>
       <% subject.forEach( item => { %>
-        <div class="col-lg-3">
-          <a class="subject-clickable text-decoration-none" href="/evsu-insider/subjects?subject_id=<%= item.subject_id %>&subject_name=<%= item.subject_name.trim() %>">
+          <div class="col-lg-3">
+          <a class="subject-clickable text-decoration-none" href="/evsu-insider/subjects?subject_id=<%= item.subject_id %>%>">
             <div class="subject__folder">
               <div class="subject__header">
                 <h5 class="subject__title primary-heading m-0"><%= item.subject_name %> 📄</h5>
               </div>
               <div class="subject__sub-header">
-                <h6 class="subject__description primary-heading p-theme-color f_size-2 m-0"><%= item.subject_description %> </h6>
-                <h6 class="subject__semester primary-heading text-black-50 f_size-3">Semester: <%= item.subject_quarter %> </h6>
-                <h6 class="subject__created text-black-50 primary-heading f_size-3 fw_700"><%= format(add(item.subject_created_at, {hours: 8}), 'MMMM yyyy' ) %></h6>
+                <h6 class="subject__description secondary-heading p-theme-color f_size-2 mb-1"><%= item.subject_description %> </h6>
+                <h6 class="subject__post-found primary-heading text-success f_size-2 m-0 fw_600">Post Found(<%= results_post_subject[item.subject_id - 1] %>)</h6>
+                <h6 class="subject__semester primary-heading text-black-50 f_size-3 m-0">Semester: <%= item.subject_quarter %> </h6>
               </div>
             </div>
           </a>

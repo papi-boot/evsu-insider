@@ -1,6 +1,6 @@
 <% if (post.length> 0) { %>
   <% post.forEach(item=> { %>
-    <div class="col-lg-3">
+    <div class="col-lg-4">
       <a href="/evsu-insider/post?post_id=<%= item.post_id %>&subject_id=<%= item.subject_id %> " class="post-clickable text-decoration-none">
         <div class="post__card">
           <!-- Modify Button -->
@@ -9,11 +9,11 @@
               <%= item.post_title %>
             </h6>
           </div>
-          <div class="post__header">
-            <h6 class="post__tag f_size-3 w-max-content">
+          <div class="post__header d-flex align-item-center flex-wrap gap-2">
+            <h6 class="post__tag f_size-3 ">
               <%= item.post_tag %>
             </h6>
-            <h6 class="post__subject fw_700 f_size-3 w-max-content">
+            <h6 class="post__subject fw_700 f_size-3">
               <%= item.subject_name %> ⭐
             </h6>
           </div>

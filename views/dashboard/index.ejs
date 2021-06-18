@@ -16,21 +16,32 @@
     <div class="container my-4">
 
       <%- include("../ads/dashboard_ad") %> 
-      <div class="date-today my-2">
-        <h2 class="primary-heading fw_700">Recent Post 📰</h2><span class="fw_600 f_size-2 primary-heading p-theme-color mx-1"><%= format(add(new Date(Date.now()), {hours: 8}), 'EEEE, MMMM dd, yyyy')%></span>
-      </div>
+      
       <div class="row">
-        <%- include("../data/posts") %> 
+        <div class="col-xxl-9">
+          <div class="date-today my-2">
+            <h2 class="primary-heading fw_700">Recent Post 📰</h2><span class="fw_600 f_size-2 primary-heading p-theme-color mx-1"><%= format(add(new Date(Date.now()), {hours: 8}), 'EEEE, MMMM dd, yyyy')%></span>
+          </div>
+          <div class="row">
+          <%- include("../data/posts") %>
+          <div class="see__all-post --nav-item my-3">
+            <a class="fw_600 p-theme-color see__all-post-link" href="">View more Post &rightarrow;</a>
+          </div>
+          </div>
+        </div>
+        <div class="col-xxl-3 border">
+          <div class="pin__post my-2">
+            <h5 class="primary-heading fw_700">Pinned Post 📌</h5>
+          </div>
+        </div>
       </div>
-      <div class="see__all-post --nav-item my-3">
-        <a class="fw_600 p-theme-color see__all-post-link" href="">View more Post &rightarrow;</a>
-      </div>
+      
     </div>
     <div class="divider div-second-bg-color"></div>
     <div class="container my-4">
       <h2 class="primary-heading fw_700">Explore by Subject 📁</h2>
       <div class="row">
-        <%- include("../data/subject.ejs") %> 
+        <%- include("../data/subject") %> 
       </div>
     </div>
     
