@@ -13,22 +13,49 @@
 
 
     <%- include("../partial/success_alert") %>
-    <div class="container my-3">
+    <div class="container my-4">
 
       <%- include("../ads/dashboard_ad") %> 
-      <div class="date-today my-4">
-        <h2 class="primary-heading fw_700">Recent Post 📰</h2><span class="fw_600 f_size-2 primary-heading p-theme-color mx-1"><%= format(add(new Date(Date.now()), {hours: 8}), 'EEEE, MMMM dd, yyyy')%></span>
-      </div>
+      
       <div class="row">
-        <%- include("../data/posts") %> 
+        <div class="col-12">
+          <div class="date-today my-2">
+            <h2 class="primary-heading fw_700">Recent Post 📰</h2><span class="fw_600 f_size-2 primary-heading p-theme-color mx-1"><%= format(add(new Date(Date.now()), {hours: 8}), 'EEEE, MMMM dd, yyyy')%></span>
+          </div>
+          <div class="row">
+          <%- include("../data/posts") %>
+          <% if (post.length > 9) { %>
+            <div class="see__all-post --nav-item my-3">
+              <a class="fw_600 p-theme-color see__all-post-link" href="">View more Post &rightarrow;</a>
+            </div>
+          <% } %>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="pin__post my-3 border">
+            <h5 class="primary-heading fw_700">Pinned Post 📌</h5>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <div class="divider div-second-bg-color quote-container my-5">
+      <div class="container">
+        <div class="random__quote text-wrap ps-2 py-1">
+          <figure class="m-0">
+            <blockquote class="blockquote text-wrap">
+              <h6 class="quote__text fw_500 text-black-50"></h6>
+            </blockquote>
+            <figcaption class="blockquote-footer quote__author m-0">
+              <cite title="Source Title"></cite>
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </div>
-    <div class="divider div-second-bg-color"></div>
     <div class="container my-4">
       <h2 class="primary-heading fw_700">Explore by Subject 📁</h2>
-      <div class="row">
-        <%- include("../data/subject.ejs") %> 
-      </div>
+      <%- include("../data/subject") %>
     </div>
     
     <%- include("../partial/script") %>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <%- include("../partial/head") %>
+  </head>
+
+  <body>
+    <div class="divider div-primary-bg-color"></div>
+    <%- include("../partial/navbar") %>
+      <div class="divider div-second-bg-color"></div>
+
+      <div class="container my-4">
+        <div class="subject-header border-bottom">
+          <h2 class="primary-heading fw_700">
+            All Post from
+            <span class="p-theme-color">
+              <%= subject_header.title %>
+            </span>
+          </h2>
+          <h6 class="secondary-heading"><%= subject_header.description %> </h6>
+          <h6 class="secondary-heading text-success">Results Found (<span class=""><%= related_post.length %></span>)</h6>
+        </div>
+        <div class="row">
+          <%- include("../data/subject_related_post") %> 
+        </div>
+      </div>
+
+      <%- include("../partial/script.ejs") %>
+  </body>
+
+</html>

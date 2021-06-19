@@ -1,0 +1,41 @@
+@use "root" as root;
+
+.pin__post {
+  border-radius: 5px;
+  padding: root.$pad-3;
+}
+
+.random__quote {
+  border-left: 5px solid rgba(root.$black, 0.2);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.subject__dropdown-header {
+  .subject__dropdown-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+  }
+}
+
+.fa-chevron-right {
+  &.icon-rotate {
+    transform: rotate(90deg);
+  }
+}
+
+.subject__dropdown-group {
+  border-radius: 5px;
+  cursor: pointer;
+  padding: root.$pad-3;
+  > .subject__dropdown {
+    height: 0;
+    overflow: hidden;
+    transition: all 2s linear;
+    width: 100%;
+  }
+  > .subject__dropdown-open {
+    height: max-content;
+  }
+}

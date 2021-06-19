@@ -1,7 +1,4 @@
 "use strict";
-const verifyRegister = require("../middleware/verify.register");
-const passport = require("passport");
-const passportConfig = require("../middleware/passport.config.js"); //Require the passport config;
 const {
   checkNotAuthenticated,
   checkAuthenticated,
@@ -11,40 +8,31 @@ const {
   fetchAllPost,
   fetchOnePost,
   fetchAllSubject,
+  fetchSelectedSubject,
+  fetchSubjectPostResult,
 } = require("../query/fetch_data"); //Fetch all data method
+const { send404_PageNotFound } = require("../middleware/page_not_found");
 const { deleteOnePost } = require("../query/delete_data"); //Delete specific data
 const { updateOnePost } = require("../query/update_data");
 const { formatDistanceToNow, format, add } = require("date-fns");
 
-/* @TODO: initialize the passport */
-passportConfig.initializePassport(passport);
-
 // -- GET HTTP REQUEST: get login form
-const getLoginForm = async (req, res) => {
-  try {
-    await res.render("authentication/login", {
-      doc_title: "Sign In | EVSU Insider",
-    });
-  } catch (err) {
-    console.error(err);
-  }
-};
 
 // -- GET HTTP REQUEST: get register form
-const getRegisterForm = async (req, res) => {
-  try {
-    await res.render("authentication/register", {
-      doc_title: "Join EVSU Insider Today",
-    });
-  } catch (err) {
-    console.error(err);
-  }
-};
 
 // -- GET HTTP REQUEST : get dashboard/main page
 const getHomeDashboard = async (req, res) => {
   try {
+    const sliceRecentPost = (await fetchAllPost()).slice(0, 9);
     console.log(req.user);
+
+    const subject = await fetchAllSubject();
+    let resultPostFound = [];
+    for (let i = 0; i < subject.length; i++) {
+      resultPostFound.push(
+        (await fetchSubjectPostResult(subject[i].subject_id)).length
+      );
+    }
     if (req.user) {
       return await res.render("dashboard/index", {
         doc_title: "EVSU Insider | Dashboard",
@@ -52,8 +40,9 @@ const getHomeDashboard = async (req, res) => {
         auth_link: {
           share_answer: "/evsu-insider/share-answer",
         },
-        post: await fetchAllPost(),
+        post: sliceRecentPost,
         subject: await fetchAllSubject(),
+        results_post_subject: resultPostFound,
         formatDistanceToNow,
         format,
         add,
@@ -86,19 +75,28 @@ const getSpecificPost = async (req, res) => {
   try {
     if (req.user) {
       const one_post = await fetchOnePost(req);
-      
-      res.render("dashboard/show", {
-        doc_title: one_post[0].post_title,
-        user: req.user,
-        post: await fetchOnePost(req),
-        related_post: await fetchAllPost(),
-        auth_link: {
-          share_answer: "/evsu-insider/share-answer",
-        },
-        formatDistanceToNow,
-        format,
-        add,
-      });
+      if (one_post.length > 0) {
+        const filterRelatedPost = (await fetchSelectedSubject(req)).filter(
+          (item) => item.post_id !== req.query.post_id
+        );
+        const sliceRelatedPost = filterRelatedPost.slice(0, 3);
+        res.render("dashboard/show", {
+          doc_title: one_post[0].post_title,
+          user: req.user,
+          req: req,
+          post: await fetchOnePost(req),
+          subject: await fetchAllSubject(),
+          related_post: sliceRelatedPost,
+          auth_link: {
+            share_answer: "/evsu-insider/share-answer",
+          },
+          formatDistanceToNow,
+          format,
+          add,
+        });
+      } else {
+        await send404_PageNotFound(req, res);
+      }
     } else {
       checkNotAuthenticated(req, res);
     }
@@ -132,16 +130,42 @@ const getOptionForm = async (req, res) => {
   }
 };
 
-// -- POST HTTP REQUEST: verifying account to sign up
-const postRegisterForm = verifyRegister.initialize;
-
-// -- POST HTTP REQUEST: verifying account to sign in
-const postLoginForm = passport.authenticate("local", {
-  successRedirect: "/evsu-insider/dashboard",
-  failureRedirect: "/evsu-insider/sign-in",
-  failureFlash: true,
-  failureMessage: "Please provide a valid credentials",
-});
+// -- GET HTTP REQUEST: get the specific subject and it's post/answer
+const getSpecificSubjectAndPost = async (req, res) => {
+  try {
+    if (req.user) {
+      const subject = await (
+        await fetchAllSubject()
+      ).filter((item) => item.subject_id === req.query.subject_id);
+      const filterRelatedPost = (await fetchSelectedSubject(req)).filter(
+        (item) => item.post_subject === req.query.subject_id
+      );
+      if (filterRelatedPost) {
+        await res.render("dashboard/show_subject", {
+          user: req.user,
+          req: req,
+          doc_title: `${subject[0].subject_name} | ${subject[0].subject_description}`,
+          auth_link: {
+            share_answer: "/evsu-insider/share-answer",
+          },
+          subject_header: {
+            title: subject[0].subject_name,
+            description: subject[0].subject_description,
+          },
+          related_post: filterRelatedPost,
+          formatDistanceToNow,
+          format,
+        });
+      } else {
+        send404_PageNotFound(req, res);
+      }
+    } else {
+      checkNotAuthenticated(req, res);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 // -- POST HTTP REQUEST: submit my share answer
 const postShareAnswer = submitShareAnswer.submitAnswer;
@@ -150,11 +174,14 @@ const postShareAnswer = submitShareAnswer.submitAnswer;
 const updateSpecificPost = async (req, res) => {
   try {
     const post_id = await req.params.id;
-    if(req.user){
+    if (req.user) {
       updateOnePost(req)
         .then(() => {
           req.flash("success", "Answer was successfully update.");
-          return res.json({url: "/evsu-insider/dashboard", preview_url: `/evsu-insider/post-options/${post_id}`});
+          return res.json({
+            url: "/evsu-insider/dashboard",
+            preview_url: `/evsu-insider/post-options/${post_id}`,
+          });
         })
         .catch((err) => console.error(err));
     }
@@ -182,14 +209,11 @@ const deleteSpecificPost = async (req, res) => {
 };
 
 module.exports = {
-  getRegisterForm,
-  getLoginForm,
   getHomeDashboard,
   getCreateAnswerForm,
   getSpecificPost,
   getOptionForm,
-  postRegisterForm,
-  postLoginForm,
+  getSpecificSubjectAndPost,
   postShareAnswer,
   updateSpecificPost,
   deleteSpecificPost,

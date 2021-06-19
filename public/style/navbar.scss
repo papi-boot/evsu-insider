@@ -32,7 +32,7 @@
 
 .--acc-option {
   left: unset;
-  min-width: 6rem;
+  width: max-content;
   right: 0;
 }
 
@@ -49,6 +49,8 @@
 }
 
 .--acc-option-btn {
+  word-wrap: break-word;
+  width: max-content;
   &:focus {
     background: root.$bg-hover-primary;
   }
@@ -152,8 +154,9 @@
     justify-content: center;
     left: -100%;
     height: 100%;
-    padding: 1.5rem;
+    padding: 1rem;
     position: fixed;
+    word-wrap: break-word;
     top: 0;
     transition: root.$transition-2;
     width: max-content;

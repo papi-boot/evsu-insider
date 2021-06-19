@@ -1,14 +1,17 @@
-<% if (related_post.length> 0) { %>
+<% if (related_post.length > 0) { %>
   <% related_post.forEach(item=> { %>
-      <a href="/evsu-insider/post/<%= item.post_id %> " class="post-clickable text-decoration-none">
+      <a href="/evsu-insider/post?post_id=<%= item.post_id %>&subject_id=<%= item.subject_id %> " class="post-clickable text-decoration-none">
         <div class="post__card">
           <!-- Modify Button -->
           <div class="post__title-container">
-            <h6 class="post__title fw_700">
+            <h6 class="post__title fw_700" title="<%= item.post_title %>">
               <%= item.post_title %>
             </h6>
           </div>
-          <div class="post__header">
+          <div class="post__header d-flex align-item-center flex-wrap gap-1">
+            <h6 class="post__tag f_size-3 w-max-content">
+              <%= item.post_tag %>
+            </h6>
             <h6 class="post__subject fw_700 f_size-3 w-max-content">
               <%= item.subject_name %> ⭐
             </h6>
@@ -23,7 +26,7 @@
           </div>
         </div>
       </a>
-      <% if (user.user_id === item.post_author) { %>
+      <% if (user.user_id === item.post_author || user.user_state == 2) { %>
         <div class="post__option mb-3 position-relative d-flex justify-content-end pe-1">
           <!-- confirm delete dialog -->
           <div class="custom__delete-dialog d-none" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -46,12 +49,16 @@
           <button data-post-id="<%= item.post_id %> " type="button" class="pin__post option__link f_size-heading fw_600"><span><i class="bi bi-three-dots"></i></span></button>
           <div class="option-container d-none">
             <ul class="--nav-list list-unstyled m-0">
-              <li class="--nav-item"><a class="--nav-link " href="/evsu-insider/post-options/<%= item.post_id %> ">Edit Post <span><i class="bi bi-pencil-square ms-1"></i></span></a></li>
+              <li class="--nav-item"><a class="--nav-link " href="/evsu-insider/post-options?post_id=<%= item.post_id %> ">Edit Post <span><i class="bi bi-pencil-square ms-1"></i></span></a></li>
+          <% if (user.user_state == 2) { %>
               <li class="--nav-item"><a class="--nav-link" href="">Pin Post <span><i class="bi bi-pin-angle-fill ms-1"></i></span></a></li>
+          <% } %>
               <li class="--nav-item"><button type="button" class="--nav-link delete__option-btn">Delete Post <span><i class="bi bi-trash-fill ms-1"></i></span></button></li>
             </ul>
           </div>
         </div>
     <% } %>
   <% }) %>
-<% } %>
+<% } else { %>
+    <h6 class="text-black-50 f_size-2 my-4">No related Post was found, <a href="/evsu-insider/share-answer">Click here to share one.</a> </h6>
+<% } %> 

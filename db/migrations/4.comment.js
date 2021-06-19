@@ -5,13 +5,14 @@ module.exports = {
     await queryInterface.createTable("comments", {
       comment_id: {
         allowNull: false,
-        autoIncrement: true,
+        unique: true,
         primaryKey: true,
-        type: DataTypes.BIGINT,
+        type: DataTypes.UUID,
+        defaultValue: Sequelize.literal("uuid_generate_v4()")
       },
       comment_from_user: {
         allowNull: false,
-        type: DataTypes.BIGINT,
+        type: DataTypes.UUID,
         references: {
           model: "users",
           key: "user_id",
@@ -19,7 +20,7 @@ module.exports = {
       },
       comment_from_post: {
         allowNull: false,
-        type: DataTypes.BIGINT,
+        type: DataTypes.UUID,
         references: {
           model: "posts",
           key: "post_id",

@@ -77,7 +77,7 @@ const submitAnswer = async (req, res) => {
             req.user.user_id,
             cleanSubject,
             cleanTag,
-            cleanBody,
+            cleanBody.trim(),
             new Date(),
             new Date(),
           ],

@@ -10,7 +10,7 @@
   <body>
     <div class="divider div-primary-bg-color"></div>
     <div class="divider div-second-bg-color"></div>
-    <div class="container g-0">
+    <div class="container">
       <%- include("../partial/error_alert.ejs") %>
       <% if (!subject.length > 0) { %>
           <div class="alert alert-warning d-flex justify-content-center align-items-center p-2 alert-text fw_600 my-3 z-index-n1" role="alert">
@@ -36,19 +36,22 @@
               <!-- Title -->
               <div class="group">
                 <% if (subject.length > 0 ) { %>
-                  <input class="__material-input" type="text" name="post_title" required>
+                  <label class="form-label" for="postTitle">Title</label>
+                  <input class="form-control" type="text" name="post_title" id="postTitle" required>
                 <% } else { %>
-                  <input class="__material-input" type="text" name="post_title" disabled>
+                  <label class="form-label">Title</label>
+                  <input class="form-control" type="text" name="post_title" disabled>
                 <% } %> 
                 <span class="bar"></span>
-                <label class="__material-label">Title</label>
+                
               </div>
             </div>
             <div class="col-lg-4">
               <!-- Subject -->
               <div class="group">
                 <% if (subject.length > 0 ) { %>
-                  <select class="__material-input" name="post_subject" id="postSubject" required>
+                <label class="form-label" for="postSubject">Subject</label>
+                  <select class="form-select" name="post_subject" id="postSubject" required>
                     <% subject.forEach(subj=> { %>
                       <option value="<%= subj.subject_id %>">
                         <%= subj.subject_name %>
@@ -57,7 +60,8 @@
                   </select>
                   <span class="bar"></span>
                 <% } else { %>
-                    <select class="__material-input" name="post_subject" id="postSubject" disabled>
+                    <label class="form-label" for="postSubject">Subject</label>
+                    <select class="form-select" name="post_subject" id="postSubject" disabled>
                       <% subject.forEach(subj=> { %>
                         <option value="<%= subj.subject_id %>">
                           <%= subj.subject_name %>
@@ -72,12 +76,13 @@
               <!-- Tag -->
               <div class="group">
                 <% if (subject.length > 0 ) { %>
-                  <input class="__material-input" type="text" name="post_tag" required>
+                  <label class="form-label">Tag/Unit</label>
+                  <input class="form-control" type="text" name="post_tag" required>
                 <% } else { %>
-                  <input class="__material-input" type="text" name="post_tag" disabled>
+                <label class="form-label">Tag/Unit</label>
+                  <input class="form-control" type="text" name="post_tag" disabled>
                 <% } %> 
                 <span class="bar"></span>
-                <label class="__material-label">Tag/Unit</label>
               </div>
             </div>
           </div>
@@ -107,7 +112,7 @@
         </form>
     </div>
     
-    <%- include("../partial/script.ejs") %>
+    <%- include("../partial/script") %>
   </body>
 
 </html>
