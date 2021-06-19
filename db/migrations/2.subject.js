@@ -5,9 +5,10 @@ module.exports = {
     await queryInterface.createTable("subjects", {
       subject_id: {
         allowNull: false,
-        autoIncrement: true,
+        unique: true,
         primaryKey: true,
-        type: DataTypes.BIGINT,
+        type: DataTypes.UUID,
+        defaultValue: Sequelize.literal("uuid_generate_v4()")
       },
       subject_name: {
         allowNUll: false,

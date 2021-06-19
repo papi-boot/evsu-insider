@@ -60,6 +60,7 @@
                   </select>
                   <span class="bar"></span>
                 <% } else { %>
+                    <label class="form-label" for="postSubject">Subject</label>
                     <select class="form-select" name="post_subject" id="postSubject" disabled>
                       <% subject.forEach(subj=> { %>
                         <option value="<%= subj.subject_id %>">

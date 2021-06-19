@@ -5,16 +5,17 @@ module.exports = {
     await queryInterface.createTable("posts", {
       post_id: {
         allowNull: false,
-        autoIncrement: true,
+        unique: true,
         primaryKey: true,
-        type: DataTypes.BIGINT,
+        type: DataTypes.UUID,
+        defaultValue: Sequelize.literal("uuid_generate_v4()")
       },
       post_title: {
         allowNull: false,
         type: DataTypes.STRING(200),
       },
       post_author: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
           model: "users",
@@ -22,7 +23,7 @@ module.exports = {
         },
       },
       post_subject: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
           model: "subjects",

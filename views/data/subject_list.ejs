@@ -12,7 +12,7 @@
         <div class="list-group my-4">
           <h6 class="fw_600 primary-heading p-theme-color mb-2">Explore by subject, 2nd semester</h6>
         <% subject.forEach( item => { %>
-          <a href="/evsu-insider/subjects?<%= iteml.subject_id %>&subject_name=<%= item.subject_name %>" class="list-group-item list-group-item-action primary-heading fw_600 f_size-2"><%= item.subject_name %></a>
+          <a href="/evsu-insider/subjects?<%= iteml.subject_id %>%>" class="list-group-item list-group-item-action primary-heading fw_600 f_size-2"><%= item.subject_name %></a>
         <% }) %>
         </div>
       <% break; %>

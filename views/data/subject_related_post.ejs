@@ -27,7 +27,7 @@
             </div>
           </div>
         </a>
-        <% if (user.user_id === item.post_author) { %>
+        <% if (user.user_id === item.post_author || user.user_state == 2) { %>
           <div class="post__option mb-3 position-relative d-flex justify-content-end pe-1">
             <!-- confirm delete dialog -->
             <div class="custom__delete-dialog d-none" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -51,7 +51,9 @@
             <div class="option-container d-none">
               <ul class="--nav-list list-unstyled m-0">
                 <li class="--nav-item"><a class="--nav-link " href="/evsu-insider/post-options?post_id=<%= item.post_id %> ">Edit Post <span><i class="bi bi-pencil-square ms-1"></i></span></a></li>
+            <% if (user.user_state == 2) { %>
                 <li class="--nav-item"><a class="--nav-link" href="">Pin Post <span><i class="bi bi-pin-angle-fill ms-1"></i></span></a></li>
+            <% } %>
                 <li class="--nav-item"><button type="button" class="--nav-link delete__option-btn">Delete Post <span><i class="bi bi-trash-fill ms-1"></i></span></button></li>
               </ul>
             </div>

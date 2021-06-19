@@ -73,7 +73,7 @@
     padding: 0 4px;
     transition: root.$transition-1;
 
-    &:focus {
+    &:focus-within{
       box-shadow: 0 0 0 3px rgba(root.$black, 0.2);
     }
   }

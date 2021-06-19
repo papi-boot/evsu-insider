@@ -23,13 +23,15 @@ const { formatDistanceToNow, format, add } = require("date-fns");
 // -- GET HTTP REQUEST : get dashboard/main page
 const getHomeDashboard = async (req, res) => {
   try {
-    const sliceRecentPost = await (await fetchAllPost()).slice(0, 9);
+    const sliceRecentPost = (await fetchAllPost()).slice(0, 9);
     console.log(req.user);
 
     const subject = await fetchAllSubject();
     let resultPostFound = [];
     for (let i = 0; i < subject.length; i++) {
-      resultPostFound.push(await (await fetchSubjectPostResult(subject[i].subject_id)).length);
+      resultPostFound.push(
+        (await fetchSubjectPostResult(subject[i].subject_id)).length
+      );
     }
     if (req.user) {
       return await res.render("dashboard/index", {
@@ -70,7 +72,6 @@ const getCreateAnswerForm = async (req, res) => {
 
 // -- GET HTTP REQUEST: get and show specific/one post
 const getSpecificPost = async (req, res) => {
-  console.log(req.query);
   try {
     if (req.user) {
       const one_post = await fetchOnePost(req);
@@ -133,24 +134,23 @@ const getOptionForm = async (req, res) => {
 const getSpecificSubjectAndPost = async (req, res) => {
   try {
     if (req.user) {
-      const subject_title = await fetchAllSubject(req);
-      if (subject_title[req.query.subject_id - 1]) {
-        const filterRelatedPost = (await fetchSelectedSubject(req)).filter(
-          (item) => item.post_subject === req.query.subject_id
-        );
+      const subject = await (
+        await fetchAllSubject()
+      ).filter((item) => item.subject_id === req.query.subject_id);
+      const filterRelatedPost = (await fetchSelectedSubject(req)).filter(
+        (item) => item.post_subject === req.query.subject_id
+      );
+      if (filterRelatedPost) {
         await res.render("dashboard/show_subject", {
           user: req.user,
           req: req,
-          doc_title: `${
-            subject_title[req.query.subject_id - 1].subject_name
-          } | ${subject_title[req.query.subject_id - 1].subject_description}`,
+          doc_title: `${subject[0].subject_name} | ${subject[0].subject_description}`,
           auth_link: {
             share_answer: "/evsu-insider/share-answer",
           },
           subject_header: {
-            title: subject_title[req.query.subject_id - 1].subject_name,
-            description:
-              subject_title[req.query.subject_id - 1].subject_description,
+            title: subject[0].subject_name,
+            description: subject[0].subject_description,
           },
           related_post: filterRelatedPost,
           formatDistanceToNow,
