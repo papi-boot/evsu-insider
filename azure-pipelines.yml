@@ -1,0 +1,23 @@
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm run build
+  displayName: 'npm install and build'
+
+- script: "npm install -g pg"
+  displayName: "npn install pg"
+  
+- script: "npm install -g sequelize-cli"
+  displayName: "npm install sequelize-cli"
+
+#run running migration
+- script: npx sequelize-cli db:migrate
+  displayName: "migrating database"
