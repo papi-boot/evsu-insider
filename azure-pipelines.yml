@@ -19,5 +19,5 @@ steps:
   displayName: "npm install sequelize-cli"
 
 #run running migration
-- script: npx sequelize-cli db:migrate
+- script: "npx sequelize-cli db:migrate"
   displayName: "migrating database"
