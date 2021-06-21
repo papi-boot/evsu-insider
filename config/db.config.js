@@ -10,7 +10,7 @@ module.exports = {
     dialect: "postgres",
   },
   production: {
-    use_env_variable: "DATABASE_URL",
+    use_env_variable: "AZURE_DATABASE",
     username: process.env.P_USER,
     password: process.env.P_PASS,
     database: process.env.P_DB,
@@ -21,7 +21,8 @@ module.exports = {
       ssl: {
         require: true,
         rejectUnauthorized: false
-      }
+      },
+      encryption: true,
     }
   },
 };
