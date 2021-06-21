@@ -74,7 +74,7 @@ routes.post("/evsu-insider/share-answer", dashboardController.postShareAnswer);
 /* -- ALL UPDATE REQUEST  */
 // -- UPDATE: update one post
 routes.put(
-  "/evsu-insider/post-options/:id",
+  "/evsu-insider/post-options",
   dashboardController.updateSpecificPost
 );
 
@@ -82,7 +82,7 @@ routes.put(
 
 //-- DELETE: delete specific post
 routes.delete(
-  "/evsu-insider/post-options/:id",
+  "/evsu-insider/post-options",
   dashboardController.deleteSpecificPost
 );
 

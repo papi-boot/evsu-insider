@@ -13,6 +13,7 @@ window.addEventListener("DOMContentLoaded", () => {
     ".custom__dialog-btn-confirm"
   );
 
+// Option Card open
   for (let i = 0; i < toggleOptionBtn.length; i++) {
     let optionIsOpen = false;
     toggleOptionBtn[i].addEventListener("click", (e) => {
@@ -31,11 +32,11 @@ window.addEventListener("DOMContentLoaded", () => {
     Array.from(toggleOptionBtn).indexOf(e.target) + 1;
   };
 
-  //dialog delete
+  //Open DELETE dialog -- Close or Confirm Delete
   for (let i = 0; i < deleteOptionBtn.length; i++) {
     deleteOptionBtn[i].addEventListener("click", (e) => {
       deleteDialog[i].classList.remove("d-none");
-      deletePost(e);
+      deletePostOpenDialog(e);
     });
     deleteDialogCancel[i].addEventListener("click", (e) => {
       deleteDialog[i].classList.add("d-none");
@@ -44,16 +45,19 @@ window.addEventListener("DOMContentLoaded", () => {
     deleteDialogConfirm[i].addEventListener("click", (e) => {
       confirmDeletePost(e, deleteDialogConfirm[i].dataset.postId);
     });
+
   }
 
-  const deletePost = (e) => {
+  // Open dialog for delete confirmation
+  const deletePostOpenDialog = (e) => {
     Array.from(deleteOptionBtn).indexOf(e.target) + 1;
   };
 
-  //closing dialog
+  //Cancel/Close dialog delete
   const closeDialog = (e) => {
     Array.from(deleteDialogCancel).indexOf(e.target) + 1;
   };
+
   //Delete post/answer
   const confirmDeletePost = (e, dataPostId) => {
     Array.from(deleteDialogConfirm).indexOf(e.target) + 1;
@@ -61,7 +65,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const deleteOnePost = async () => {
       try {
         const response = await fetch(
-          `/evsu-insider/post-options/${dataPostId}`,
+          `/evsu-insider/post-options?post_id=${dataPostId}`,
           {
             method: "DELETE",
             cache: "no-cache",

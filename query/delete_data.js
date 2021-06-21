@@ -3,7 +3,7 @@ const { sequelize, QueryTypes } = require("../config/db.connect");
 
 const deleteOnePost = async (req) => {
   try {
-    const post_id =  req.params.id;
+    const post_id =  req.query.post_id;
     const results = await sequelize.query(
       "DELETE FROM posts WHERE post_id = $1",
       {
