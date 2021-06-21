@@ -16,6 +16,7 @@ if (isProduction) {
         require: true,
         rejectUnauthorized: false,
       },
+      encryption: true,
     },
     logging: false,
   };
