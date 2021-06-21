@@ -1,6 +1,7 @@
 /* JAVASCRIPT */
 window.addEventListener("beforeunload", () => {});
 require("./js/image-load");
+require("./js/login");
 require("./js/option_post_toggle")
 require("./bootstrap/js/bootstrap.min");
 require("./js/navburger.anim");

@@ -21,6 +21,8 @@ module.exports = {
           model: "users",
           key: "user_id",
         },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
       },
       post_subject: {
         type: DataTypes.UUID,
@@ -29,6 +31,8 @@ module.exports = {
           model: "subjects",
           key: "subject_id",
         },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
       },
       post_tag: {
         allowNull: false,

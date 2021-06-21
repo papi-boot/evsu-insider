@@ -33,7 +33,7 @@ const getRegisterForm = async (req, res) => {
 const postRegisterForm = verifyRegister.initialize;
 
 // -- POST HTTP REQUEST: verifying account to sign in
-const postLoginForm = passport.authenticate("local", {
+const postLoginForm =  passport.authenticate("local",  {
   successRedirect: "/evsu-insider/dashboard",
   failureRedirect: "/evsu-insider/sign-in",
   failureFlash: true,

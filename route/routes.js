@@ -12,7 +12,7 @@ const {
 /* -- ALL GET HTTP REQUEST -- */
 
 // -- GET: redirect to page check authenticated or not
-routes.get("/", (req, res) => {
+routes.get("/", checkAuthenticated, (req, res) => {
   try {
     return res.redirect("/evsu-insider/sign-in");
   } catch (err) {

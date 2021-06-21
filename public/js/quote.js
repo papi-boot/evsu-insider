@@ -23,8 +23,6 @@ window.addEventListener("DOMContentLoaded", () => {
   randomQuote()
     .then((quotes) => {
       const randomNumber = Math.floor(Math.random() * 112);
-      console.log(randomNumber);
-      console.log(quotes.quotes);
       quoteText.innerHTML =`<em>"${quotes.quotes[randomNumber].text}"</em>`;
       quoteAuthor.innerHTML = quotes.quotes[randomNumber].author;
     })

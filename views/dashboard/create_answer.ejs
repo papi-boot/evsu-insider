@@ -53,7 +53,10 @@
                 <label class="form-label" for="postSubject">Subject</label>
                   <select class="form-select" name="post_subject" id="postSubject" required>
                     <% subject.forEach(subj=> { %>
-                      <option value="<%= subj.subject_id %>">
+                      <option value="<%= subj.subject_id %>" 
+                      <% if (subj.subject_id === req.query.subject_id) { %>
+                        selected
+                      <% } %>>
                         <%= subj.subject_name %>
                       </option>
                     <% }) %>

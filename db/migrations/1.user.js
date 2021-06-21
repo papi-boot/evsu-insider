@@ -12,6 +12,8 @@ module.exports = {
           primaryKey: true,
           type: DataTypes.UUID,
           defaultValue: Sequelize.literal("uuid_generate_v4()"),
+          onDelete: "CASCADE",
+          onUpdate: "CASCADE"
         },
         user_fullname: {
           type: DataTypes.STRING(200),

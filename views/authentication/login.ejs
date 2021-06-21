@@ -6,22 +6,28 @@
   </head>
 
   <body>
+    <div class="loading-container z-index-p1 d-none">
+      <img class="logo mt-4" alt="Evsu Insider">
+      <div class="loading-circle loading-content mt-4"></div>
+      <div class="loading-text fw_700 primary-heading">Signing in ...</div>
+      <%- include("../partial/quote") %> 
+    </div>
     <div class="container">
       <div class="row">
         <div class="col">
           <div class="d-flex justify-content-center align-items-center h-vh">
-            <form class="form__container a_bounce-in" method="POST" action="/evsu-insider/sign-in">
-              <%- include("../partial/error_alert") %> 
-              <%- include("../partial/success_alert") %> 
-              <img class="logo d-block mx-auto my-3"  alt="Evsu Insider">
-              <h4 class="text-center my-4 fw_700 p-theme-color my-4 a_from-left">Your answers matter.😎</h4>
-              <input type="email" name="email" class="d-block input__global my-3 mx-auto fw_600" id="userEmail" 
-                placeholder="Email">
-              <input type="password" name="password" class="d-block input__global my-3 mx-auto fw_600" id="userPassword"
-                placeholder="Password">
-              <input class="d-block btn__global my-3 mx-auto fw_600" type="submit" value="Sign in">
-              <a class="text-dark text-decoration-none d-block text-center mx-auto my-4 fw_600"
-                href="/evsu-insider/sign-up">Dont have an Account? Sign up here.</a>
+            <form class="form__container-login a_bounce-in" action="/evsu-insider/sign-in", method="POST">
+              <%- include("../partial/error_alert") %>
+                <%- include("../partial/success_alert") %>
+                  <img class="logo d-block mx-auto my-3" alt="Evsu Insider">
+                  <h4 class="text-center my-4 fw_700 p-theme-color my-4 a_from-left">Your answers matter.😎</h4>
+                  <input type="email" name="email" class="d-block input__global my-3 mx-auto fw_600 user__email" id="userEmail"
+                    placeholder="Email">
+                  <input type="password" name="password" class="d-block input__global my-3 mx-auto fw_600 user__password"
+                    id="userPassword" placeholder="Password">
+                  <input class="d-block btn__global my-3 mx-auto fw_600 btn__sign-in" type="submit" value="Sign in">
+                  <a class="text-dark text-decoration-none d-block text-center mx-auto my-4 fw_600"
+                    href="/evsu-insider/sign-up">Dont have an Account? Sign up here.</a>
             </form>
           </div>
         </div>

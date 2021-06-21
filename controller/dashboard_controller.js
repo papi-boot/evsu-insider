@@ -33,8 +33,14 @@ const getHomeDashboard = async (req, res) => {
         (await fetchSubjectPostResult(subject[i].subject_id)).length
       );
     }
+    const firstSemester = (await fetchAllSubject()).filter(
+      (item) => item.subject_quarter === 1
+    );
+    const secondSemester = (await fetchAllSubject()).filter(
+      (item) => item.subject_quarter === 2
+    );
     if (req.user) {
-      return await res.render("dashboard/index", {
+      await res.render("dashboard/index", {
         doc_title: "EVSU Insider | Dashboard",
         user: req.user,
         auth_link: {
@@ -43,6 +49,8 @@ const getHomeDashboard = async (req, res) => {
         post: sliceRecentPost,
         subject: await fetchAllSubject(),
         results_post_subject: resultPostFound,
+        firstSemester: firstSemester,
+        secondSemester: secondSemester,
         formatDistanceToNow,
         format,
         add,
@@ -59,6 +67,7 @@ const getCreateAnswerForm = async (req, res) => {
     if (req.user) {
       await res.render("dashboard/create_answer", {
         doc_title: "Share Answer⭐",
+        req: req,
         auth_link: "",
         subject: await fetchAllSubject(),
       });
@@ -73,6 +82,12 @@ const getCreateAnswerForm = async (req, res) => {
 // -- GET HTTP REQUEST: get and show specific/one post
 const getSpecificPost = async (req, res) => {
   try {
+    const firstSemester = (await fetchAllSubject()).filter(
+      (item) => item.subject_quarter === 1
+    );
+    const secondSemester = (await fetchAllSubject()).filter(
+      (item) => item.subject_quarter === 2
+    );
     if (req.user) {
       const one_post = await fetchOnePost(req);
       if (one_post.length > 0) {
@@ -87,6 +102,8 @@ const getSpecificPost = async (req, res) => {
           post: await fetchOnePost(req),
           subject: await fetchAllSubject(),
           related_post: sliceRelatedPost,
+          firstSemester: firstSemester,
+          secondSemester: secondSemester,
           auth_link: {
             share_answer: "/evsu-insider/share-answer",
           },
@@ -140,7 +157,7 @@ const getSpecificSubjectAndPost = async (req, res) => {
       const filterRelatedPost = (await fetchSelectedSubject(req)).filter(
         (item) => item.post_subject === req.query.subject_id
       );
-      if (filterRelatedPost) {
+      if (subject.length > 0) {
         await res.render("dashboard/show_subject", {
           user: req.user,
           req: req,
