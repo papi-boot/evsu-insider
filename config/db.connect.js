@@ -11,6 +11,7 @@ if (isProduction) {
   connectionString = process.env.AZURE_DATABASE;
   connectionStringOption = {
     dialect: "postgres",
+    ssl: true,
     dialectOptions: {
       ssl: true,
       encryption: true,
