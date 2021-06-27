@@ -14,38 +14,51 @@
 
     <%- include("../partial/success_alert") %>
     <div class="container my-4">
-      <%- include("../ads/dashboard_ad") %>
+
+      <%- include("../ads/dashboard_ad") %> 
+      
       <div class="row">
-        <div class="col-12">
+        <div class="col">
           <div class="date-today my-2">
             <h2 class="primary-heading fw_700">Recent Post</h2><span class="fw_600 f_size-2 primary-heading p-theme-color mx-1"><%= format(add(new Date(Date.now()), {hours: 8}), 'EEEE, MMMM dd, yyyy')%></span>
           </div>
           <div class="row">
           <%- include("../data/posts") %>
-          <% if (post.length > 9) { %>
-            <div class="see__all-post --nav-item my-3">
-              <a class="fw_600 p-theme-color see__all-post-link" href="">View more Post &rightarrow;</a>
+          </div>
+          <% if (all_post.length > 8) { %>
+            <div class="see__all-post d-flex align-items-center justify-content-end --nav-item">
+              <a class="fw_600 f_size-1 see__all-post-link --nav-link text-decoration-none" href="">View more Post. &rightarrow;</a>
             </div>
           <% } %>
-          </div>
-        </div>
-        <div class="col-12">
-          <!-- <div class="pin__post my-3 border">
-            <h5 class="primary-heading fw_700">Pinned Post 📌</h5>
-          </div> -->
         </div>
       </div>
     </div>
 
+  <% if (slice_pin_post.length > 0) { %>
+    <div class="divider div-second-bg-color my-3"></div>
+    <div class="container">
+      <div class="pin__post-container">
+        <h2 class="primary-heading fw_700">Pinned Post 📌</h2>
+        <div class="row">
+          <%- include("../data/pinned_post") %> 
+        </div>
+      </div>
+    <% if (all_pin_post.length > 6) { %>
+      <div class="see__all-post d-flex align-items-center justify-content-end --nav-item">
+        <a class="fw_600 f_size-1 see__all-post-link --nav-link text-decoration-none" href="">View more Pinned Post. &rightarrow;</a>
+      </div>
+    <% } %>
+    </div>
+  <% } %>
+
   <% if (subject.length > 0) { %>
-    <div class="divider div-second-bg-color my-5"></div>
-    <div class="container my-4">
+    <div class="divider div-second-bg-color my-3"></div>
+    <div class="container my-3">
       <h2 class="primary-heading fw_700">Explore by Subject</h2>
       <%- include("../data/subject") %>
     </div>
   <% } %>
-
-  <div class="divider div-second-bg-color my-5"></div>
+    <div class="divider div-second-bg-color my-3"></div>
     <%- include("../partial/script") %>
   </body>
 

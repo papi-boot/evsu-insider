@@ -1,16 +1,5 @@
 @use "root" as root;
 
-.pin__post {
-  border-radius: 5px;
-  padding: root.$pad-3;
-}
-
-.random__quote {
-  border-left: 5px solid rgba(root.$black, 0.2);
-  margin: 0 auto;
-  width: 100%;
-}
-
 .subject__dropdown-header {
   .subject__dropdown-btn {
     background: transparent;
@@ -20,6 +9,7 @@
 }
 
 .fa-chevron-right {
+  transition: all 300ms ease;
   &.icon-rotate {
     transform: rotate(90deg);
   }
@@ -27,15 +17,16 @@
 
 .subject__dropdown-group {
   border-radius: 5px;
+  box-sizing: border-box;
   cursor: pointer;
+  max-height: 3rem;
+  overflow: hidden;
   padding: root.$pad-3;
+  transition: all 300ms ease;
   > .subject__dropdown {
-    height: 0;
-    overflow: hidden;
-    transition: all 2s linear;
     width: 100%;
   }
-  > .subject__dropdown-open {
-    height: max-content;
+  &.subject__dropdown-open {
+    max-height: 100%;
   }
 }

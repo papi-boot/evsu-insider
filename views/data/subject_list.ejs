@@ -1,46 +1,17 @@
-
-  <div class="subject__dropdown-group border my-3">
-    <div class="subject__dropdown-header d-flex justify-content-between align-items-center">
-      <h6 class="primary-heading p-theme-color fw_700 m-0">1st Semester</h6>
-      <button class="subject__dropdown-btn" type="button"><span class="text-black-50 m-0"><i
-            class="fas fa-chevron-right"></i></span></button>
-    </div>
-    <div class="subject__dropdown">
-      <% if (firstSemester.length > 0) { %>
-        <div class="list-group my-4">
-          <% firstSemester.forEach( item => { %>
-          <a href="/evsu-insider/subjects?subject_id=<%= item.subject_id %>" class="list-group-item list-group-item-action primary-heading p-theme-color fw_700 f_size-2"><%= item.subject_name %> <span class="f_size-2 secondary-heading text-black-50"> - <%= item.subject_description %></span></a>
-          <% }) %>
-      </div>
-      <% } else { %>
-        <div class="alert alert-warning d-flex justify-content-center align-items-center p-2 alert-text fw_600 my-3 z-index-n1" role="alert">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-            class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-            <path
-              d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-          </svg>
-          <div>
-            Service Unavailable. It will take effect until subject has been set
-          </div>
-        </div>
-    <% } %>
-    </div>
+<div class="subject__dropdown-group border my-3">
+  <div class="subject__dropdown-header d-flex justify-content-between align-items-center">
+    <h6 class="primary-heading p-theme-color fw_700 m-0">1st Semester</h6>
+    <button class="subject__dropdown-btn" type="button"><span class="text-black-50 m-0"><i
+          class="fas fa-chevron-right"></i></span></button>
   </div>
-
-  <div class="subject__dropdown-group border my-3">
-    <div class="subject__dropdown-header d-flex justify-content-between align-items-center">
-      <h6 class="primary-heading p-theme-color fw_700 m-0">2nd Semester</h6>
-      <button class="subject__dropdown-btn" type="button"><span class="text-black-50 m-0"><i
-            class="fas fa-chevron-right"></i></span></button>
-    </div>
-    <div class="subject__dropdown">
-      <% if (secondSemester.length > 0) { %>
+  <div class="subject__dropdown">
+    <% if (firstSemester.length > 0) { %>
       <div class="list-group my-4">
-        <% secondSemester.forEach( item => { %>
+        <% firstSemester.forEach( item => { %>
         <a href="/evsu-insider/subjects?subject_id=<%= item.subject_id %>" class="list-group-item list-group-item-action primary-heading p-theme-color fw_700 f_size-2"><%= item.subject_name %> <span class="f_size-2 secondary-heading text-black-50"> - <%= item.subject_description %></span></a>
         <% }) %>
       </div>
-      <% } else { %>
+    <% } else { %>
       <div class="alert alert-warning d-flex justify-content-center align-items-center p-2 alert-text fw_600 my-3 z-index-n1" role="alert">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
           class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
@@ -51,6 +22,34 @@
           Service Unavailable. It will take effect until subject has been set
         </div>
       </div>
-    <% } %>
+  <% } %>
+  </div>
+</div>
+
+<div class="subject__dropdown-group border my-3">
+  <div class="subject__dropdown-header d-flex justify-content-between align-items-center">
+    <h6 class="primary-heading p-theme-color fw_700 m-0">2nd Semester</h6>
+    <button class="subject__dropdown-btn" type="button"><span class="text-black-50 m-0"><i
+          class="fas fa-chevron-right"></i></span></button>
+  </div>
+  <div class="subject__dropdown">
+    <% if (secondSemester.length > 0) { %>
+    <div class="list-group my-4">
+      <% secondSemester.forEach( item => { %>
+      <a href="/evsu-insider/subjects?subject_id=<%= item.subject_id %>" class="list-group-item list-group-item-action primary-heading p-theme-color fw_700 f_size-2"><%= item.subject_name %> <span class="f_size-2 secondary-heading text-black-50"> - <%= item.subject_description %></span></a>
+      <% }) %>
     </div>
-  </div>  
+    <% } else { %>
+    <div class="alert alert-warning d-flex justify-content-center align-items-center p-2 alert-text fw_600 my-3 z-index-n1" role="alert">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+        class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+        <path
+          d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+      </svg>
+      <div>
+        Service Unavailable. It will take effect until subject has been set
+      </div>
+    </div>
+  <% } %>
+  </div>
+</div>  

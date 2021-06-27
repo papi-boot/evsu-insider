@@ -41,9 +41,9 @@ tr {
 /* img {
   width: 100% !important;
   height: auto !important;
-}
+} */
 
-iframe {
+/* iframe {
   width: 250% !important;
 } */
 
@@ -87,7 +87,7 @@ hr {
   padding-right: 1rem
 }
 
-@media (max-width: 992px) and (max-width: 1024px) {
+@media (min-width: 992px) and (max-width: 1024px) {
   img {
     display: block;
     height: auto;

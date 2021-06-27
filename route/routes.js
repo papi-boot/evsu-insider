@@ -43,7 +43,7 @@ routes.get(
 
 // -- GET: create new answer from
 routes.get(
-  "/evsu-insider/share-answer",
+  "/evsu-insider/create-post",
   dashboardController.getCreateAnswerForm
 );
 
@@ -77,7 +77,7 @@ routes.put(
   "/evsu-insider/post-options",
   dashboardController.updateSpecificPost
 );
-
+routes.put("/evsu-insider/post-options/update", dashboardController.updatePinPost);
 /* --ALL DELETE REQUEST */
 
 //-- DELETE: delete specific post

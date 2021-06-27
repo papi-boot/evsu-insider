@@ -4,6 +4,8 @@
   width: max-content;
 }
 .post-clickable {
+  display: block;
+  position: relative;
   z-index: 2999;
   .post__card {
     @include nav-link-style;
@@ -12,7 +14,7 @@
     border-bottom: 5px solid #ddd;
     box-shadow: root.$shadow-2;
     margin-top: root.$mar-2;
-    overflow-x: hidden;
+    overflow: hidden;
     position: relative;
 
     &:hover {
@@ -21,6 +23,13 @@
       border-bottom: 5px solid rgba(root.$primary-color, 0.7);
     }
   }
+}
+
+.pin__indicator {
+  position: absolute;
+  right: 0;
+  top: -.5rem;
+  z-index: 2999;
 }
 
 .post__title-container {
@@ -82,7 +91,7 @@
     border-radius: 5px;
     border: 1px solid root.$bg-hover-primary;
     box-shadow: root.$shadow-1;
-    right: 1rem;
+    right: 1.5rem;
     padding: root.$pad-3;
     position: absolute;
     transition: root.$transition-1;
@@ -94,10 +103,17 @@
   line-height: 1em;
 }
 
-.delete__option-btn {
+@mixin option-btn-style {
   background: none;
   border: none;
   outline: none;
+}
+.delete__option-btn {
+  @include option-btn-style;
+}
+
+.pin__option-btn {
+  @include option-btn-style;
 }
 
 .custom__delete-dialog {

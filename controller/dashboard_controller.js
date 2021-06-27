@@ -13,19 +13,18 @@ const {
 } = require("../query/fetch_data"); //Fetch all data method
 const { send404_PageNotFound } = require("../middleware/page_not_found");
 const { deleteOnePost } = require("../query/delete_data"); //Delete specific data
-const { updateOnePost } = require("../query/update_data");
+const { updateOnePost, updatePostPin } = require("../query/update_data");
 const { formatDistanceToNow, format, add } = require("date-fns");
-
-// -- GET HTTP REQUEST: get login form
-
-// -- GET HTTP REQUEST: get register form
 
 // -- GET HTTP REQUEST : get dashboard/main page
 const getHomeDashboard = async (req, res) => {
   try {
-    const sliceRecentPost = (await fetchAllPost()).slice(0, 9);
+    const sliceRecentPost = (await fetchAllPost()).slice(0, 8); //slice post -- show only 9 post on dashboard
+    const allPost = await fetchAllPost();
     console.log(req.user);
-
+    const filterPinPost = await (
+      await fetchAllPost()
+    ).filter((post) => post.post_pin === true);
     const subject = await fetchAllSubject();
     let resultPostFound = [];
     for (let i = 0; i < subject.length; i++) {
@@ -47,6 +46,9 @@ const getHomeDashboard = async (req, res) => {
           share_answer: "/evsu-insider/share-answer",
         },
         post: sliceRecentPost,
+        all_pin_post: filterPinPost,
+        slice_pin_post: filterPinPost.slice(0, 6),
+        all_post: allPost,
         subject: await fetchAllSubject(),
         results_post_subject: resultPostFound,
         firstSemester: firstSemester,
@@ -68,6 +70,7 @@ const getCreateAnswerForm = async (req, res) => {
       await res.render("dashboard/create_answer", {
         doc_title: "Share Answer⭐",
         req: req,
+        user: req.user,
         auth_link: "",
         subject: await fetchAllSubject(),
       });
@@ -104,9 +107,6 @@ const getSpecificPost = async (req, res) => {
           related_post: sliceRelatedPost,
           firstSemester: firstSemester,
           secondSemester: secondSemester,
-          auth_link: {
-            share_answer: "/evsu-insider/share-answer",
-          },
           formatDistanceToNow,
           format,
           add,
@@ -169,7 +169,10 @@ const getSpecificSubjectAndPost = async (req, res) => {
             title: subject[0].subject_name,
             description: subject[0].subject_description,
           },
-          related_post: filterRelatedPost,
+          related_post: filterRelatedPost.sort(
+            (post_one, post_two) =>
+              post_two.post_created_at - post_one.post_created_at
+          ),
           formatDistanceToNow,
           format,
         });
@@ -191,6 +194,7 @@ const postShareAnswer = submitShareAnswer.submitAnswer;
 const updateSpecificPost = async (req, res) => {
   try {
     const post_id = await req.params.id;
+
     if (req.user) {
       updateOnePost(req)
         .then(() => {
@@ -204,6 +208,25 @@ const updateSpecificPost = async (req, res) => {
     }
   } catch (err) {
     console.error(err);
+  }
+};
+
+// -- PUT/UPDATE REQUEST: update if the post were pin or not
+
+const updatePinPost = async (req, res) => {
+  try {
+    if (req.user) {
+      const isPostPin = await updatePostPin(req);
+      if (isPostPin) {
+        const { pin_post } = req.body;
+        pin_post ? req.flash("success", "Post was successfully Pinned") : req.flash("success", "Post was successfully Unpinned");
+        return res.status(200).json({ url: "/evsu-insider/dashboard" });
+      }
+    } else {
+      checkNotAuthenticated(req, res);
+    }
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -233,5 +256,6 @@ module.exports = {
   getSpecificSubjectAndPost,
   postShareAnswer,
   updateSpecificPost,
+  updatePinPost,
   deleteSpecificPost,
 };
