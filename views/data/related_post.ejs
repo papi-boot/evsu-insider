@@ -1,6 +1,6 @@
 <% if (related_post.length > 0) { %>
   <% related_post.forEach(item=> { %>
-      <a href="/evsu-insider/post?post_id=<%= item.post_id %>&subject_id=<%= item.subject_id %> " class="post-clickable text-decoration-none">
+      <a href="/insider-hub/post?post_id=<%= item.post_id %>&subject_id=<%= item.subject_id %> " class="post-clickable text-decoration-none">
       <% if (item.post_pin) { %>
         <div class="badge bg-primary pin__indicator f_size-4">
           <span>Pinned<i class="bi bi-pin-angle-fill ms-1"></i></span>
@@ -54,7 +54,7 @@
           <button data-post-id="<%= item.post_id %> " type="button" class="pin__post option__link f_size-heading fw_600"><span><i class="bi bi-three-dots"></i></span></button>
           <div class="option-container d-none">
             <ul class="--nav-list list-unstyled m-0">
-              <li class="--nav-item"><a class="--nav-link " href="/evsu-insider/post-options?post_id=<%= item.post_id %> ">Edit Post <span><i class="bi bi-pencil-square ms-1"></i></span></a></li>
+              <li class="--nav-item"><a class="--nav-link " href="/insider-hub/post-options?post_id=<%= item.post_id %> ">Edit Post <span><i class="bi bi-pencil-square ms-1"></i></span></a></li>
           <% if (user.user_state == 2) { %>
             <% if(item.post_pin === false) {%>
                 <li class="--nav-item"><button type="button" class="--nav-link pin__option-btn " data-post-id="<%= item.post_id %>">Pin Post <span><i class="bi bi-pin-angle-fill ms-1"></i></span></button></li>
@@ -69,5 +69,5 @@
     <% } %>
   <% }) %>
 <% } else { %>
-    <h6 class="text-black-50 f_size-2 my-4">No related Post was found, <a href="/evsu-insider/share-answer?subject_id=<%= req.query.subject_id %> ">Click here to share one.</a> </h6>
+    <h6 class="text-black-50 f_size-2 my-4">No related Post was found, <a href="/insider-hub/share-answer?subject_id=<%= req.query.subject_id %> ">Click here to share one.</a> </h6>
 <% } %> 

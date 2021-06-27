@@ -64,7 +64,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const deleteOnePost = async () => {
       try {
-        const URL_DELETE_POST = `/evsu-insider/post-options?post_id=${dataPostId}`;
+        const URL_DELETE_POST = `/insider-hub/post-options?post_id=${dataPostId}`;
         const response = await fetch(URL_DELETE_POST, {
           method: "DELETE",
           cache: "no-cache",
@@ -129,7 +129,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const pinOptionConfig = async (e, dataPostId, setPinPost) => {
     try {
-      const URL_PIN_POST = `/evsu-insider/post-options/update?post_id=${dataPostId}`;
+      const URL_PIN_POST = `/insider-hub/post-options/update?post_id=${dataPostId}`;
       const response = await fetch(URL_PIN_POST, {
         method: "PUT",
         headers: {

@@ -12,7 +12,7 @@ const submitAnswer = async (req, res) => {
       console.log("No data");
     } else if (!post_body) {
       req.flash("error", "You don't have any post content.");
-      return res.redirect("/evsu-insider/share-answer");
+      return res.redirect("/insider-hub/share-answer");
     } else {
       const htmlPurify = domPurify(new JSDOM().window);
       const cleanTitle = htmlPurify.sanitize(post_title);
@@ -85,7 +85,7 @@ const submitAnswer = async (req, res) => {
       );
       if (results) {
         req.flash("success", "Answer successfully shared.");
-        res.redirect("/evsu-insider/dashboard");
+        res.redirect("/insider-hub/dashboard");
       }
       return results[1];
     }

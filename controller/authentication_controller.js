@@ -34,8 +34,8 @@ const postRegisterForm = verifyRegister.initialize;
 
 // -- POST HTTP REQUEST: verifying account to sign in
 const postLoginForm =  passport.authenticate("local",  {
-  successRedirect: "/evsu-insider/dashboard",
-  failureRedirect: "/evsu-insider/sign-in",
+  successRedirect: "/insider-hub/dashboard",
+  failureRedirect: "/insider-hub/sign-in",
   failureFlash: true,
   failureMessage: "Please provide a valid credentials",
 });

@@ -13,7 +13,7 @@ const updateOnePost = async (req, res) => {
       console.log("No data");
     } else if (!post_body) {
       req.flash("error", "You don't have any post content.");
-      return res.redirect(`/evsu-insider/post-options/${post_id}`);
+      return res.redirect(`/insider-hub/post-options/${post_id}`);
     } else {
       const htmlPurify = domPurify(new JSDOM().window);
       const cleanUpdateTitle = htmlPurify.sanitize(post_title);
