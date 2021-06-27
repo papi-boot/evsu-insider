@@ -17,13 +17,13 @@ const registerUser = async (name, email, password, req, res) => {
         "success",
         `Your Account has been successfully registered 🤠.`
       );
-      res.redirect("/evsu-insider/sign-in");
+      res.redirect("/insider-hub/sign-in");
     } else {
       req.flash(
         "error",
         "Something went wrong on verifying the account. Please try again."
       );
-      res.redirect("/evsu-insider/sign-up");
+      res.redirect("/insider-hub/sign-up");
     }
 
     return results;

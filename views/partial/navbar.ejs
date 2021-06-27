@@ -1,7 +1,7 @@
-<navbar class="navbar navbar-expand-lg bg-light z-index-p1 position-sticky top-0">
+<navbar class="navbar navbar-expand-lg bg-light z-index-p1 custom__navbar">
   <div class="--navbar-content container d-lg-flex justify-content-between align-items-center py-1">
     <div class="--navbar-heading">
-      <a class="--navlogo-link" href="/evsu-insider/dashboard">
+      <a class="--navlogo-link" href="/insider-hub/dashboard">
         <img class="--navbar-logo logo" alt="Evsu Insider">
       </a>
     </div>
@@ -11,10 +11,10 @@
     <div class="--nav-list-container flex-grow-0" id="navContainer">
       <ul class="--navbar-list d-lg-flex align-items-center justify-content-between m-0 p-0">
         <li class="--nav-item">
-          <a class="--nav-link" href="/evsu-insider/dashboard">Home</a>
+          <a class="--nav-link" href="/insider-hub/dashboard">Home</a>
         </li>
         <li class="--nav-item">
-          <a class="--nav-link" href="<%= auth_link.share_answer %>">Share Answer⭐</a>
+          <a class="--nav-link" href="/insider-hub/create-post">Create Post</a>
         </li>
         <li class="--nav-item">
           <a class="--nav-link" href="/">About</a>
@@ -24,7 +24,7 @@
             <button class="--nav-link dropdown-toggle --acc-option-btn" type="button" data-bs-toggle="dropdown">
               Account
               <% if (user.user_state == 2){ %>
-                <sup class="badge bg-success">
+                <sup class="badge bg-success f_size-4">
                   Admin
                 </sup>
               <% } %>
@@ -34,7 +34,7 @@
                 <a class="--nav-link dropdown-item" href="/">Profile</a>
               </li>
               <li class="--nav-item mx-1">
-                <a class="--nav-link dropdown-item" href="/evsu-insider/sign-out">Sign Out <span><i
+                <a class="--nav-link dropdown-item" href="/insider-hub/sign-out">Sign Out <span><i
                       class="bi bi-box-arrow-in-right --signout-icon"></i></span> </a>
               </li>
             </ul>

@@ -1,6 +1,8 @@
 @use "root" as root;
 .spec__post-detail {
-  border-left: 1px solid rgba(root.$black, .1);
+  border-left: 1px solid rgba(root.$black, 0.1);
+  overflow-x: auto;
+  word-wrap: break-word;
 }
 .spec__post-tag {
   background: root.$primary-color;
@@ -18,19 +20,35 @@
   width: max-content;
 }
 
-// .related__post {
-//   position: sticky;
-//   top: 5rem;
-// }
+.related__post {
+  border-radius: 5px;
+}
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: root.$secondary-font;
-  font-weight: root.$fw_700;
+.copy__code-snippet {
+  background: root.$white;
+  border: 5px;
+  border-bottom: 5px solid #d1d1d1;
+  border-radius: 5px;
+  outline: none;
+  position: absolute;
+  right: root.$mar-4;
+  top: root.$mar-4;
+
+  &:focus {
+    border-bottom: 0;
+  }
+  &:hover {
+    background: #f1f1f1;
+  }
+}
+
+@mixin speicific-post-max-576px {
+  .copy__code-snippet {
+    bottom: -1rem;
+    position: absolute;
+    right: root.$mar-4;
+    top: unset;
+  }
 }
 
 @mixin specific-post-max-992px {
@@ -46,3 +64,29 @@ h6 {
     width: 100% !important;
   }
 }
+
+// @mixin specific-post-1024-up {
+//     img {
+//     display: block;
+//     height: auto;
+//     margin: 0 auto;
+//     width: 90%;
+//   }
+//   iframe {
+//     display: block;
+//     margin: 0 auto;
+//     width: 100% !important;
+//   }
+// }
+//TINY MCE FORMAT
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: root.$secondary-font;
+  font-weight: root.$fw_700;
+}
+
+

@@ -31,7 +31,7 @@ const initialize = async (req, res) => {
 
     if (validateFormMessage.length > 0) {
       req.flash("error", validateFormMessage);
-      return res.redirect("/evsu-insider/sign-up");
+      return res.redirect("/insider-hub/sign-up");
     } else {
       const results = await sequelize.query(
         "SELECT * FROM users WHERE user_email = $1",
@@ -43,7 +43,7 @@ const initialize = async (req, res) => {
       /* @TODO: Check email if it is exist and return flash message */
       if (results.length > 0) {
         req.flash("error", `Email ${email} is already taken.`);
-        return res.redirect("/evsu-insider/sign-up");
+        return res.redirect("/insider-hub/sign-up");
       } else {
         /* @TODO: Register the user if the email is not exisiting in database */
         const hashPassword = await bcrypt.hash(password, 10); //Hash the password and save it to database

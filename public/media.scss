@@ -1,4 +1,4 @@
-@media screen and(max-width: 320px) {
+@media screen and (max-width: 320px) {
   @include navbar-max-320px;
 }
 
@@ -6,6 +6,7 @@
   @include navbar-max-576px;
   @include answer-form-max-576px;
   @include post-max-576px;
+  @include speicific-post-max-576px;
 }
 
 @media screen and (min-width: 576px) {
@@ -27,6 +28,7 @@
 
 @media screen and (min-width: 1024px) {
   @include navbar-min-1024px;
+  // @include specific-post-1024-up;
 }
 
 @media screen and (min-width: 1200px) {

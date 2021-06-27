@@ -6,7 +6,7 @@ const send404_PageNotFound = async (req, res) => {
       user: req.user,
       doc_title: "Page was not Found | 404 status",
       auth_link: {
-        share_answer: "/evsu-insider/share-answer",
+        share_answer: "/insider-hub/share-answer",
       },
     });
   } catch (err) {

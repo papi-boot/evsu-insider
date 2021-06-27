@@ -5,7 +5,7 @@ const { JSDOM } = require("jsdom");
 
 const updateOnePost = async (req, res) => {
   try {
-    const post_id =  req.params.id;
+    const post_id = req.query.post_id;
     const { post_title, post_tag, post_body } = await req.body;
     // -- cleaning the html input to prevent XSS
     if (!post_title && !post_tag && !post_body) {
@@ -13,7 +13,7 @@ const updateOnePost = async (req, res) => {
       console.log("No data");
     } else if (!post_body) {
       req.flash("error", "You don't have any post content.");
-      return res.redirect(`/evsu-insider/post-options/${post_id}`);
+      return res.redirect(`/insider-hub/post-options/${post_id}`);
     } else {
       const htmlPurify = domPurify(new JSDOM().window);
       const cleanUpdateTitle = htmlPurify.sanitize(post_title);
@@ -77,7 +77,7 @@ const updateOnePost = async (req, res) => {
             cleanUpdateTag,
             cleanUpdateBody,
             new Date(),
-            post_id
+            post_id,
           ],
         }
       );
@@ -89,6 +89,24 @@ const updateOnePost = async (req, res) => {
   }
 };
 
+const updatePostPin = async (req) => {
+  try {
+    const post_id = req.query.post_id;
+    const { pin_post } = req.body;
+    const results = await sequelize.query(
+      "UPDATE posts SET post_pin = $1 WHERE post_id = $2",
+      {
+        type: QueryTypes.UPDATE,
+        bind: [pin_post, post_id],
+      }
+    );
+    return results[1];
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   updateOnePost,
+  updatePostPin,
 };

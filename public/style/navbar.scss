@@ -11,6 +11,13 @@
   transition: root.$transition-1;
 }
 
+.custom__navbar {
+  left: 0;
+  right: 0;
+  position: sticky;
+  top: 0;
+}
+
 .--navbar-heading {
   color: root.$white;
 }

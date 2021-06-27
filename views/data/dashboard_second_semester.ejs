@@ -1,0 +1,30 @@
+<div class="row">
+  <% secondSemester.forEach( (item, index)=> { %>
+    <div class="col-lg-6">
+      <a class="subject-clickable text-decoration-none"
+        href="/insider-hub/subjects?subject_id=<%= item.subject_id %>%>">
+        <div class="subject__folder">
+          <div class="subject__header">
+            <h5 class="subject__title primary-heading m-0">
+              <%= item.subject_name %> 📄
+            </h5>
+          </div>
+          <div class="subject__sub-header">
+            <h6 class="subject__description secondary-heading p-theme-color f_size-2 mb-1">
+              <%= item.subject_description %>
+            </h6>
+            <h6 class="subject__post-found primary-heading text-secondary f_size-2 m-0 fw_600">Post Found:
+              <span class="badge bg-secondary">
+                <%= results_post_subject[index] %>
+              </span>
+            </h6>
+            <h6 class="subject__semester primary-heading text-black-50 f_size-3 m-0">Semester: <%= item.subject_quarter
+                %>
+            </h6>
+          </div>
+        </div>
+      </a>
+    </div>
+    <% }) %>
+</div>
+<div class="scroll-here"></div>

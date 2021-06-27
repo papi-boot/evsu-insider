@@ -1,5 +1,5 @@
 {
-  "name": "evsu-insider",
+  "name": "insider-hub",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -11,10 +11,10 @@
     "session-init:dev": "psql -U jspostgres -d evsu_insider < node_modules/connect-pg-simple/table.sql",
     "session-init:prod": "psql -Atx postgres://ihjrzkzfvukowo:69df01de6a6a63d5258f8305aedce98e28580af0f8dda2fbeb0e8f29881dadfe@ec2-18-214-195-34.compute-1.amazonaws.com:5432/d4i7tsi81q308h < node_modules/connect-pg-simple/table.sql",
     "db:init": "npx sequelize-cli init",
-    "db:migrate:dev": "npx sequelize-cli db:migrate",
-    "db:unmigrate:dev": "npx sequelize-cli db:migrate:undo:all",
-    "db:migrate:prod": "heroku run npx sequelize-cli --env production db:migrate",
-    "db:unmigrate:prod": "heroku run npx sequelize-cli --env production db:migrate:undo:all"
+    "db:migrate:dev": "npx sequelize-cli --env development db:migrate",
+    "db:unmigrate:dev": "npx sequelize-cli --env development db:migrate:undo:all",
+    "db:migrate:prod": "npx sequelize-cli --env production db:migrate",
+    "db:unmigrate:prod": "npx sequelize-cli --env production db:migrate:undo:all"
   },
   "keywords": [],
   "author": "",

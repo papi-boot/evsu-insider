@@ -17,6 +17,8 @@ module.exports = {
           model: "users",
           key: "user_id",
         },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
       },
       comment_from_post: {
         allowNull: false,
@@ -25,6 +27,8 @@ module.exports = {
           model: "posts",
           key: "post_id",
         },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
       },
       comment_body: {
         allowNull: false,

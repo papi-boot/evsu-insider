@@ -17,11 +17,10 @@
             <%- include("../data/specific_post") %> 
           </div>  
           <div class="col-lg-3">
-            <div class="subject--list">
-              <%- include("../data/subject_list") %> 
-            </div>
-            <div class="related__post mt-4 border p-3">
-              <h6 class="fw_700 primary-heading">More on > <span><a class="p-theme-color" href="/evsu-insider/subjects?subject_id=<%= req.query.subject_id %>"><%= post[0].subject_name %></span></a></h6>
+            <h6 class="mt-4">Explore more</h6>
+            <%- include("../data/subject_list") %> 
+            <div class="related__post my-4 border p-3">
+              <h6 class="fw_700 primary-heading">More on > <span><a class="p-theme-color" href="/insider-hub/subjects?subject_id=<%= req.query.subject_id %>"><%= post[0].subject_name %></span></a></h6>
               <%- include("../data/related_post") %>
             </div>
           </div>
