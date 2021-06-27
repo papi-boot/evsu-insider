@@ -93,7 +93,7 @@ const getSpecificPost = async (req, res) => {
     );
     if (req.user) {
       const one_post = await fetchOnePost(req);
-      if (one_post.length > 0) {
+      if (one_post) {
         const filterRelatedPost = (await fetchSelectedSubject(req)).filter(
           (item) => item.post_id !== req.query.post_id
         );

@@ -42,10 +42,7 @@ routes.get(
 );
 
 // -- GET: create new answer from
-routes.get(
-  "/insider-hub/create-post",
-  dashboardController.getCreateAnswerForm
-);
+routes.get("/insider-hub/create-post", dashboardController.getCreateAnswerForm);
 
 //-- GET: sign out request for user;
 routes.get("/insider-hub/sign-out", signOutUser);
@@ -73,11 +70,11 @@ routes.post("/insider-hub/share-answer", dashboardController.postShareAnswer);
 
 /* -- ALL UPDATE REQUEST  */
 // -- UPDATE: update one post
+routes.put("/insider-hub/post-options", dashboardController.updateSpecificPost);
 routes.put(
-  "/insider-hub/post-options",
-  dashboardController.updateSpecificPost
+  "/insider-hub/post-options/update",
+  dashboardController.updatePinPost
 );
-routes.put("/insider-hub/post-options/update", dashboardController.updatePinPost);
 /* --ALL DELETE REQUEST */
 
 //-- DELETE: delete specific post
@@ -87,5 +84,16 @@ routes.delete(
 );
 
 // Middleware
+routes.use(async (req, res) => {
+  try {
+    if (req.user) {
+      res.status(200).redirect("/insider-hub/dashboard");
+    } else {
+      checkNotAuthenticated(req, res);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+});
 
 module.exports = routes;
