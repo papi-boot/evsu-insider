@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const deleteOnePost = async () => {
       try {
         const response = await fetch(
-          `/insider-hub/post-options?post_id=${dataPostId_delete}`,
+          `/post-options?post_id=${dataPostId_delete}`,
           {
             method: "DELETE",
             cache: "no-cache",
@@ -61,7 +61,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const updateOnePost = async () => {
       try {
         const response = await fetch(
-          `/insider-hub/post-options?post_id=${dataPostId_update}`,
+          `/post-options?post_id=${dataPostId_update}`,
           {
             method: "PUT",
             headers: {

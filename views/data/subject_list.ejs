@@ -8,7 +8,7 @@
     <% if (firstSemester.length > 0) { %>
       <div class="list-group my-4">
         <% firstSemester.forEach( item => { %>
-        <a href="/insider-hub/subjects?subject_id=<%= item.subject_id %>" class="list-group-item list-group-item-action primary-heading p-theme-color fw_700 f_size-2"><%= item.subject_name %> <span class="f_size-2 secondary-heading text-black-50"> - <%= item.subject_description %></span></a>
+        <a href="/subjects?subject_id=<%= item.subject_id %>" class="list-group-item list-group-item-action primary-heading p-theme-color fw_700 f_size-2"><%= item.subject_name %> <span class="f_size-2 secondary-heading text-black-50"> - <%= item.subject_description %></span></a>
         <% }) %>
       </div>
     <% } else { %>
@@ -36,7 +36,7 @@
     <% if (secondSemester.length > 0) { %>
     <div class="list-group my-4">
       <% secondSemester.forEach( item => { %>
-      <a href="/insider-hub/subjects?subject_id=<%= item.subject_id %>" class="list-group-item list-group-item-action primary-heading p-theme-color fw_700 f_size-2"><%= item.subject_name %> <span class="f_size-2 secondary-heading text-black-50"> - <%= item.subject_description %></span></a>
+      <a href="/subjects?subject_id=<%= item.subject_id %>" class="list-group-item list-group-item-action primary-heading p-theme-color fw_700 f_size-2"><%= item.subject_name %> <span class="f_size-2 secondary-heading text-black-50"> - <%= item.subject_description %></span></a>
       <% }) %>
     </div>
     <% } else { %>
