@@ -43,7 +43,7 @@ const getHomeDashboard = async (req, res) => {
         doc_title: "Insider Hub | Dashboard",
         user: req.user,
         auth_link: {
-          share_answer: "/insider-hub/share-answer",
+          share_answer: "/create-post",
         },
         post: sliceRecentPost,
         all_pin_post: filterPinPost,
@@ -133,7 +133,7 @@ const getOptionForm = async (req, res) => {
         post: await fetchOnePost(req),
         subject: await fetchAllSubject(),
         auth_link: {
-          share_answer: "/insider-hub/share-answer",
+          share_answer: "/create-post",
         },
         formatDistanceToNow,
         format,
@@ -163,7 +163,7 @@ const getSpecificSubjectAndPost = async (req, res) => {
           req: req,
           doc_title: `${subject[0].subject_name} | ${subject[0].subject_description}`,
           auth_link: {
-            share_answer: "/insider-hub/share-answer",
+            share_answer: "/create-post",
           },
           subject_header: {
             title: subject[0].subject_name,
@@ -200,8 +200,8 @@ const updateSpecificPost = async (req, res) => {
         .then(() => {
           req.flash("success", "Answer was successfully update.");
           return res.json({
-            url: "/insider-hub/dashboard",
-            preview_url: `/insider-hub/post-options/${post_id}`,
+            url: "/dashboard",
+            preview_url: `/post-options/${post_id}`,
           });
         })
         .catch((err) => console.error(err));
@@ -220,7 +220,7 @@ const updatePinPost = async (req, res) => {
       if (isPostPin) {
         const { pin_post } = req.body;
         pin_post ? req.flash("success", "Post was successfully Pinned") : req.flash("success", "Post was successfully Unpinned");
-        return res.status(200).json({ url: "/insider-hub/dashboard" });
+        return res.status(200).json({ url: "/dashboard" });
       }
     } else {
       checkNotAuthenticated(req, res);
@@ -237,7 +237,7 @@ const deleteSpecificPost = async (req, res) => {
       deleteOnePost(req)
         .then(() => {
           req.flash("success", "Answer was successfully deleted.");
-          return res.json({ url: "/insider-hub/dashboard" });
+          return res.json({ url: "/dashboard" });
         })
         .catch((err) => console.error(err));
     } else {

@@ -17,13 +17,13 @@ const registerUser = async (name, email, password, req, res) => {
         "success",
         `Your Account has been successfully registered 🤠.`
       );
-      res.redirect("/insider-hub/sign-in");
+      res.redirect("/sign-in");
     } else {
       req.flash(
         "error",
         "Something went wrong on verifying the account. Please try again."
       );
-      res.redirect("/insider-hub/sign-up");
+      res.redirect("/sign-up");
     }
 
     return results;

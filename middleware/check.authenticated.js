@@ -8,7 +8,7 @@
 const checkAuthenticated = async (req, res, next) => {
   try {
     if (req.isAuthenticated()) {
-      return await res.redirect("/insider-hub/dashboard");
+      return await res.redirect("/dashboard");
     }
     await next();
   } catch (err) {
@@ -22,7 +22,7 @@ const checkNotAuthenticated = async (req, res, next) => {
       return await next();
     }
     req.flash("error", "Please sign in first 🤠.");
-    res.redirect("/insider-hub/sign-in");
+    res.redirect("/sign-in");
   } catch (err) {
     console.error(err);
   }
@@ -31,7 +31,7 @@ const checkNotAuthenticated = async (req, res, next) => {
 const signOutUser = async (req, res, next) => {
   try {
     await req.logout();
-    await res.redirect("/insider-hub/sign-in");
+    await res.redirect("/sign-in");
     await next();
   } catch (err) {
     console.error(err);
