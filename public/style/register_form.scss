@@ -6,7 +6,8 @@
   border-radius: 5px;
   caret-color: root.$primary-color;
   outline: none;
-  padding: 0.3rem 0.5rem;
+  padding: root.$pad-3;
+  width: 100%;
 }
 
 @mixin trans_50ms {
@@ -15,6 +16,7 @@
 
 .h-vh {
   height: 100vh;
+  overflow-y: hidden;
 }
 
 .input__global {
@@ -49,4 +51,22 @@
     color: root.$primary-color;
     cursor: not-allowed;
   }
+}
+
+.remember-me {
+  &:checked {
+    background: root.$primary-color;
+    border: 2px solid root.$white;
+    box-shadow: none;
+    outline: 2px solid root.$primary-color;
+  }
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.btn__rules {
+  background: none;
+  border: none;
+  outline: none;
 }

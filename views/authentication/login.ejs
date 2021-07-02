@@ -6,34 +6,41 @@
   </head>
 
   <body>
-    <div class="loading-container z-index-p1 d-none">
-      <img class="logo mt-4" alt="Evsu Insider">
-      <div class="loading-circle loading-content mt-4"></div>
-      <div class="loading-text fw_700 primary-heading">Signing in ...</div>
-    </div>
+    <%- include("../partial/loading") %> 
     <div class="container">
-      <div class="row">
-        <div class="col">
-          <div class="d-flex justify-content-center align-items-center h-vh">
-            <form class="form__container-login a_bounce-in" action="/sign-in", method="POST">
-              <%- include("../partial/error_alert") %>
-                <%- include("../partial/success_alert") %>
-                  <img class="logo d-block mx-auto my-3" alt="Evsu Insider">
-                  <h4 class="text-center my-4 fw_700 p-theme-color my-4 a_from-left">Your answers matter.😎</h4>
-                  <input type="email" name="email" class="d-block input__global my-3 mx-auto fw_600 user__email" id="userEmail"
-                    placeholder="Email">
-                  <input type="password" name="password" class="d-block input__global my-3 mx-auto fw_600 user__password"
-                    id="userPassword" placeholder="Password">
-                  <input class="d-block btn__global my-3 mx-auto fw_600 btn__sign-in" type="submit" value="Sign in">
-                  <a class="text-dark text-decoration-none d-block text-center mx-auto my-4 fw_600"
-                    href="/sign-up">Dont have an Account? Sign up here.</a>
-            </form>
-          </div>
+      <div class="d-flex justify-content-center align-items-center h-vh p-2">
+        <form class="form__container-login a_bounce-in">
+          <%- include("../partial/error_alert") %>
+            <%- include("../partial/success_alert") %>
+              <img class="logo d-block mx-auto my-3" alt="Evsu Insider">
+              <h2 class="text-center primary-heading my-4 fw_700 p-theme-color a_from-left">Your answers matter.😎</h2>
+              <input type="email" name="email" class="d-block input__global my-3 mx-auto fw_600 user__email"
+                id="userEmail" placeholder="Email" required>
+              <input type="password" name="password" class="d-block input__global my-3 mx-auto fw_600 user__password"
+                id="userPassword" placeholder="Password" required>
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="form-check">
+                  <input class="form-check-input remember-me" type="checkbox" id="rememberMe" value="0">
+                  <label class="form-check-label" for="rememberMe">
+                    Keep me signed in
+                  </label>
+                </div>
+                <input class="d-block btn__global fw_600 btn__sign-in" type="submit" value="Sign in">
+              </div>
+              <a class="text-dark d-block text-center mx-auto my-4 fw_600" href="/sign-up">Dont
+                have an Account? Sign up here.</a>
+              <a class="text-dark d-block text-center mx-auto my-4 fw_600" href="/sign-up">Forgot your password?</a> 
+        </form>
+        <div class="d-flex align-items-center justify-content-center position-absolute bottom-0 gap-3">
+          <button type="button" class="text-dark d-block btn__rules text-center mx-auto my-4 fw_600" data-bs-toggle="modal" data-bs-target="#privacyPolicy">Privacy Policy </button>
+          <%- include("../partial/privacy-policy") %>
+          <button type="button" class="text-dark d-block btn__rules text-center mx-auto my-4 fw_600" data-bs-toggle="modal" data-bs-target="#termsCondition">Terms and Conditions</button>
+          <%- include("../partial/terms-condition") %> 
         </div>
       </div>
     </div>
 
-    <%- include("../partial/footer") %>
+    <!-- <%- include("../partial/footer") %> -->
     <%- include("../partial/script") %>
   </body>
 

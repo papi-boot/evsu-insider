@@ -1,6 +1,9 @@
 "use strict";
+require("dotenv").config({ path: "../.env" }).parsed;
 const express = require("express");
 const routes = express();
+
+const { routeImageUpload } = require("../middleware/image_upload");
 const dashboardController = require("../controller/dashboard_controller");
 const authenticationController = require("../controller/authentication_controller");
 const {
@@ -8,6 +11,7 @@ const {
   signOutUser,
   checkNotAuthenticated,
 } = require("../middleware/check.authenticated.js");
+const signInConfig = require("./sign-in_route");
 
 /* -- ALL GET HTTP REQUEST -- */
 
@@ -54,42 +58,37 @@ routes.get("/post", dashboardController.getSpecificPost);
 routes.get("/post-options", dashboardController.getOptionForm);
 
 //-- GET: get specific subject and its all post/answer
-routes.get(
-  "/subjects",
-  dashboardController.getSpecificSubjectAndPost
-);
+routes.get("/subjects", dashboardController.getSpecificSubjectAndPost);
 
 /* --ALL POST REQUEST */
 // -- POST: verify and register account
 routes.post("/sign-up", authenticationController.postRegisterForm);
 
 // -- POST: sign in user and verify
-routes.post("/sign-in", authenticationController.postLoginForm);
+routes.use(signInConfig);
 
+//-- POST: create post
 routes.post("/create-post", dashboardController.postShareAnswer);
+
+//-- POST: use to upload image for post
+routes.use(routeImageUpload);
 
 /* -- ALL UPDATE REQUEST  */
 // -- UPDATE: update one post
 routes.put("/post-options", dashboardController.updateSpecificPost);
-routes.put(
-  "/post-options/update",
-  dashboardController.updatePinPost
-);
+
+// -- UPDATE: pin post state
+routes.put("/post-options/update", dashboardController.updatePinPost);
 /* --ALL DELETE REQUEST */
 
 //-- DELETE: delete specific post
-routes.delete(
-  "/post-options",
-  dashboardController.deleteSpecificPost
-);
+routes.delete("/post-options", dashboardController.deleteSpecificPost);
 
 // Middleware
 routes.use(async (req, res) => {
   try {
     if (req.user) {
       res.status(200).redirect("/dashboard");
-    }else{
-      res.status(200).redirect("/sign-in");
     }
   } catch (err) {
     console.error(err);

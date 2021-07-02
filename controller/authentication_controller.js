@@ -3,7 +3,6 @@ const verifyRegister = require("../middleware/verify.register");
 const passport = require("passport");
 const passportConfig = require("../middleware/passport.config.js"); //Require the passport config;
 
-
 /* @TODO: initialize the passport */
 passportConfig.initializePassport(passport);
 
@@ -12,6 +11,7 @@ const getLoginForm = async (req, res) => {
   try {
     await res.render("authentication/login", {
       doc_title: "Sign In | EVSU Insider",
+      user: "nosajvans@gmail.com",
     });
   } catch (err) {
     console.error(err);
@@ -33,7 +33,7 @@ const getRegisterForm = async (req, res) => {
 const postRegisterForm = verifyRegister.initialize;
 
 // -- POST HTTP REQUEST: verifying account to sign in
-const postLoginForm =  passport.authenticate("local",  {
+const postLoginForm = passport.authenticate("local", {
   successRedirect: "/dashboard",
   failureRedirect: "/sign-in",
   failureFlash: true,

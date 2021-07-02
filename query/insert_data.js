@@ -64,6 +64,7 @@ const submitAnswer = async (req, res) => {
           "class",
           "width",
           "height",
+          "loading",
         ],
       });
 
