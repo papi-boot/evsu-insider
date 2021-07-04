@@ -24,10 +24,10 @@
           </div>
           <div class="post__sub-header d-flex align-items-center text-dark">
             <h6 class="post__author f_size-3">
-              - <span class="fw_700 p-theme-color"><%= item.user_fullname %></span>,
+            <i class="bi bi-person-fill f_size-1 p-theme-color"></i>&nbsp;<span class="fw_700 p-theme-color"><%= item.user_fullname %></span>,
             </h6>
             <h6 class="post__created f_size-3 mx-1 fw_600">
-              <%= formatDistanceToNow(item.post_created_at, { addSuffix: true }) %>
+              <i class="bi bi-clock f_size-1 p-theme-color"></i> <%= formatDistanceToNow(item.post_created_at, { addSuffix: true }) %>
             </h6>
           </div>
         </div>

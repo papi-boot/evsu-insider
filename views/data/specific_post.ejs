@@ -16,18 +16,18 @@
     </div>
     <div class="spec-sub-heading d-flex align-items-center flex-wrap gap-2 my-2">
       <h6 class="spec__post-author primary-heading p-theme-color m-0 f_size-2 fw_600"> <span
-          class="text-dark">Shared by: </span>
+          class="text-dark">Shared by: </span>&nbsp;<i class="bi bi-person-fill f_size-1 p-theme-color"></i>
         <%= post[0].user_fullname %>
         <% if(post[0].user_state == 2) { %>
           <sup class="badge bg-success f_size-4">Admin</sup>
         <% } %>
-        <span class="text-dark">on <%= format(add(post[0].post_created_at, {hours: 8}), 'EEE, MMMM dd, yyyy @ p' ) %> </span>
+        <span class="text-dark">on&nbsp;<i class="bi bi-clock f_size-1 p-theme-color"></i> <%= format(add(post[0].post_created_at, {hours: 8}), 'EEE, MMMM dd, yyyy - p' ) %> </span>
       </h6>
       <!-- <h6 class="spec__post-created-at primary-heading m-0 f_size-2 fw_600 mx-sm-1"> %>.
       </h6> -->
     </div>
     <% if (format(post[0].post_created_at,'EEEE, MMMM dd, yyyy p')!== format(post[0].post_updated_at, 'EEEE, MMMM dd, yyyy p')) { %>
-      <h6 class="spec__post-updated-at primary-heading m-0 f_size-2 fw_600 text-black-50">Edited: <%= formatDistanceToNow((new Date(), post[0].post_updated_at), { addSuffix: true }) %> on <%= format(add(post[0].post_updated_at, {hours: 8}), 'EEE, MMMM dd, yyyy @ p' ) %>. </h6>
+      <h6 class="spec__post-updated-at primary-heading m-0 f_size-2 fw_600 text-black-50">Edited: <%= formatDistanceToNow((new Date(), post[0].post_updated_at), { addSuffix: true }) %> on&nbsp;<i class="bi bi-clock f_size-1"></i> <%= format(add(post[0].post_updated_at, {hours: 8}), 'EEE, MMMM dd, yyyy @ p' ) %>. </h6>
     <% } %>
     <hr>
     <div class="spec__post-body my-3 py-3">

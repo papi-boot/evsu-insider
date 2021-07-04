@@ -4,6 +4,8 @@
   <head>
     <%- include("../partial/head") %>
     <link rel="stylesheet" href="/dist/prism.css">
+    <script src="/tinymce/tinymce.min.js"></script>
+    <script src="/dist/comment_form.compiled.js"></script>
   </head>
 
   <body>
@@ -14,7 +16,11 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-9">
-            <%- include("../data/specific_post") %> 
+            <%- include("../data/specific_post") %>
+            <div class="comment__section my-5">
+              <h4 class="primary-heading my-2">Leave a comment.</h4>
+              <%- include("../data/comment") %> 
+            </div>
           </div>  
           <div class="col-lg-3">
             <h6 class="mt-4">Explore more</h6>

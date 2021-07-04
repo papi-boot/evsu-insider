@@ -172,3 +172,9 @@ span {
   border-radius: 5px;
   padding: 0 1px;
 }
+blockquote {
+  border-left: 5px solid rgb(200, 200, 200);
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  padding-left: .5rem;
+}
