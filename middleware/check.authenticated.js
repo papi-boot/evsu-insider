@@ -1,4 +1,5 @@
 "use strict";
+const { Session } = require("express-session");
 // const exp = require('express');
 // const middleware = exp();
 // middleware.get("res", (req, res) => {
@@ -30,6 +31,8 @@ const checkNotAuthenticated = async (req, res, next) => {
 
 const signOutUser = async (req, res, next) => {
   try {
+    // Session.prototype.destroy();
+    req.session.destroy();
     await req.logout();
     await res.redirect("/sign-in");
     await next();

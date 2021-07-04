@@ -23,13 +23,11 @@ app.use(
   session({
     store: new SequelizeStore({
       db: sequelize,
+      checkExpirationInterval: 2000
     }),
     secret: process.env.SESSION_KEY,
-    resave: false,
+    resave: true,
     saveUninitialized: false,
-    cookie: {
-      maxAge: 1140 * 60000,
-    },
   })
 ); //set cookies to save on local storage on the browser
 sequelize.sync();
