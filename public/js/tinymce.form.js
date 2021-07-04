@@ -1,6 +1,5 @@
 import tinymce from "tinymce";
 const { imageUploadHandler } = require("./tinymce_work/image_fallback");
-const { imageFilePicker } = require("./tinymce_work/image_viewer");
 
 window.addEventListener("load", async () => {
   const loadingDialog = document.querySelector(".loading-container");

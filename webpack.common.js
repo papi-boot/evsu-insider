@@ -8,6 +8,7 @@ module.exports = {
     main: "./public/index.js",
     form: "./public/js/tinymce.form.js",
     prism: "./public/prism.asset.js",
+    comment_form: "./public/js/tinymce_comment.js"
   },
   performance: {
     hints: false,

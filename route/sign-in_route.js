@@ -13,7 +13,6 @@ routes.post(
     failureMessage: "Please provide a valid credentials",
   }),
   async (req, res) => {
-    console.log(req.body);
     const { remember_me } = req.body;
     if (remember_me === true) {
       req.session.cookie.maxAge = 360 * 24 * 60 * 60 * 1000;

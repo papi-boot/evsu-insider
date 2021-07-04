@@ -16,8 +16,8 @@ window.addEventListener("DOMContentLoaded", () => {
   const unPinPost = document.querySelectorAll(".unpin__option-btn");
 
   // Option Card open
+  let optionIsOpen = false; // for toggle options
   for (let i = 0; i < toggleOptionBtn.length; i++) {
-    let optionIsOpen = false;
     toggleOptionBtn[i].addEventListener("click", (e) => {
       if (!optionIsOpen) {
         optionContainer[i].classList.remove("d-none");
@@ -29,6 +29,7 @@ window.addEventListener("DOMContentLoaded", () => {
       toggleOptions(e, toggleOptionBtn[i].dataset.postId);
     });
   }
+
   const toggleOptions = (e) => {
     Array.from(toggleOptionBtn).indexOf(e.target) + 1;
   };
@@ -118,7 +119,7 @@ window.addEventListener("DOMContentLoaded", () => {
   };
 
   //Unpin post
-  const initializeUnPinPost = (e, dataPostId) => { 
+  const initializeUnPinPost = (e, dataPostId) => {
     Array.from(unPinPost).indexOf(e.target);
 
     const setIsPinPost = false;
