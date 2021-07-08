@@ -1,6 +1,5 @@
 "use strict";
 require("dotenv").config().parsed; //parse the environment key value pairs
-const functions = require('firebase-functions');
 const express = require("express"); // starts express application
 const session = require("express-session"); // starts session for stroing data on local storage
 const cors = require("cors"); // enable cross origin resource sharing
@@ -18,7 +17,9 @@ app.use(express.json()); // initialize this to enable parsing the json file requ
 app.use(express.static("public")); // initialize this to enable using static files such as css, assets, js module/files
 app.set("view engine", "ejs"); //initialize this to set template engine -- we use ejs to serve embedded html js file
 app.use(express.urlencoded({ extended: false })); // parsing urlencoded bodies
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5000"
+}));
 app.use(morgan("dev")); // initialize for debugging http request method
 app.use(
   session({
@@ -48,4 +49,4 @@ app.listen(PORT, () => {
   }
 });
 
-exports.app = functions.https.onRequest(app);
+module.exports = app
