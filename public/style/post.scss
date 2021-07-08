@@ -6,7 +6,6 @@
 .post-clickable {
   display: block;
   position: relative;
-  z-index: 2999;
   .post__card {
     @include nav-link-style;
     background: rgba(245, 245, 245, 0.9);
@@ -29,7 +28,7 @@
   position: absolute;
   right: 0;
   top: -.5rem;
-  z-index: 2999;
+  z-index: 997;
 }
 
 .post__title-container {
@@ -96,7 +95,7 @@
     position: absolute;
     transition: root.$transition-1;
     top: -7.9rem;
-    z-index: 3004;
+    z-index: 998;
   }
 }
 .bi-three-dots {
@@ -128,7 +127,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 3006;
+  z-index: 1000;
   > .dialog-delete {
     background: root.$white;
     border-radius: 5px;
@@ -142,6 +141,7 @@
     > .option-container {
       right: 2rem;
       top: -9rem;
+      z-index: 999;
     }
   }
 }

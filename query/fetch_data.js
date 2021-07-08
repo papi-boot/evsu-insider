@@ -28,7 +28,11 @@ const fetchOnePost = async (req) => {
         bind: [post_id],
       }
     );
-    return results;
+    if (results) {
+      return results;
+    } else {
+      return 0;
+    }
   } catch (err) {
     console.error(err);
   }
@@ -64,6 +68,7 @@ const fetchSelectedSubject = async (req) => {
   }
 };
 
+//FETCH THE NUMBER OF RESULT POST FOUND FOR EACH SUBJECT
 const fetchSubjectPostResult = async (subject_id) => {
   try {
     const results = await sequelize.query(
@@ -80,10 +85,27 @@ const fetchSubjectPostResult = async (subject_id) => {
   }
 };
 
+//FETCH ALL THE COMMENT ON SPECIFIC POST
+const fetchCommentForOnePost = async (req) => {
+  try {
+    const results = await sequelize.query(
+      "SELECT *, user_fullname, user_state FROM comments INNER JOIN users ON comments.comment_from_user = users.user_id WHERE comment_from_post::text = $1 ORDER BY comment_created_at",
+      {
+        type: QueryTypes.SELECT,
+        bind: [req.query.post_id],
+      }
+    );
+    return results;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   fetchAllPost,
   fetchOnePost,
   fetchAllSubject,
   fetchSelectedSubject,
-  fetchSubjectPostResult
+  fetchSubjectPostResult,
+  fetchCommentForOnePost,
 };

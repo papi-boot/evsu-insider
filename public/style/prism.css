@@ -11,7 +11,7 @@ code[class*="language-"], pre[class*="language-"] {
   color: #f8f8f2;
   background: none;
   text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-  font-family: "Segoe UI" sans-serif, 'Ubuntu Mono', monospace;
+  font-family: monospace, "Segoe UI" sans-serif, 'Ubuntu Mono';
   font-size: 0.8rem;
   font-weight: 600;
   text-align: left;
@@ -32,14 +32,15 @@ code[class*="language-"], pre[class*="language-"] {
 /* Code blocks */
 
 pre[class*="language-"] {
+  border-left: 7px solid rgb(0, 100, 0);
+  border-radius: 5px;
   padding: 1em;
   margin: .5em 0;
-  overflow: auto;
-  border-radius: 0.3em;
+  overflow-x: auto;
 }
 
 :not(pre)>code[class*="language-"], pre[class*="language-"] {
-  background: #272822;
+  background: #20201d;
 }
 
 /* Inline code */
@@ -172,6 +173,7 @@ span {
   border-radius: 5px;
   padding: 0 1px;
 }
+
 blockquote {
   border-left: 5px solid rgb(200, 200, 200);
   border-top-left-radius: 2px;

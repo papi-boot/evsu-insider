@@ -1,6 +1,5 @@
 @use "root" as root;
 .spec__post-detail {
-  border-left: 1px solid rgba(root.$black, 0.1);
   overflow-x: auto;
   word-wrap: break-word;
 }
@@ -18,6 +17,11 @@
   color: root.$primary-color;
   padding: 1px root.$pad-2;
   width: max-content;
+}
+
+.aside__quick-links{
+  position: sticky;
+  top: 5rem;
 }
 
 .related__post {

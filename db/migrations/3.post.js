@@ -47,6 +47,11 @@ module.exports = {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+      post_pin_time: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: new Date(),
+      },
       post_created_at: {
         allowNull: false,
         type: DataTypes.DATE,

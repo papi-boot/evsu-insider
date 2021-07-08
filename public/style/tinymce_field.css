@@ -12,6 +12,14 @@ body {
   width: 70%;
 }
 
+pre[class*="language-"] {
+  border-left: 7px solid rgb(0, 100, 0);
+  border-radius: 5px;
+  padding: 1em;
+  margin: .5em 0;
+  overflow: auto;
+}
+
 @media only screen and (max-width: 320px) {
   body {
     padding: .5rem !important;

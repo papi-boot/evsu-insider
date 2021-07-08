@@ -15,6 +15,10 @@ const updateOnePost = async (req, res) => {
       req.flash("error", "You don't have any post content.");
       return res.redirect(`/post-options/${post_id}`);
     } else {
+      let allowScriptTag = "NO";
+      if (req.user.user_state == "2") {
+        allowScriptTag = "script";
+      }
       const htmlPurify = domPurify(new JSDOM().window);
       const cleanUpdateTitle = htmlPurify.sanitize(post_title);
       const cleanUpdateTag = htmlPurify.sanitize(post_tag);
@@ -49,6 +53,7 @@ const updateOnePost = async (req, res) => {
           "tr",
           "td",
           "br",
+          allowScriptTag,
         ],
         ALLOWED_ATTR: [
           "src",

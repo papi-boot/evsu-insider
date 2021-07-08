@@ -11,10 +11,14 @@ window.addEventListener("load", async () => {
       content_style:
         'body { font-family: "Segoe UI",sans-serif, Consolas, sans-serif; font-size: 1rem, overflow-x: hidden; } pre { font-family: "Palanquin",sans-serif; font-size: 0.7rem } code[class*="language-"], pre[class*="language-"]{ } ',
       plugins:
-        "autosave anchor code emoticons charmap wordcount codesample lists advlist table hr pagebreak nonbreaking print image media imagetools autolink link preview fullscreen visualblocks spellchecker visualchars autolink paste help searchreplace",
+        "quickbars blockquote anchor code emoticons charmap wordcount codesample lists advlist table hr pagebreak nonbreaking print image media imagetools autolink link preview fullscreen visualblocks spellchecker visualchars autolink help searchreplace",
       height: "70vh",
       toolbar:
-        "undo redo | styleselect | bold italic forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify bullist numlist table outdent indent | image media codesample emoticons charmap link | anchor hr pagebreak nonbreaking paste | print help addTab",
+        "fullscreen | styleselect bold italic blockquote forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify bullist numlist table outdent indent image media codesample emoticons charmap link anchor hr pagebreak nonbreaking help addTab",
+      toolbar_mode: "sliding",
+      quickbars_selection_toolbar:
+        "bold italic forecolor backcolor formatselect quicklink blockquote",
+      quickbars_insert_toolbar: false,
       help_tabs: ["shortcuts", "keyboardnav"],
       image_advtab: true,
       image_caption: true,
@@ -60,24 +64,12 @@ window.addEventListener("load", async () => {
         theme: "silver",
         menubar: true,
         plugins:
-          "emoticons charmap wordcount codesample image lists advlist table hr autolink link fullscreen autolink",
+          "quickbars blockquote fullscreen emoticons charmap wordcount codesample image lists advlist table hr autolink link fullscreen autolink",
         toolbar:
-          "insertfile undo redo | styleselect | bold italic forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify bullist numlist table indent | codesample image emoticons charmap link hr",
-        // plugins: ["autosave", "lists", "autolink", "forecolor", "fontsizeselect"],
-        // toolbar: [
-        //   "undo",
-        //   "redo",
-        //   "bold",
-        //   "underline",
-        //   "italic",
-        //   "styleselect",
-        //   "forecolor",
-        //   "fontsizeselect",
-        //   "bullist",
-        //   "numlist",
-        //   "link",
-        //   "unlink"
-        // ],
+          "undo redo fullscreen styleselect  bold italic blockquote forecolor backcolor fontsizeselect alignleft aligncenter alignright alignjustify bullist numlist table indent codesample image emoticons charmap link hr",
+        quickbars_selection_toolbar:
+          "bold italic forecolor backcolor formatselect quicklink blockquote",
+        quickbars_insert_toolbar: false,
         toolbar_sticky: true,
         resize: true,
         object_resizing: true,

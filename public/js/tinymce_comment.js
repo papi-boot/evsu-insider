@@ -1,7 +1,8 @@
 import tinymce from "tinymce";
 const { imageUploadHandler } = require("./tinymce_work/image_fallback");
 window.addEventListener("load", async () => {
-  const loadingDialog = document.querySelector(".loading-container");
+  const loadingCommentForm = document.querySelector(".loading__comment-form");
+
   tinymce
     .init({
       selector: "#commentField",
@@ -12,7 +13,8 @@ window.addEventListener("load", async () => {
         "quickbars fullscreen blockquote anchor code emoticons charmap codesample lists advlist table pagebreak nonbreaking image autolink link  spellchecker autolink",
       height: "300px",
       toolbar:
-        "undo redo fullscreen | styleselect bold italic blockquote forecolor backcolor | alignleft aligncenter bullist numlist table | image codesample emoticons charmap link",
+        "fullscreen  styleselect bold italic blockquote forecolor backcolor  alignleft aligncenter bullist numlist table  image codesample emoticons charmap link",
+      toolbar_mode: "sliding",
       quickbars_selection_toolbar:
         "bold italic forecolor backcolor | formatselect | quicklink blockquote",
       quickbars_insert_toolbar: false,
@@ -52,6 +54,14 @@ window.addEventListener("load", async () => {
               });
             }
           });
+          editor.on("input", function () {
+            const btnComment = document.querySelector(".btn__comment");
+            if (editor.getContent().length > 0) {
+              btnComment.removeAttribute("disabled");
+            } else {
+              btnComment.setAttribute("disabled", "true");
+            }
+          });
         });
       },
       //for Mobile
@@ -61,7 +71,7 @@ window.addEventListener("load", async () => {
         plugins:
           "quickbars fullscreen blockqoute emoticons charmap wordcount codesample image lists advlist table hr autolink link fullscreen autolink",
         toolbar:
-          "undo redo fullscreen | styleselect bold italic blockquote forecolor backcolor | alignleft aligncenter bullist numlist table | image codesample emoticons charmap link",
+          "undo redo fullscreen styleselect bold italic blockquote forecolor backcolor alignleft aligncenter bullist numlist table image codesample emoticons charmap link",
         toolbar_sticky: true,
         quickbars_selection_toolbar:
           "bold italic forecolor backcolor | formatselect | quicklink blockquote",
@@ -73,9 +83,7 @@ window.addEventListener("load", async () => {
       },
     })
     .then(() => {
-      loadingDialog.classList.add("close-loading");
-      const toxTinyMCE = document.querySelector(".tox-tinymce");
-      toxTinyMCE.style.setProperty("z-index", "3001 !important");
+      loadingCommentForm.classList.add("close-loading");
     })
     .catch((err) => console.error(err));
   tinymce.activeEditor.setProgressState(true, 3000);

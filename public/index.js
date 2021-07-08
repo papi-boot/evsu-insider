@@ -9,6 +9,7 @@ require("./js/navburger.anim");
 require("./js/subject_dropdown");
 require("./js/options_post");
 require("./js/copy-code");
+require("./js/comment");
 // require("./js/tinymce.form");
 
 /* STYLE */
