@@ -1,5 +1,6 @@
 "use strict";
 require("dotenv").config().parsed; //parse the environment key value pairs
+const functions = require('firebase-functions');
 const express = require("express"); // starts express application
 const session = require("express-session"); // starts session for stroing data on local storage
 const cors = require("cors"); // enable cross origin resource sharing
@@ -46,3 +47,5 @@ app.listen(PORT, () => {
     console.error(err);
   }
 });
+
+exports.app = functions.https.onRequest(app);
