@@ -31,7 +31,7 @@ jobs:
       run: |
         npm uninstall bcrypt
         npm install --save @mapbox/node-pre-gyp
-        npm install bcrpt
+        npm install bcrypt
 
   deploy:
     runs-on: windows-latest
