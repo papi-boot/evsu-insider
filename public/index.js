@@ -1,5 +1,5 @@
 /* JAVASCRIPT */
-window.addEventListener("beforeunload", () => {});
+require("./js/firebase-init/firebase");
 require("./js/image-load");
 require("./js/login");
 require("./js/register");
