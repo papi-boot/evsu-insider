@@ -3,13 +3,14 @@ const {
   checkNotAuthenticated,
   checkAuthenticated,
 } = require("../middleware/check.authenticated"); // middleware for cehcking authorization
-const submitShareAnswer = require("../query/insert_data");
+const { submitAnswer, postComment } = require("../query/insert_data");
 const {
   fetchAllPost,
   fetchOnePost,
   fetchAllSubject,
   fetchSelectedSubject,
   fetchSubjectPostResult,
+  fetchCommentForOnePost,
 } = require("../query/fetch_data"); //Fetch all data method
 const { send404_PageNotFound } = require("../middleware/page_not_found");
 const { deleteOnePost } = require("../query/delete_data"); //Delete specific data
@@ -93,7 +94,7 @@ const getSpecificPost = async (req, res) => {
     );
     if (req.user) {
       const one_post = await fetchOnePost(req);
-      if (one_post) {
+      if (one_post && one_post.length > 0) {
         const filterRelatedPost = (await fetchSelectedSubject(req)).filter(
           (item) => item.post_id !== req.query.post_id
         );
@@ -104,6 +105,7 @@ const getSpecificPost = async (req, res) => {
           req: req,
           post: await fetchOnePost(req),
           subject: await fetchAllSubject(),
+          comments: await fetchCommentForOnePost(req),
           related_post: sliceRelatedPost,
           firstSemester: firstSemester,
           secondSemester: secondSemester,
@@ -188,7 +190,10 @@ const getSpecificSubjectAndPost = async (req, res) => {
 };
 
 // -- POST HTTP REQUEST: submit my share answer
-const postShareAnswer = submitShareAnswer.submitAnswer;
+const postShareAnswer = submitAnswer;
+
+// -- POST HTTP REQUEST: add comment to specific post;
+const postAddComment = postComment;
 
 // -- PUT/UPDATE REQUEST: update specific post
 const updateSpecificPost = async (req, res) => {
@@ -219,7 +224,9 @@ const updatePinPost = async (req, res) => {
       const isPostPin = await updatePostPin(req);
       if (isPostPin) {
         const { pin_post } = req.body;
-        pin_post ? req.flash("success", "Post was successfully Pinned") : req.flash("success", "Post was successfully Unpinned");
+        pin_post
+          ? req.flash("success", "Post was successfully Pinned")
+          : req.flash("success", "Post was successfully Unpinned");
         return res.status(200).json({ url: "/dashboard" });
       }
     } else {
@@ -255,6 +262,7 @@ module.exports = {
   getOptionForm,
   getSpecificSubjectAndPost,
   postShareAnswer,
+  postAddComment,
   updateSpecificPost,
   updatePinPost,
   deleteSpecificPost,

@@ -23,7 +23,7 @@ app.use(
   session({
     store: new SequelizeStore({
       db: sequelize,
-      checkExpirationInterval: 2000
+      checkExpirationInterval: 2000,
     }),
     secret: process.env.SESSION_KEY,
     resave: true,

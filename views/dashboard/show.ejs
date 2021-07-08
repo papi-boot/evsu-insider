@@ -12,29 +12,32 @@
     <div class="divider div-primary-bg-color"></div>
     <%- include("../partial/navbar") %>
       <div class="divider div-second-bg-color"></div>
-
       <div class="container">
         <div class="row">
           <div class="col-lg-9">
             <%- include("../data/specific_post") %>
-            <div class="comment__section my-5">
+            <div class="comment__section position-relative my-4 px-3">
               <h4 class="primary-heading my-2">Leave a comment.</h4>
               <%- include("../data/comment") %> 
             </div>
           </div>  
           <div class="col-lg-3">
             <h6 class="mt-4">Explore more</h6>
-            <%- include("../data/subject_list") %> 
-            <div class="related__post my-4 border p-3">
-              <h6 class="fw_700 primary-heading">More on > <span><a class="p-theme-color" href="/subjects?subject_id=<%= req.query.subject_id %>"><%= post[0].subject_name %></span></a></h6>
-              <%- include("../data/related_post") %>
+            <div class="aside__quick-links">
+              <div class="subject_list">
+                <%- include("../data/subject_list") %>
+              </div>
+              <div class="related__post my-4 border p-3">
+                <h6 class="fw_700 primary-heading">More on > <span><a class="p-theme-color" href="/subjects?subject_id=<%= req.query.subject_id %>"><%= post[0].subject_name %></span></a></h6>
+                <%- include("../data/related_post") %>
+              </div>
             </div>
           </div>
         </div>
         
       </div>
+      <%- include("../partial/script") %>
       <script src="/dist/prism.compiled.js" async></script>
-      <%- include("../partial/script") %> 
   </body>
 
 </html>

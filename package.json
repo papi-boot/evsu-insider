@@ -20,8 +20,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@azure/service-bus": "^7.2.0",
     "@babel/runtime": "^7.14.0",
     "@popperjs/core": "^2.9.2",
+    "azure-sb": "^0.11.2",
     "azure-storage": "^2.10.4",
     "bcrypt": "^5.0.1",
     "clean": "^4.0.2",
@@ -43,7 +45,8 @@
     "passport-local": "^1.0.0",
     "pg": "^8.6.0",
     "sequelize": "^6.6.2",
-    "tinymce": "^5.8.1"
+    "tinymce": "^5.8.1",
+    "uninstall": "0.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",

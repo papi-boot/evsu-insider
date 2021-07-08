@@ -45,7 +45,7 @@ $transition-1: all 100ms linear;
 $transition-2: all 0.3s ease-in;
 
 html {
-  overflow-x: hidden !important;
+  overflow-x: hidden;
 }
 body {
   box-sizing: border-box;
@@ -60,7 +60,7 @@ body {
   z-index: -1;
 }
 .z-index-p1 {
-  z-index: 3000;
+  z-index: 1000;
 }
 
 .divider {

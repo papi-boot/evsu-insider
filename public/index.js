@@ -1,5 +1,5 @@
 /* JAVASCRIPT */
-window.addEventListener("beforeunload", () => {});
+require("./js/firebase-init/firebase");
 require("./js/image-load");
 require("./js/login");
 require("./js/register");
@@ -9,6 +9,7 @@ require("./js/navburger.anim");
 require("./js/subject_dropdown");
 require("./js/options_post");
 require("./js/copy-code");
+require("./js/comment");
 // require("./js/tinymce.form");
 
 /* STYLE */

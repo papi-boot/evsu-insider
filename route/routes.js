@@ -73,6 +73,9 @@ routes.post("/create-post", dashboardController.postShareAnswer);
 //-- POST: use to upload image for post
 routes.use(routeImageUpload);
 
+//-- POST: add/post a comment for specific post
+routes.post("/post", dashboardController.postAddComment);
+
 /* -- ALL UPDATE REQUEST  */
 // -- UPDATE: update one post
 routes.put("/post-options", dashboardController.updateSpecificPost);

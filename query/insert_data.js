@@ -95,6 +95,85 @@ const submitAnswer = async (req, res) => {
   }
 };
 
+const postComment = async (req, res) => {
+  try {
+    const { comment_body, post_id, subject_id } = await req.body;
+    //clean comment
+    const htmlPurify = domPurify(new JSDOM().window);
+    const cleanComment = htmlPurify.sanitize(comment_body, {
+      ALLOWED_TAGS: [
+        "iframe",
+        "img",
+        "p",
+        "strong",
+        "em",
+        "blockquote",
+        "underline",
+        "span",
+        "del",
+        "sup",
+        "sub",
+        "code",
+        "pre",
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "ol",
+        "ul",
+        "li",
+        "a",
+        "video",
+        "table",
+        "tbody",
+        "tr",
+        "td",
+        "br",
+      ],
+      ALLOWED_ATTR: [
+        "src",
+        "title",
+        "frameborder",
+        "allow",
+        "allowfullscreen",
+        "style",
+        "alt",
+        "href",
+        "id",
+        "target",
+        "class",
+        "width",
+        "height",
+        "loading",
+      ],
+    });
+    const results = await sequelize.query(
+      "INSERT INTO comments(comment_from_user, comment_from_post, comment_body, comment_created_at, comment_updated_at) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      {
+        type: QueryTypes.INSERT,
+        bind: [
+          req.user.user_id,
+          post_id.trim(),
+          cleanComment,
+          new Date(),
+          new Date(),
+        ],
+      }
+    );
+    console.log(results);
+
+    if (results) {
+      let redirect_url = `/post?post_id=${post_id}&subject_id=${subject_id}`;
+      return res.json({ url: redirect_url, success_message: "Comment Added", new_comment: `${results[0][0].comment_id}` });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   submitAnswer,
+  postComment,
 };

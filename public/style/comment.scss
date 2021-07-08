@@ -1,0 +1,22 @@
+@use "root" as root;
+
+.comment__body {
+  background: rgb(245, 245, 245);
+  border-radius: 5px;
+  margin: 2rem 0;
+  padding: 1rem;
+  width: 100%;
+}
+
+.no__comment-found {
+  border-radius: 5px;
+}
+
+.new__comment {
+  background: rgb(254, 255, 180);
+  transition: all linear 4s;
+
+  &.fade__new-comment {
+    background: rgb(245, 245, 245);
+  }
+}
