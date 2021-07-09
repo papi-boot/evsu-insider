@@ -100,7 +100,7 @@ const getSpecificPost = async (req, res) => {
         );
         const sliceRelatedPost = filterRelatedPost.slice(0, 3);
         res.render("dashboard/show", {
-          doc_title: `${one_post[0].post_title} | ${one_post[0].post_tag} | ${one_post[0].subject_name}`,
+          doc_title: `${one_post[0].post_title} | ${one_post[0].post_tag} - ${one_post[0].subject_name}`,
           user: req.user,
           req: req,
           post: await fetchOnePost(req),
