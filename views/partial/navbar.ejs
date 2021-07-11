@@ -2,7 +2,7 @@
   <div class="--navbar-content container d-lg-flex justify-content-between align-items-center py-1">
     <div class="--navbar-heading">
       <a class="--navlogo-link" href="/dashboard">
-        <img class="--navbar-logo logo" alt="Evsu Insider">
+        <%- include("../partial/logo_svg") %> 
       </a>
     </div>
     <button class="navbar-toggler burger-toggler p-0" data-bs-target="#navContainer">
@@ -17,12 +17,15 @@
           <a class="--nav-link" href="/create-post">Create Post</a>
         </li>
         <li class="--nav-item">
-          <a class="--nav-link" href="/">About</a>
+          <a class="--nav-link" href="/">Explore</a>
         </li>
         <li class="--nav-item">
           <div class="btn-group">
-            <button class="--nav-link dropdown-toggle --acc-option-btn" type="button" data-bs-toggle="dropdown">
-              Account
+            <button class="--nav-link dropdown-toggle --acc-option-btn gap-1" type="button" data-bs-toggle="dropdown">
+              <div class="user__profile-picture-container">
+                <img class="user__profile-image" src="https://www.gannett-cdn.com/presto/2020/09/25/USAT/f4d10bd0-7f11-413f-9d69-c67d8e7d7f03-Arif_Zahir.jpg" alt="profile-image">
+              </div>
+              Account 
               <% if (user.user_state == 2){ %>
                 <sup class="badge bg-success f_size-4">
                   Admin
@@ -31,7 +34,7 @@
             </button>
             <ul class="dropdown-menu --acc-option p-1">
               <li class="--nav-item mx-1">
-                <a class="--nav-link dropdown-item" href="/">Profile</a>
+                <a class="--nav-link dropdown-item" href="/profile">Profile</a>
               </li>
               <li class="--nav-item mx-1">
                 <a class="--nav-link dropdown-item" href="/sign-out">Sign Out <span><i

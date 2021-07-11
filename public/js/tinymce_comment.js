@@ -6,14 +6,14 @@ window.addEventListener("load", async () => {
   tinymce
     .init({
       selector: "#commentField",
-      content_css: "../style/prism.css",
+      content_css: "../style/prism.css, ../style/tiny_comment_field.css",
       placeholder: "Leave a comment here...",
       menubar: false,
       plugins:
-        "quickbars fullscreen blockquote anchor code emoticons charmap codesample lists advlist table pagebreak nonbreaking image autolink link  spellchecker autolink",
-      height: "300px",
+        "quickbars autoresize fullscreen blockquote anchor code emoticons charmap codesample lists advlist table pagebreak nonbreaking image autolink link  spellchecker autolink",
       toolbar:
         "fullscreen  styleselect bold italic blockquote forecolor backcolor  alignleft aligncenter bullist numlist table  image codesample emoticons charmap link",
+      min_height: 300,
       toolbar_mode: "sliding",
       quickbars_selection_toolbar:
         "bold italic forecolor backcolor | formatselect | quicklink blockquote",
@@ -26,12 +26,13 @@ window.addEventListener("load", async () => {
       image_title: true,
       file_picker_types: "image",
       images_upload_url: "/upload-image",
+      resize_img_proportional: true,
       // file_picker_callback: imageFilePicker,
       images_upload_handler: imageUploadHandler,
-      automatic_uploads: true,
+      automatic_uploads: false,
       toolbar_sticky: true,
       branding: false,
-      resize: true,
+      resize: false,
       object_resizing: true,
       setup: (editor) => {
         editor.on("init", function (args) {
@@ -69,7 +70,7 @@ window.addEventListener("load", async () => {
         theme: "silver",
         menubar: false,
         plugins:
-          "quickbars fullscreen blockqoute emoticons charmap wordcount codesample image lists advlist table hr autolink link fullscreen autolink",
+          "quickbars autoresize fullscreen blockqoute emoticons charmap wordcount codesample image lists advlist table hr autolink link fullscreen autolink",
         toolbar:
           "undo redo fullscreen styleselect bold italic blockquote forecolor backcolor alignleft aligncenter bullist numlist table image codesample emoticons charmap link",
         toolbar_sticky: true,
@@ -78,8 +79,9 @@ window.addEventListener("load", async () => {
 
         quickbars_insert_toolbar: false,
         quickbars_image_toolbar: true,
-        resize: true,
+        resize: false,
         object_resizing: true,
+        resize_img_proportional: true,
       },
     })
     .then(() => {

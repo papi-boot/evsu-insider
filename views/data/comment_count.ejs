@@ -1,0 +1,7 @@
+<% if (pin_post_comment_count.length > 0) { %>
+  <% pin_post_comment_count.filter(item => { %>
+    <% if (item.pin_post_id === pin_post_item.post_id && item.pin_comment_count !== "0") { %>
+      <h6 class="post__created f_size-3 mx-1 fw_600 p-theme-color"><i class="bi bi-chat-fill"></i> (<%= item.pin_comment_count %>)</h6>
+    <% } %> 
+  <% }) %> 
+<% } %>

@@ -12,6 +12,7 @@ const {
   checkNotAuthenticated,
 } = require("../middleware/check.authenticated.js");
 const signInConfig = require("./sign-in_route");
+const { notification_api } = require("./notification_api"); // notification process
 
 /* -- ALL GET HTTP REQUEST -- */
 
@@ -59,6 +60,9 @@ routes.get("/post-options", dashboardController.getOptionForm);
 
 //-- GET: get specific subject and its all post/answer
 routes.get("/subjects", dashboardController.getSpecificSubjectAndPost);
+
+//-- GET: get all post for notification process
+routes.use(notification_api);
 
 /* --ALL POST REQUEST */
 // -- POST: verify and register account

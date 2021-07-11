@@ -8,13 +8,30 @@ window.addEventListener("load", async () => {
     .init({
       selector: "#shareAnswerForm",
       content_css: "../style/prism.css, ../style/tinymce_field.css",
-      content_style:
-        'body { font-family: "Segoe UI",sans-serif, Consolas, sans-serif; font-size: 1rem, overflow-x: hidden; } pre { font-family: "Palanquin",sans-serif; font-size: 0.7rem } code[class*="language-"], pre[class*="language-"]{ } ',
       plugins:
-        "quickbars blockquote anchor code emoticons charmap wordcount codesample lists advlist table hr pagebreak nonbreaking print image media imagetools autolink link preview fullscreen visualblocks spellchecker visualchars autolink help searchreplace",
-      height: "70vh",
+        "quickbars autoresize blockquote anchor code emoticons charmap wordcount codesample lists advlist table hr pagebreak nonbreaking print image media imagetools autolink link preview fullscreen visualblocks spellchecker visualchars autolink help searchreplace",
+      menubar: "insert view format",
+      menu: {
+        view: {
+          title: "View",
+          items:
+            "code | visualaid visualchars visualblocks | preview fullscreen",
+        },
+        insert: {
+          title: "Insert",
+          items:
+            "image link media codesample inserttable | charmap emoticons hr | pagebreak nonbreaking anchor",
+        },
+        format: {
+          title: "Format",
+          items:
+            "bold italic underline strikethrough superscript subscript codeformat | formats blockformats fontsizes align lineheight | forecolor backcolor | removeformat",
+        },
+      },
+      min_height: 600,
+      max_width: "50%",
       toolbar:
-        "fullscreen | styleselect bold italic blockquote forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify bullist numlist table outdent indent image media codesample emoticons charmap link anchor hr pagebreak nonbreaking help addTab",
+        "fullscreen undo redo | bold italic blockquote forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify bullist numlist table outdent indent image media codesample emoticons charmap link anchor hr pagebreak nonbreaking help addTab",
       toolbar_mode: "sliding",
       quickbars_selection_toolbar:
         "bold italic forecolor backcolor formatselect quicklink blockquote",
@@ -35,7 +52,7 @@ window.addEventListener("load", async () => {
       automatic_uploads: true,
       toolbar_sticky: true,
       branding: false,
-      resize: true,
+      resize: false,
       object_resizing: true,
       setup: (editor) => {
         editor.on("init", function (args) {
@@ -64,14 +81,14 @@ window.addEventListener("load", async () => {
         theme: "silver",
         menubar: true,
         plugins:
-          "quickbars blockquote fullscreen emoticons charmap wordcount codesample image lists advlist table hr autolink link fullscreen autolink",
+          "quickbars autoresize blockquote fullscreen emoticons charmap wordcount codesample image lists advlist table hr autolink link fullscreen autolink",
         toolbar:
           "undo redo fullscreen styleselect  bold italic blockquote forecolor backcolor fontsizeselect alignleft aligncenter alignright alignjustify bullist numlist table indent codesample image emoticons charmap link hr",
         quickbars_selection_toolbar:
           "bold italic forecolor backcolor formatselect quicklink blockquote",
         quickbars_insert_toolbar: false,
         toolbar_sticky: true,
-        resize: true,
+        resize: false,
         object_resizing: true,
       },
     })

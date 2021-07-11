@@ -185,7 +185,27 @@
   }
   .btn-group {
     > .--acc-option-btn {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
       font-size: 1.1rem;
+    }
+  }
+  .--acc-option-btn {
+    > .user__profile-picture-container {
+      border: 1px solid rgb(100, 100, 100);
+      clip-path: circle(50% at 50%);
+      height: 2rem;
+      width: 2rem;
+      overflow: hidden;
+    }
+  }
+  .user__profile-picture-container {
+    > .user__profile-image {
+      background-size: 100%;
+      height: 100%;
+      transform: scale(1);
+      width: 100%;
     }
   }
 
@@ -207,7 +227,6 @@
     position: sticky;
     top: 0;
     width: max-content;
-    
   }
   .--nav-item {
     margin: 0.3rem !important;

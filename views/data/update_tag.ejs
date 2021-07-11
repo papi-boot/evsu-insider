@@ -1,0 +1,5 @@
+<div class="col">
+<% if (format(post_item.post_created_at,'EEEE, MMMM dd, yyyy p')!== format(post_item.post_updated_at, 'EEEE, MMMM dd, yyyy p')) { %>
+  <h6 class="badge bg-danger">Updated<i class="bi bi-star-fill ms-1"></i></h6>
+<% } %>
+</div>

@@ -11,6 +11,7 @@ const {
   fetchSelectedSubject,
   fetchSubjectPostResult,
   fetchCommentForOnePost,
+  fetchPostCommentCount,
 } = require("../query/fetch_data"); //Fetch all data method
 const { send404_PageNotFound } = require("../middleware/page_not_found");
 const { deleteOnePost } = require("../query/delete_data"); //Delete specific data
@@ -23,22 +24,36 @@ const getHomeDashboard = async (req, res) => {
     const sliceRecentPost = (await fetchAllPost()).slice(0, 8); //slice post -- show only 9 post on dashboard
     const allPost = await fetchAllPost();
     console.log(req.user);
-    const filterPinPost = await (
-      await fetchAllPost()
-    ).filter((post) => post.post_pin === true);
+    const filterPinPost = (await fetchAllPost()).filter(
+      (post) => post.post_pin === true
+    );
     const subject = await fetchAllSubject();
-    let resultPostFound = [];
+    let resultPostFound = []; //post found for each subject
     for (let i = 0; i < subject.length; i++) {
       resultPostFound.push(
         (await fetchSubjectPostResult(subject[i].subject_id)).length
       );
     }
+    // SUBJECT Config
     const firstSemester = (await fetchAllSubject()).filter(
       (item) => item.subject_quarter === 1
     );
     const secondSemester = (await fetchAllSubject()).filter(
       (item) => item.subject_quarter === 2
     );
+
+    let postCommentResultFound = []; // comment/discussion found
+    for (let i = 0; i < allPost.length; i++) {
+      postCommentResultFound.push(
+        await fetchPostCommentCount(allPost[i].post_id)
+      );
+    }
+    let pinPostCommentResultFound = []
+    for(let i = 0; i < filterPinPost.length; i++){
+      let pinCommentCount = await (await fetchPostCommentCount(filterPinPost[i].post_id));
+      pinPostCommentResultFound.push({ pin_comment_count: pinCommentCount[0].count, pin_post_id: filterPinPost[i].post_id, post_pin_title: filterPinPost[i].post_title });
+    }
+    // Comment Config
     if (req.user) {
       await res.render("dashboard/index", {
         doc_title: "Insider Hub | Dashboard",
@@ -48,16 +63,22 @@ const getHomeDashboard = async (req, res) => {
         },
         post: sliceRecentPost,
         all_pin_post: filterPinPost,
-        slice_pin_post: filterPinPost.slice(0, 6),
+        slice_pin_post: filterPinPost
+          .slice(0, 6)
+          .sort((a, b) => b.post_pin_time - a.post_pin_time),
         all_post: allPost,
         subject: await fetchAllSubject(),
         results_post_subject: resultPostFound,
         firstSemester: firstSemester,
         secondSemester: secondSemester,
+        comment_count: postCommentResultFound,
+        pin_post_comment_count: pinPostCommentResultFound,
         formatDistanceToNow,
         format,
         add,
       });
+    } else {
+      // checkAuthenticated(req, res);
     }
   } catch (err) {
     console.error(err);
@@ -99,7 +120,7 @@ const getSpecificPost = async (req, res) => {
           (item) => item.post_id !== req.query.post_id
         );
         const sliceRelatedPost = filterRelatedPost.slice(0, 3);
-        res.render("dashboard/show", {
+        await res.render("dashboard/show", {
           doc_title: `${one_post[0].post_title} | ${one_post[0].post_tag} - ${one_post[0].subject_name}`,
           user: req.user,
           req: req,

@@ -7,11 +7,11 @@
       <script src="/dist/form.compiled.js"></script>
   </head>
 
-  <body>
+  <body id="createPost">
     <div class="divider div-primary-bg-color"></div>
     <div class="divider div-second-bg-color"></div>
     <div class="container">
-      <%- include("../partial/error_alert.ejs") %>
+      <%- include("../partial/error_alert.ejs") %> 
       <% if (!subject.length > 0) { %>
           <div class="alert alert-warning d-flex justify-content-center align-items-center p-2 alert-text fw_600 my-3 z-index-n1" role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -31,6 +31,9 @@
             <a class="text-decoration-none --nav-link f_size-2" href="/dashboard">&leftarrow; Back to
               Dashboard</a>
           </div>
+          <% if(subject.length > 0) { %>
+            <h2 class="secondary-heading">Share your Thoughts💭, Ideas💡, Answer✔️</h2>
+          <% } %>
           <div class="row">
             <div class="col-lg-4">
               <!-- Title -->

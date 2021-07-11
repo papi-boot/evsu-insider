@@ -1,6 +1,10 @@
 @use "root" as root;
 @use "register_form" as sharedInput;
 
+#createPost {
+  background: rgb(240, 240, 240);
+}
+
 .border-expand:focus {
   border-color: root.$primary-color;
 }

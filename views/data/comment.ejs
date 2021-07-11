@@ -1,6 +1,5 @@
-<div class="loading__comment-form  z-index-p1">
+<div class="loading__comment-form z-index-p1">
   <div class="lds-ellipsis">
-    
     <div></div>
     <div></div>
     <div></div>
@@ -8,7 +7,7 @@
   </div>
 </div>
 <form class="form__comment">
-  <textarea class="comment__field" name="comment_field" id="commentField" cols="30" rows="10"></textarea>
+  <textarea style="resize: none;" class="comment__field" name="comment_field" id="commentField" cols="30" rows="10"></textarea>
   <div class="d-flex align-items-center justify-content-end">
     <button class="btn__global form-control-sm mx-1 my-2 fw_600 f_size-2 btn__comment" type="submit" data-post-id="<%= req.query.post_id %>" data-subject-id="<%= req.query.subject_id %>" disabled>
       Post my Comment&nbsp;<span class="spinner-border spinner-border-sm d-none loading-spinner" role="status"
@@ -18,11 +17,17 @@
 </form>
 <% if (comments.length > 0) { %>
   <hr>
+  <%# Check the discussion right grammar XD %> 
+  <% if (comments.length > 1) { %>
+  <h2 class="comment__discussions secondary-heading">Discussions(<%= comments.length %>)</h2>
+  <% } else { %>
+  <h2 class="comment__discussions secondary-heading">Discussion(<%= comments.length %>)</h2>
+  <% } %>
   <div class="comment__field-section my-5">
     <% comments.forEach((item) => { %>
       <div class="comment__body f_size-2 border" id="<%= item.comment_id %>">
         <div class="comment__header d-flex flex-wrap align-items-center justify-content-between border-bottom pb-1 mb-2 gap-2">
-          <h6 class="comment__person-name f_size-2 primary-heading">
+          <h6 class="comment__person-name f_size-2 secondary-heading">
             <%= item.user_fullname %>
             <% if (item.user_state == 2){ %>
                 <sup class="badge bg-success f_size-4">
@@ -30,7 +35,7 @@
                 </sup>
             <% } %>
           </h6>
-          <h6 class="comment__time f_size-3 text-black-50">
+          <h6 class="comment__time secondary-heading f_size-3 text-black-50">
             <i class="bi bi-clock"></i>&nbsp;<%= formatDistanceToNow(item.comment_created_at, { addSuffix: true }) %> •
             <%= format(add(item.comment_created_at, {hours: 8}), 'EEE, MMM dd, yy' ) %> 
           </h6>
@@ -46,6 +51,6 @@
   </div>
 <% } else { %>
   <div class="border p-3 my-5 no__comment-found">
-    <h4 class="text-center text-black-50 m-0">No Comment was found in this post. <span><%- include("../svg/telescope") %></span></h4> 
+    <h4 class="text-center text-black-50 m-0">No Discussions was found in this post. <span><%- include("../svg/telescope") %></span></h4> 
   </div>
 <% } %>
