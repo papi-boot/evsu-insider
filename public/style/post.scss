@@ -12,7 +12,7 @@
     border: 1px solid #ddd;
     border-bottom: 5px solid #ddd;
     box-shadow: root.$shadow-2;
-    margin-top: root.$mar-2;
+    margin-top: root.$mar-1;
     overflow: hidden;
     position: relative;
 
@@ -27,7 +27,7 @@
 .pin__indicator {
   position: absolute;
   right: 0;
-  top: -.5rem;
+  top: -.8rem;
   z-index: 997;
 }
 

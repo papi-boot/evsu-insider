@@ -5,7 +5,7 @@ const { sequelize, QueryTypes } = require("../config/db.connect");
 const fetchAllPost = async () => {
   try {
     const results = await sequelize.query(
-      "SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_created_at, user_fullname, subject_name, subject_id FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id ORDER BY post_created_at DESC;",
+      "SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_pin_time, post_created_at, post_updated_at, user_fullname, subject_name, subject_id FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id ORDER BY post_created_at DESC;",
       {
         type: QueryTypes.SELECT,
       }
@@ -89,10 +89,25 @@ const fetchSubjectPostResult = async (subject_id) => {
 const fetchCommentForOnePost = async (req) => {
   try {
     const results = await sequelize.query(
-      "SELECT *, user_fullname, user_state FROM comments INNER JOIN users ON comments.comment_from_user = users.user_id WHERE comment_from_post::text = $1 ORDER BY comment_created_at",
+      "SELECT *, user_fullname, user_state FROM comments INNER JOIN users ON comments.comment_from_user = users.user_id WHERE comment_from_post::text = $1 ORDER BY comment_created_at DESC",
       {
         type: QueryTypes.SELECT,
         bind: [req.query.post_id],
+      }
+    );
+    return results;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const fetchPostCommentCount = async (post_id) => {
+  try {
+    const results = await sequelize.query(
+      "SELECT COUNT(*) FROM comments WHERE comment_from_post::text = $1",
+      {
+        type: QueryTypes.SELECT,
+        bind: [post_id],
       }
     );
     return results;
@@ -108,4 +123,5 @@ module.exports = {
   fetchSelectedSubject,
   fetchSubjectPostResult,
   fetchCommentForOnePost,
+  fetchPostCommentCount,
 };

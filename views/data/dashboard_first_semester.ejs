@@ -1,5 +1,5 @@
 <div class="row">
-  <% firstSemester.forEach( (item, index)=> { %>
+  <% firstSemester.forEach((item, index)=> { %>
     <div class="col-lg-6">
       <a class="subject-clickable text-decoration-none"
         href="/subjects?subject_id=<%= item.subject_id %>&subject_name=<%= item.subject_name %> ">
@@ -13,8 +13,8 @@
             <h6 class="subject__description secondary-heading p-theme-color f_size-2 mb-1">
               <%= item.subject_description %>
             </h6>
-            <h6 class="subject__post-found primary-heading text-secondary f_size-2 m-0 fw_600">Post Found:
-              <span class="badge bg-secondary">
+            <h6 class="subject__post-found primary-heading text-secondary f_size-2 m-0 fw_600"><i class="fas fa-newspaper"></i>
+              <span class="badge bg-primary">
                 <%= results_post_subject[index] %>
               </span>
             </h6>

@@ -98,14 +98,25 @@ const updatePostPin = async (req) => {
   try {
     const post_id = req.query.post_id;
     const { pin_post } = req.body;
-    const results = await sequelize.query(
-      "UPDATE posts SET post_pin = $1 WHERE post_id = $2",
-      {
-        type: QueryTypes.UPDATE,
-        bind: [pin_post, post_id],
-      }
-    );
-    return results[1];
+    if (pin_post === true) {
+      const results = await sequelize.query(
+        "UPDATE posts SET post_pin = $1, post_pin_time = $2 WHERE post_id = $3",
+        {
+          type: QueryTypes.UPDATE,
+          bind: [pin_post, new Date(), post_id],
+        }
+      );
+      return results[1];
+    } else {
+      const results = await sequelize.query(
+        "UPDATE posts SET post_pin = $1, post_pin_time = DEFAULT WHERE post_id = $2",
+        {
+          type: QueryTypes.UPDATE,
+          bind: [pin_post,  post_id],
+        }
+      );
+      return results[1];
+    }
   } catch (err) {
     console.error(err);
   }

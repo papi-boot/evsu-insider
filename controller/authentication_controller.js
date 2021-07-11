@@ -10,8 +10,7 @@ passportConfig.initializePassport(passport);
 const getLoginForm = async (req, res) => {
   try {
     await res.render("authentication/login", {
-      doc_title: "Sign In | EVSU Insider",
-      user: "nosajvans@gmail.com",
+      doc_title: "Sign In | Insider Hub",
     });
   } catch (err) {
     console.error(err);
@@ -22,7 +21,7 @@ const getLoginForm = async (req, res) => {
 const getRegisterForm = async (req, res) => {
   try {
     await res.render("authentication/register", {
-      doc_title: "Join EVSU Insider Today",
+      doc_title: "Join Insider Hub Today",
     });
   } catch (err) {
     console.error(err);

@@ -1,15 +1,20 @@
-<% slice_pin_post.forEach(item => { %>
-  <div class="col-lg-3">
+<% slice_pin_post.forEach((item, index) => { %>
+  <div class="col-lg-4">
     <a href="/post?post_id=<%= item.post_id %>&subject_id=<%= item.subject_id %> " class="post-clickable text-decoration-none">
-    <% if (item.post_pin) { %>
-        <div class="badge bg-primary pin__indicator f_size-4">
-          <span>Pinned<i class="bi bi-pin-angle-fill ms-1"></i></span>
+    <div class="pin__indicator f_size-2">
+      <div class="row g-1">
+        <%- include("../data/update_tag", {post_item: item}) %>
+        <% if (item.post_pin) { %>
+        <div class="col">
+          <h6 class="badge bg-primary">Pinned<i class="bi bi-pin-angle-fill ms-1"></i></h6>
         </div>
-    <% } %>
+        <% } %>
+      </div>
+    </div>
       <div class="post__card">
         <!-- Modify Button -->
         <div class="post__title-container">
-          <h6 class="post__title primary-heading f_size-heading fw_700" title="<%= item.post_title %> ">
+          <h6 class="post__title secondary-heading f_size-heading fw_700" title="<%= item.post_title %> ">
             <%= item.post_title %>
           </h6>
         </div>
@@ -28,6 +33,7 @@
           <h6 class="post__created f_size-3 mx-1 fw_600">
             <i class="bi bi-clock f_size-1 p-theme-color"></i> <%= formatDistanceToNow(item.post_created_at, { addSuffix: true }) %>
           </h6>
+      <%- include("./comment_count", { pin_post_item: item, pin_post_item_index: index }) %>
         </div>
       </div>
     </a>

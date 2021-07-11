@@ -33,11 +33,6 @@ jobs:
         npm install --save @mapbox/node-pre-gyp
         npm install bcrypt
 
-    - name: database config
-      run: |
-        npm install -g npx
-        npm run db:migrate:prod
-
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v2
       with:

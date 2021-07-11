@@ -22,6 +22,7 @@ window.addEventListener("load", async () => {
           "Content-Type": "application/json",
         },
         mode: "cors",
+        credentials: "include",
         body: JSON.stringify({
           comment_body: tinymce.get("commentField").getContent(),
           post_id: btnComment.dataset.postId,

@@ -6,6 +6,12 @@ https://prismjs.com/download.html#themes=prism-okaidia&languages=markup+css+clik
  * Loosely based on Monokai textmate theme by http://www.monokai.nl/
  * @author ocodia
  */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+}
 
 code[class*="language-"], pre[class*="language-"] {
   color: #f8f8f2;

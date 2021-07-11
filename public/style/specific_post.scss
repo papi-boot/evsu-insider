@@ -1,4 +1,20 @@
 @use "root" as root;
+
+#showPost {
+  background: rgb(230, 230, 230);
+}
+.main__specific-post {
+  background: root.$white;
+  border-radius: 5px;
+  box-shadow: root.$shadow-2;
+}
+
+.aside__specific-quick-links {
+  background: root.$white;
+  border-radius: 5px;
+  box-shadow: root.$shadow-2;
+}
+
 .spec__post-detail {
   overflow-x: auto;
   word-wrap: break-word;
@@ -19,7 +35,7 @@
   width: max-content;
 }
 
-.aside__quick-links{
+.aside__quick-links {
   position: sticky;
   top: 5rem;
 }
@@ -89,8 +105,6 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: root.$secondary-font;
+  font-family: root.$fonts;
   font-weight: root.$fw_700;
 }
-
-

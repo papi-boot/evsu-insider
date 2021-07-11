@@ -15,7 +15,7 @@
       <div class="row">
         <div class="col">
           <div class="date-today my-2">
-            <h2 class="primary-heading fw_700">Recent Post</h2><span class="fw_600 f_size-2 primary-heading p-theme-color mx-1"><%= format(add(new Date(Date.now()), {hours: 8}), 'EEEE, MMMM dd, yyyy')%></span>
+            <h2 class="primary-heading fw_700">Recent Post</h2><span class="fw_600 f_size-2 secondary-heading p-theme-color mx-1"><%= format(add(new Date(Date.now()), {hours: 8}), 'EEEE, MMMM dd, yyyy')%></span>
           </div>
           <div class="row">
           <%- include("../data/posts") %>

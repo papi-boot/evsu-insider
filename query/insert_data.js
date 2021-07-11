@@ -149,6 +149,7 @@ const postComment = async (req, res) => {
         "loading",
       ],
     });
+    console.log(req.user.user_id);
     const results = await sequelize.query(
       "INSERT INTO comments(comment_from_user, comment_from_post, comment_body, comment_created_at, comment_updated_at) VALUES ($1, $2, $3, $4, $5) RETURNING *",
       {
