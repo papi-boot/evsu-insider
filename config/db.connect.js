@@ -15,6 +15,7 @@ if (isProduction) {
     dialectOptions: {
       ssl: {
         require: true,
+        rejectUnauthorized: false,
       },
     },
     logging: false,
