@@ -11,7 +11,6 @@ if (isProduction) {
   connectionString = process.env.DATABASE_URL;
   connectionStringOption = {
     dialect: "postgres",
-    ssl: true,
     dialectOptions: {
       ssl: {
         require: true,
