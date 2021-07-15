@@ -5,56 +5,54 @@ const {
 } = require("../middleware/check.authenticated"); // middleware for cehcking authorization
 const { submitAnswer, postComment } = require("../query/insert_data");
 const {
-  fetchAllPost,
   fetchOnePost,
-  fetchAllSubject,
   fetchSelectedSubject,
-  fetchSubjectPostResult,
   fetchCommentForOnePost,
-  fetchPostCommentCount,
 } = require("../query/fetch_data"); //Fetch all data method
 const { send404_PageNotFound } = require("../middleware/page_not_found");
 const { deleteOnePost } = require("../query/delete_data"); //Delete specific data
 const { updateOnePost, updatePostPin } = require("../query/update_data");
 const { formatDistanceToNow, format, add } = require("date-fns");
+const data = require("../db_api/data_config"); //COVERS A LOT OF DATA MANIPULATION.
 
 // -- GET HTTP REQUEST : get dashboard/main page
 const getHomeDashboard = async (req, res) => {
   try {
-    const sliceRecentPost = (await fetchAllPost()).slice(0, 8); //slice post -- show only 9 post on dashboard
-    const allPost = await fetchAllPost();
+    const sliceRecentPost = await data.data_sliceRecentPost(); //slice post -- show only 9 post on dashboard
+    const allPost = await data.data_allPost();
     console.log(req.user);
-    const filterPinPost = (await fetchAllPost()).filter(
-      (post) => post.post_pin === true
-    );
-    const subject = await fetchAllSubject();
+    const filterPinPost = await data.data_filterPinPost();
+    const subject = await data.data_allSubject();
     let resultPostFound = []; //post found for each subject
     for (let i = 0; i < subject.length; i++) {
       resultPostFound.push(
-        (await fetchSubjectPostResult(subject[i].subject_id)).length
+        (await data.data_fetchSubjectPostResult(subject[i].subject_id)).length
       );
     }
     // SUBJECT Config
-    const firstSemester = (await fetchAllSubject()).filter(
-      (item) => item.subject_quarter === 1
-    );
-    const secondSemester = (await fetchAllSubject()).filter(
-      (item) => item.subject_quarter === 2
-    );
+    const firstSemester = await data.data_firstSemester();
+    const secondSemester = await data.data_secondSemester();
 
     let postCommentResultFound = []; // comment/discussion found
     for (let i = 0; i < allPost.length; i++) {
       postCommentResultFound.push(
-        await fetchPostCommentCount(allPost[i].post_id)
+        await data.data_fetchPostCommentCount(allPost[i].post_id)
       );
     }
-    let pinPostCommentResultFound = []
-    for(let i = 0; i < filterPinPost.length; i++){
-      let pinCommentCount = await (await fetchPostCommentCount(filterPinPost[i].post_id));
-      pinPostCommentResultFound.push({ pin_comment_count: pinCommentCount[0].count, pin_post_id: filterPinPost[i].post_id, post_pin_title: filterPinPost[i].post_title });
+    let pinPostCommentResultFound = [];
+    for (let i = 0; i < filterPinPost.length; i++) {
+      let pinCommentCount = await data.data_fetchPostCommentCount(
+        filterPinPost[i].post_id
+      );
+      pinPostCommentResultFound.push({
+        pin_comment_count: pinCommentCount[0].count,
+        pin_post_id: filterPinPost[i].post_id,
+        post_pin_title: filterPinPost[i].post_title,
+      });
     }
     // Comment Config
     if (req.user) {
+      res.header("Service-Worker-Allowed", "/");
       await res.render("dashboard/index", {
         doc_title: "Insider Hub | Dashboard",
         user: req.user,
@@ -67,7 +65,7 @@ const getHomeDashboard = async (req, res) => {
           .slice(0, 6)
           .sort((a, b) => b.post_pin_time - a.post_pin_time),
         all_post: allPost,
-        subject: await fetchAllSubject(),
+        subject: await data.data_allSubject(),
         results_post_subject: resultPostFound,
         firstSemester: firstSemester,
         secondSemester: secondSemester,
@@ -94,7 +92,7 @@ const getCreateAnswerForm = async (req, res) => {
         req: req,
         user: req.user,
         auth_link: "",
-        subject: await fetchAllSubject(),
+        subject: await data.data_allSubject(),
       });
     } else {
       checkNotAuthenticated(req, res);
@@ -107,10 +105,10 @@ const getCreateAnswerForm = async (req, res) => {
 // -- GET HTTP REQUEST: get and show specific/one post
 const getSpecificPost = async (req, res) => {
   try {
-    const firstSemester = (await fetchAllSubject()).filter(
+    const firstSemester = (await data.data_allSubject()).filter(
       (item) => item.subject_quarter === 1
     );
-    const secondSemester = (await fetchAllSubject()).filter(
+    const secondSemester = (await data.data_allSubject()).filter(
       (item) => item.subject_quarter === 2
     );
     if (req.user) {
@@ -120,12 +118,13 @@ const getSpecificPost = async (req, res) => {
           (item) => item.post_id !== req.query.post_id
         );
         const sliceRelatedPost = filterRelatedPost.slice(0, 3);
+        res.header("Service-Worker-Allowed", "/");
         await res.render("dashboard/show", {
           doc_title: `${one_post[0].post_title} | ${one_post[0].post_tag} - ${one_post[0].subject_name}`,
           user: req.user,
           req: req,
           post: await fetchOnePost(req),
-          subject: await fetchAllSubject(),
+          subject: await data.data_allSubject(),
           comments: await fetchCommentForOnePost(req),
           related_post: sliceRelatedPost,
           firstSemester: firstSemester,
@@ -154,7 +153,7 @@ const getOptionForm = async (req, res) => {
         doc_title: doc_title[0].post_title,
         user: req.user,
         post: await fetchOnePost(req),
-        subject: await fetchAllSubject(),
+        subject: await data.data_allSubject(),
         auth_link: {
           share_answer: "/create-post",
         },
@@ -175,12 +174,20 @@ const getSpecificSubjectAndPost = async (req, res) => {
   try {
     if (req.user) {
       const subject = await (
-        await fetchAllSubject()
+        await data.data_allSubject()
       ).filter((item) => item.subject_id === req.query.subject_id);
       const filterRelatedPost = (await fetchSelectedSubject(req)).filter(
         (item) => item.post_subject === req.query.subject_id
       );
+      let postCommentResultFound = []; // comment/discussion found
+      for (let i = 0; i < filterRelatedPost.length; i++) {
+        postCommentResultFound.push(
+          await data.data_fetchPostCommentCount(filterRelatedPost[i].post_id)
+        );
+      }
+      console.log(postCommentResultFound);
       if (subject.length > 0) {
+        res.header("Service-Worker-Allowed", "/");
         await res.render("dashboard/show_subject", {
           user: req.user,
           req: req,
@@ -196,6 +203,7 @@ const getSpecificSubjectAndPost = async (req, res) => {
             (post_one, post_two) =>
               post_two.post_created_at - post_one.post_created_at
           ),
+          comment_count: postCommentResultFound,
           formatDistanceToNow,
           format,
         });

@@ -9,6 +9,7 @@ passportConfig.initializePassport(passport);
 // -- GET HTTP REQUEST: get login form
 const getLoginForm = async (req, res) => {
   try {
+    res.header("Service-Worker-Allowed", "/");
     await res.render("authentication/login", {
       doc_title: "Sign In | Insider Hub",
     });
@@ -20,6 +21,7 @@ const getLoginForm = async (req, res) => {
 // -- GET HTTP REQUEST: get register form
 const getRegisterForm = async (req, res) => {
   try {
+    res.header("Service-Worker-Allowed", "/");
     await res.render("authentication/register", {
       doc_title: "Join Insider Hub Today",
     });
