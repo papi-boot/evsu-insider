@@ -2,7 +2,7 @@
 /* eslint-disable no-useless-escape */
 
 const vapid_public_key =
-  "BJuP8sbVtm9fT0gSK4f5QvO67sceVhWmyBftscPnDvMk1JmqoWWDVQEehCikAlaYWJHb0Hsdq_KO-e_JUIYHjGI";
+  "BM4QqLKxL9RhWVYVQwNgLuymsS4XH6PSP89x45tl8vkfeIFANGiBG5dmbSFzxEgA68KdtQr0O11qsjkdgAk5d2U";
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", async () => {
