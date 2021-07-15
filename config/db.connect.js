@@ -8,7 +8,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 //Check if we are on production mode or development mode
 if (isProduction) {
-  connectionString = process.env.DATABASE_URL;
+  connectionString = process.env.TEST_DB;
   connectionStringOption = {
     dialect: "postgres",
     dialectOptions: {
