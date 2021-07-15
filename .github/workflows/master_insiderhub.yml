@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - insiderhub
 on:
   push:
     branches:
-      - profile_page
+      - master
 
 jobs:
   build-and-deploy:
@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: 'Checkout Github Action'
-      uses: actions/profile_page
+      uses: actions/checkout@master
 
     - name: Set up Node.js version
       uses: actions/setup-node@v1
