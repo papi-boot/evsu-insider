@@ -16,7 +16,7 @@ routes.post(
     const { remember_me } = req.body;
     if (remember_me === true) {
       req.session.cookie.maxAge = 360 * 24 * 60 * 60 * 1000;
-      console.log(req.session);
+      // console.log(req.session);
       req.session.touch();
       req.session.save();
     }

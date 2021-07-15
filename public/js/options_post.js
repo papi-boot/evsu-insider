@@ -12,8 +12,9 @@ window.addEventListener("DOMContentLoaded", () => {
   const dataPostId_update = updateBtn.dataset.postId;
 
   //click event to trigger delete request
-  deleteButton.addEventListener("click", () => {
+  deleteButton.addEventListener("click", (e) => {
     //send Delete Http Request
+    e.preventDefault();
     loadingSpinner.forEach((item) => item.classList.remove("d-none"));
     const deleteOnePost = async () => {
       try {

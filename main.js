@@ -43,7 +43,7 @@ io.use((socket, next) => {
 io.on("connection", (socket) => {
   console.log("user connected");
   const session = socket.request.session;
-  console.log(session);
+  // console.log(session);
   session.connections++;
   session.save();
 })

@@ -1,4 +1,5 @@
 /* window.addEventListener("load", () => {
+
   const checkNewPost = async () => {
     const response = await fetch("/new-post", {
       method: "GET",

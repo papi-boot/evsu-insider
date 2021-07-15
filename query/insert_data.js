@@ -4,6 +4,7 @@ const domPurify = require("dompurify");
 const { JSDOM } = require("jsdom");
 
 const submitAnswer = async (req, res) => {
+  //Create Post
   try {
     const { post_title, post_subject, post_tag, post_body } = await req.body;
     // -- cleaning the html input to prevent XSS
@@ -96,6 +97,7 @@ const submitAnswer = async (req, res) => {
 };
 
 const postComment = async (req, res) => {
+  //post a comment
   try {
     const { comment_body, post_id, subject_id } = await req.body;
     //clean comment
@@ -167,14 +169,49 @@ const postComment = async (req, res) => {
 
     if (results) {
       let redirect_url = `/post?post_id=${post_id}&subject_id=${subject_id}`;
-      return res.json({ url: redirect_url, success_message: "Comment Added", new_comment: `${results[0][0].comment_id}` });
+      return res.json({
+        url: redirect_url,
+        success_message: "Comment Added",
+        new_comment: `${results[0][0].comment_id}`,
+      });
     }
   } catch (err) {
     console.error(err);
   }
 };
 
+const webPushSubscription = async (req, subscription) => {
+  try {
+    const user_id = req.user.user_id;
+    const stringySubscription = JSON.stringify(subscription, null, 0);
+    const results = await sequelize.query(
+      "SELECT * FROM notifications WHERE subscription = $1",
+      {
+        type: QueryTypes.SELECT,
+        bind: [stringySubscription],
+      }
+    );
+    if (results.length > 0) {
+      console.log("SUBSCRIPTION ALREADY REGISTERED");
+    } else {
+      const applySubscription = await sequelize.query(
+        "INSERT INTO notifications(subscription_from_user, subscription, subscription_created_at, subscription_updated_at) VALUES ($1, $2, $3, $4)",
+        {
+          type: QueryTypes.INSERT,
+          bind: [user_id, stringySubscription, new Date(), new Date()],
+        }
+      );
+      if (applySubscription[1]) {
+        console.log("SUBSCRIPTION SUCESSFULLY REGISTERED");
+      }
+    }
+  } catch (err) {
+    console.erro(err);
+  }
+};
+
 module.exports = {
   submitAnswer,
   postComment,
+  webPushSubscription,
 };

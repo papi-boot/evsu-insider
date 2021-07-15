@@ -116,6 +116,17 @@ const fetchPostCommentCount = async (post_id) => {
   }
 };
 
+const fetchAllSubscription = async () => {
+  try {
+    const results = await sequelize.query("SELECT subscription FROM notifications", {
+      type: QueryTypes.SELECT,
+    });
+    return results;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   fetchAllPost,
   fetchOnePost,
@@ -124,4 +135,5 @@ module.exports = {
   fetchSubjectPostResult,
   fetchCommentForOnePost,
   fetchPostCommentCount,
+  fetchAllSubscription
 };
