@@ -39,7 +39,6 @@ webpush_notification.get("/send-notification", async (req, res) => {
           throw err;
         });
     }
-    req.flash("success", "Answer successfully shared.");
     res.json({ message: "notification sent", url: "/dashboard" });
   } catch (err) {
     console.error(err);
