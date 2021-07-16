@@ -6,7 +6,7 @@ const { JSDOM } = require("jsdom");
 const submitAnswer = async (req, res) => {
   //Create Post
   try {
-    const { post_title, post_subject, post_tag, post_body } = await req.body;
+  const { post_title, post_subject, post_tag, post_body } = await req.body;
     // -- cleaning the html input to prevent XSS
     if (!post_title && !post_subject && !post_tag && !post_body) {
       req.flash("error", "All fields must be fulfilled with content");
@@ -166,7 +166,6 @@ const postComment = async (req, res) => {
       }
     );
     console.log(results);
-
     if (results) {
       let redirect_url = `/post?post_id=${post_id}&subject_id=${subject_id}`;
       return res.json({
@@ -185,7 +184,7 @@ const webPushSubscription = async (req, subscription) => {
     const user_id = req.user.user_id;
     const stringySubscription = JSON.stringify(subscription, null, 0);
     const results = await sequelize.query(
-      "SELECT * FROM notifications WHERE subscription = $1",
+      "SELECT * FROM notifications WHERE subscription::text = $1",
       {
         type: QueryTypes.SELECT,
         bind: [stringySubscription],
