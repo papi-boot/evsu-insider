@@ -35,6 +35,7 @@ window.addEventListener("load", () => {
           } else {
             return;
           }
+
         }
       })
       .catch((err) => console.error("Error: ", err));
