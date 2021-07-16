@@ -30,3 +30,30 @@
     max-height: 100%;
   }
 }
+
+.notification__permission {
+  background: #f6e6e6;
+  border-top: 2px solid root.$primary-color;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  bottom: 0;
+  height: max-content;
+  padding: 2rem root.$pad-1;
+  position: fixed;
+  transform: translateY(100%);
+  transition: all ease 1s;
+  width: 100%;
+
+  &.close{
+    transform: translateY(100%);
+  }
+  &.slide-up{
+    transform: translateY(0);
+  }
+}
+
+
+
+@mixin dashboard-max-576px {
+  
+}
