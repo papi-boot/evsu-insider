@@ -6,8 +6,8 @@ const webpush_notification = express.Router();
 const { webPushSubscription } = require("../query/insert_data");
 const { fetchAllSubscription } = require("../query/fetch_data");
 
-const publicKey = process.env.VAPID_PUBLIC_KEY,
-  privateKey = process.env.VAPID_PRIVATE_KEY;
+const publicKey = process.env.HEROKU_VAPID_PUBLIC_KEY,
+  privateKey = process.env.HEROKU_VAPID_PRIVATE_KEY;
 
 webpush_notification.post("/subscription", async (req, res) => {
   try {
