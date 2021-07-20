@@ -13,6 +13,7 @@ const {
 } = require("../middleware/check.authenticated.js");
 const signInConfig = require("./sign-in_route");
 const { webpush_notification } = require("../middleware/web-push");
+const { account_settings_routes } = require("../middleware/account_settings");
 
 /* -- ALL GET HTTP REQUEST -- */
 
@@ -62,6 +63,9 @@ routes.get("/post-options", dashboardController.getOptionForm);
 //-- GET: get specific subject and its all post/answer
 routes.get("/subjects", dashboardController.getSpecificSubjectAndPost);
 
+//-- GET: get profile page
+routes.get("/profile", dashboardController.getProfilePage);
+
 /* --ALL POST REQUEST */
 // -- POST: verify and register account
 routes.post("/sign-up", authenticationController.postRegisterForm);
@@ -87,8 +91,11 @@ routes.put("/post-options", dashboardController.updateSpecificPost);
 
 // -- UPDATE: pin post state
 routes.put("/post-options/update", dashboardController.updatePinPost);
-/* --ALL DELETE REQUEST */
 
+// -- UPDATE: update profile information and upload image if requested;
+routes.use(account_settings_routes);
+
+/* --ALL DELETE REQUEST */
 //-- DELETE: delete specific post
 routes.delete("/post-options", dashboardController.deleteSpecificPost);
 

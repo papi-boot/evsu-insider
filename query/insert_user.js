@@ -15,13 +15,13 @@ const registerUser = async (name, email, password, req, res) => {
       console.log(results[1]);
       req.flash(
         "success",
-        `Your Account has been successfully registered 🤠.`
+        `Your Account has been successfully registered`
       );
       res.redirect("/sign-in");
     } else {
       req.flash(
         "error",
-        "Something went wrong on verifying the account. Please try again."
+        "Something went wrong on verifying the account. Please try again"
       );
       res.redirect("/sign-up");
     }

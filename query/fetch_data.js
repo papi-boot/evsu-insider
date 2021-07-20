@@ -1,6 +1,20 @@
 "use strict";
 const { sequelize, QueryTypes } = require("../config/db.connect");
 
+const fetchUserProfileImage = async (req) => {
+  try {
+    const results = await sequelize.query(
+      "SELECT * FROM user_profile_images WHERE profile_image_belongs_to = $1",
+      {
+        type: QueryTypes.SELECT,
+        bind: [req.user.user_id],
+      }
+    );
+    return results;
+  } catch (err) {
+    console.error(err);
+  }
+};
 // FETCH ALL POST/ANSWER
 const fetchAllPost = async () => {
   try {
@@ -118,7 +132,21 @@ const fetchPostCommentCount = async (post_id) => {
 
 const fetchAllSubscription = async () => {
   try {
-    const results = await sequelize.query("SELECT subscription FROM notifications", {
+    const results = await sequelize.query(
+      "SELECT subscription FROM notifications",
+      {
+        type: QueryTypes.SELECT,
+      }
+    );
+    return results;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const fetchAllComments = async () => {
+  try {
+    const results = await sequelize.query("SELECT * FROM comments", {
       type: QueryTypes.SELECT,
     });
     return results;
@@ -128,6 +156,7 @@ const fetchAllSubscription = async () => {
 };
 
 module.exports = {
+  fetchUserProfileImage,
   fetchAllPost,
   fetchOnePost,
   fetchAllSubject,
@@ -135,5 +164,6 @@ module.exports = {
   fetchSubjectPostResult,
   fetchCommentForOnePost,
   fetchPostCommentCount,
-  fetchAllSubscription
+  fetchAllSubscription,
+  fetchAllComments,
 };

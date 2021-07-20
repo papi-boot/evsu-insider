@@ -6,7 +6,7 @@ const { JSDOM } = require("jsdom");
 const submitAnswer = async (req, res) => {
   //Create Post
   try {
-  const { post_title, post_subject, post_tag, post_body } = await req.body;
+    const { post_title, post_subject, post_tag, post_body } = await req.body;
     // -- cleaning the html input to prevent XSS
     if (!post_title && !post_subject && !post_tag && !post_body) {
       req.flash("error", "All fields must be fulfilled with content");
@@ -205,12 +205,40 @@ const webPushSubscription = async (req, subscription) => {
       }
     }
   } catch (err) {
-    console.erro(err);
+    console.error(err);
   }
 };
+
+const checkProfileImage = async (req) => {
+  try {
+    const results = await sequelize.query(
+      "SELECT * FROM user_profile_images WHERE profile_image_belongs_to::text = $1",
+      {
+        type: QueryTypes.SELECT,
+        bind: [req.user.user_id],
+      }
+    );
+    if (results.length > 0) {
+      console.log("User image already inserted");
+    } else {
+      const results = await sequelize.query(
+        "INSERT INTO user_profile_images(profile_image_belongs_to, profile_image_created_at, profile_image_updated_at) VALUES ($1, $2, $3)",
+        {
+          type: QueryTypes.INSERT,
+          bind: [req.user.user_id, new Date(), new Date()],
+        }
+      );
+      return results;
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 
 module.exports = {
   submitAnswer,
   postComment,
   webPushSubscription,
+  checkProfileImage,
 };

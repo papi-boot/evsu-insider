@@ -31,6 +31,12 @@
 .div-primary-bg-color {
   background: root.$primary-color;
 }
+.primary-bg-color {
+  background: root.$primary-color;
+}
+.accent-bg-color{
+  background: root.$bg-hover-primary;
+}
 
 .div-second-bg-color {
   background: rgba(230, 230, 230, 0.5);

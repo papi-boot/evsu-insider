@@ -18,6 +18,7 @@ const data = require("../db_api/data_config"); //COVERS A LOT OF DATA MANIPULATI
 // -- GET HTTP REQUEST : get dashboard/main page
 const getHomeDashboard = async (req, res) => {
   try {
+    await data.data_checkUserProfileImage(req);
     const sliceRecentPost = await data.data_sliceRecentPost(); //slice post -- show only 9 post on dashboard
     const allPost = await data.data_allPost();
     console.log(req.user);
@@ -56,6 +57,7 @@ const getHomeDashboard = async (req, res) => {
       await res.render("dashboard/index", {
         doc_title: "Insider Hub | Dashboard",
         user: req.user,
+        user_profile_image: await data.data_fetchUserProfileImage(req),
         auth_link: {
           share_answer: "/create-post",
         },
@@ -123,6 +125,7 @@ const getSpecificPost = async (req, res) => {
           doc_title: `${one_post[0].post_title} | ${one_post[0].post_tag} - ${one_post[0].subject_name}`,
           user: req.user,
           req: req,
+          user_profile_image: await data.data_fetchUserProfileImage(req),
           post: await fetchOnePost(req),
           subject: await data.data_allSubject(),
           comments: await fetchCommentForOnePost(req),
@@ -191,6 +194,7 @@ const getSpecificSubjectAndPost = async (req, res) => {
         await res.render("dashboard/show_subject", {
           user: req.user,
           req: req,
+          user_profile_image: await data.data_fetchUserProfileImage(req),
           doc_title: `${subject[0].subject_name} | ${subject[0].subject_description}`,
           auth_link: {
             share_answer: "/create-post",
@@ -210,6 +214,38 @@ const getSpecificSubjectAndPost = async (req, res) => {
       } else {
         send404_PageNotFound(req, res);
       }
+    } else {
+      checkNotAuthenticated(req, res);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// -- GET HTTP REQUEST: get profile page
+const getProfilePage = async (req, res) => {
+  try {
+    if (req.user) {
+      const getMyAllPost = (await data.data_allPost()).filter((item) => {
+        if (item.post_author === req.user.user_id) {
+          return item;
+        }
+      });
+      const getMyAllComment = await (
+        await data.data_fetchAllComments()
+      ).filter((item) => {
+        if (item.comment_from_user === req.user.user_id) {
+          return item;
+        }
+      });
+      res.render("dashboard/profile", {
+        user: req.user,
+        doc_title: `Profile | ${req.user.user_fullname}`,
+        user_profile_image: await data.data_fetchUserProfileImage(req),
+        current_user: req.user.user_id,
+        my_all_post: getMyAllPost,
+        my_all_comment: getMyAllComment,
+      });
     } else {
       checkNotAuthenticated(req, res);
     }
@@ -246,7 +282,6 @@ const updateSpecificPost = async (req, res) => {
 };
 
 // -- PUT/UPDATE REQUEST: update if the post were pin or not
-
 const updatePinPost = async (req, res) => {
   try {
     if (req.user) {
@@ -290,6 +325,7 @@ module.exports = {
   getSpecificPost,
   getOptionForm,
   getSpecificSubjectAndPost,
+  getProfilePage,
   postShareAnswer,
   postAddComment,
   updateSpecificPost,

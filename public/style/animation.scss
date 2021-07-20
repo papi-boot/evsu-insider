@@ -50,6 +50,10 @@
   left: 56px;
   animation: lds-ellipsis3 0.6s infinite;
 }
+
+.error__shake {
+  animation: error_shake 0.5s linear;
+}
 @keyframes lds-ellipsis1 {
   0% {
     transform: scale(0);
@@ -102,5 +106,25 @@
 
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes error_shake {
+  0% {
+    transform: translateX(-10px);
+  }
+  25% {
+    transform: translateX(20px);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+
+  75% {
+    transform: translateX(20px);
+  }
+
+  100% {
+    transform: translateX(0);
   }
 }

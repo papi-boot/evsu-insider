@@ -1,0 +1,182 @@
+@use "root" as root;
+
+@mixin circle-image-style {
+  clip-path: circle(50% at 50%);
+  height: 10rem;
+  margin: root.$mar-1 auto;
+  width: 10rem;
+}
+
+.input__settings-focus {
+  &:focus-within {
+    background: transparent;
+    border: none;
+    outline: 2px solid root.$primary-color;
+    box-shadow: none;
+  }
+}
+
+#profileBody {
+  background: root.$background_body;
+}
+
+.profile__header {
+  padding: root.$pad-1 0;
+}
+
+.card-profile {
+  padding: root.$pad-1;
+}
+
+.sec__profile {
+  position: relative;
+  > .edit__profile {
+    height: max-content;
+    position: absolute;
+    right: 1rem;
+    top: 2rem;
+    width: max-content;
+    z-index: 999;
+  }
+  > .profile__heading {
+    margin: 0;
+    &::after {
+      background: root.$background_body;
+      content: "";
+      margin: 0 1rem;
+      height: 3px;
+      width: 100%;
+    }
+  }
+}
+
+.edit__profile {
+  .edit__profile-btn {
+    background: rgb(0, 119, 255);
+    border: none;
+    border-radius: 50%;
+    color: root.$white;
+    cursor: pointer;
+    height: 2.3rem;
+    outline: none;
+    transition: root.$transition-1;
+    width: 2.3rem;
+
+    &:focus-within {
+      box-shadow: 0 0 0 5px rgba(0, 119, 255, 0.5);
+    }
+    &:hover {
+      box-shadow: 0 0 0 5px rgba(0, 119, 255, 0.5);
+    }
+  }
+}
+
+.profile__information {
+  .display__picture-container {
+    @include circle-image-style;
+  }
+}
+
+.display__picture-container {
+  > .profile__image {
+    border: 3px solid root.$background_body;
+    border-radius: 50%;
+    height: 100%;
+    object-fit: scale-down;
+    padding: 0.3rem;
+    width: 100%;
+  }
+}
+
+.tag__position {
+  bottom: -0.5rem;
+  height: max-content;
+  position: absolute;
+  width: 100%;
+  > .admin__tag {
+    border: 5px solid root.$white;
+    border-radius: 5px;
+  }
+}
+
+// PROFILE SETTINGS DIALOG
+.profile__settings-dialog {
+  overflow-x: hidden;
+  padding: 0 root.$pad-1;
+  position: relative;
+  > .loading__profile-settings {
+    background: rgba(root.$white, 0.7);
+    height: 100%;
+    position: absolute;
+    right: 1rem;
+    top: 0;
+    width: 100%;
+  }
+}
+
+.settings__display-picture {
+  position: relative;
+  > .upload__profile-image-btn {
+    background: root.$white;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: root.$pad-4;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+
+    &:hover {
+      background: root.$bg-hover-primary;
+    }
+  }
+  .upload__profile-image-picker {
+    display: none !important;
+  }
+}
+
+.edit__profile-image-container {
+  @include circle-image-style;
+  height: 8rem;
+  width: 8rem;
+  > .edit__profile-image {
+    border: 3px solid root.$background_body;
+    border-radius: 50%;
+    height: 100%;
+    object-fit: scale-down;
+    padding: 0.3rem;
+    width: 100%;
+  }
+}
+.dialog__settings-heading {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  &::after {
+    background: root.$background_body;
+    content: "";
+    flex-grow: 1;
+    margin: 0 1rem;
+    height: 3px;
+    width: 30%;
+  }
+}
+
+.reset__password-option {
+  cursor: pointer;
+  height: 2.5rem;
+  overflow: hidden;
+  transition: all 1s ease;
+  width: 100%;
+
+  > .reset__pass-option-header {
+    border-radius: 5px;
+    transition: root.$transition-1;
+    &:hover {
+      background-color: root.$bg-hover-primary;
+    }
+  }
+  &.open {
+    height: max-content;
+  }
+}

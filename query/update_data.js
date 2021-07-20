@@ -112,7 +112,7 @@ const updatePostPin = async (req) => {
         "UPDATE posts SET post_pin = $1, post_pin_time = DEFAULT WHERE post_id = $2",
         {
           type: QueryTypes.UPDATE,
-          bind: [pin_post,  post_id],
+          bind: [pin_post, post_id],
         }
       );
       return results[1];
@@ -122,7 +122,53 @@ const updatePostPin = async (req) => {
   }
 };
 
+const updateProfileInformation = async (req) => {
+  try {
+    const checkInfo = await sequelize.query(
+      "SELECT * FROM users WHERE user_id = $1",
+      { type: QueryTypes.SELECT, bind: [req.user.user_id] }
+    );
+    const resultsProfileInformation = await sequelize.query(
+      "UPDATE users SET user_fullname = $1, user_email = $2 WHERE user_id = $3",
+      {
+        type: QueryTypes.UPDATE,
+        bind: [
+          checkInfo.user_fullname === req.body.fullname
+            ? checkInfo.user_fullname
+            : req.body.fullname,
+          checkInfo.user_email === req.body.email
+            ? checkInfo.user_email
+            : req.body.email,
+          req.user.user_id,
+        ],
+      }
+    );
+    if (resultsProfileInformation[1]) {
+      if (req.files.length > 0) {
+        const DEFAULT_IMAGE =
+          "https://insiderhub.blob.core.windows.net/profile-image/male_predef_image.jpg";
+        const resultsImageUpload = await sequelize.query(
+          "UPDATE user_profile_images SET profile_image_url = $1 WHERE profile_image_belongs_to = $2;",
+          {
+            type: QueryTypes.UPDATE,
+            bind: [
+              req.files[0].url ? req.files[0].url : DEFAULT_IMAGE,
+              req.user.user_id,
+            ],
+          }
+        );
+        return resultsImageUpload;
+      } else {
+        return resultsProfileInformation;
+      }
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   updateOnePost,
   updatePostPin,
+  updateProfileInformation,
 };

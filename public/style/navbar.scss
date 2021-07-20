@@ -80,7 +80,7 @@
   content: "";
   cursor: pointer;
   display: block;
-  height: 2px;
+  height: 5px;
   // margin: 0 auto;
   outline: 0;
   transition: root.$transition-2;
@@ -90,9 +90,9 @@
 @mixin nav-toggler {
   background: transparent;
   border: 0;
-  height: 35px;
+  height: 40px;
   outline: 0;
-  width: 35px;
+  width: 40px;
 }
 
 .burger-toggler {
@@ -123,7 +123,7 @@
 
     &::before {
       @include nav-burger-style;
-      transform: translateY(-8px);
+      transform: translateY(-10px);
       width: 24px;
     }
   }
@@ -136,7 +136,7 @@
 
   &.open > .nav-burger {
     &::after {
-      transform: rotate(45deg) translate(0);
+      transform: rotate(45deg) translate(-5px, 0);
       width: 30px;
     }
   }
@@ -144,7 +144,7 @@
   &.open > .nav-burger {
     &::before {
       width: 30px;
-      transform: rotate(-45deg) translate(-1px, 1px);
+      transform: rotate(-45deg) translate(-3px, -2px);
     }
   }
 }
@@ -194,17 +194,19 @@
   .--acc-option-btn {
     > .user__profile-picture-container {
       clip-path: circle(50% at 50%);
-      height: 2rem;
-      width: 2rem;
+      height: 2.5rem;
       overflow: hidden;
       object-fit: contain;
+      width: 2.5rem;
     }
   }
   .user__profile-picture-container {
     > .user__profile-image {
-      background-size: 100%;
+      border: 2px solid root.$background_body;
+      border-radius: 50%;
       height: 100%;
-      transform: scale(1);
+      object-fit: scale-down;
+      padding: 0.1rem;
       width: 100%;
     }
   }

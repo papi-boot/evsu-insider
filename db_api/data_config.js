@@ -1,5 +1,6 @@
 "use strict";
 const {
+  fetchUserProfileImage,
   fetchAllPost,
   fetchOnePost,
   fetchAllSubject,
@@ -7,7 +8,20 @@ const {
   fetchSubjectPostResult,
   fetchCommentForOnePost,
   fetchPostCommentCount,
+  fetchAllComments,
 } = require("../query/fetch_data");
+const { checkProfileImage } = require("../query/insert_data");
+
+const data_checkUserProfileImage = async (req) => {
+  const results = await checkProfileImage(req);
+  return results;
+};
+
+const data_fetchUserProfileImage = async (req) => {
+  const results = await fetchUserProfileImage(req);
+  return results;
+};
+
 const data_sliceRecentPost = async () => {
   const results = (await fetchAllPost()).slice(0, 8);
 
@@ -52,7 +66,14 @@ const data_fetchPostCommentCount = async (post_id) => {
   return results;
 };
 
+const data_fetchAllComments = async () => {
+  const results = await fetchAllComments();
+  return results;
+};
+
 module.exports = {
+  data_checkUserProfileImage,
+  data_fetchUserProfileImage,
   data_allPost,
   data_fetchPostCommentCount,
   data_fetchSubjectPostResult,
@@ -61,4 +82,5 @@ module.exports = {
   data_secondSemester,
   data_sliceRecentPost,
   data_allSubject,
+  data_fetchAllComments,
 };
