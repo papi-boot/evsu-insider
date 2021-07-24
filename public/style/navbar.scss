@@ -192,13 +192,13 @@
     }
   }
   .--acc-option-btn {
-    > .user__profile-picture-container {
-      clip-path: circle(50% at 50%);
-      height: 2.5rem;
-      overflow: hidden;
-      object-fit: contain;
-      width: 2.5rem;
-    }
+  }
+  .user__profile-picture-container {
+    clip-path: circle(50% at 50%);
+    height: 2.5rem;
+    overflow: hidden;
+    object-fit: contain;
+    width: 2.5rem;
   }
   .user__profile-picture-container {
     > .user__profile-image {

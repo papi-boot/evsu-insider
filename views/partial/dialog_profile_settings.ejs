@@ -7,7 +7,8 @@
       </div>
       <div class="modal-body profile__settings-dialog">
         <%- include("../partial/loading_profile_settings") %>
-          <form class="form__profile-settings" enctype="multipart/form-data">
+          <form class="form__profile-settings position-relative" enctype="multipart/form-data">
+            <%- include("../partial/profile_settings_next_update") %>
             <%- include("../partial/alert_profile_settings") %>
               <!-- Display Picture -->
               <div class="settings__display-picture my-3">
@@ -46,15 +47,19 @@
                     value="<%= user.user_email%>" required>
                 </div>
               </div>
+            <% if(format(new Date(),'EEEE, MMMM dd, yyyy') === format(user.user_updated_at, 'EEEE, MMMM dd, yyyy' )) { %>
               <input type="submit" class="d-none save__profile-settings" id="saveProfileSettings">
+            <% } %>
           </form>
           <!-- end here -->
           <!-- Password Options -->
           <div class="settings__profile-display-password-option my-3">
             <label class="form-label w-100 fw_600 m-0 text-black-50 dialog__settings-heading">Password Options</label>
-            <div class="reset__password-option my-3">
-              <div class="d-flex align-items-center justify-content-between p-2 reset__pass-option-header">
-                <h6 class="p-theme-color m-0">Reset Password</h6>
+            <div class="change__password-option my-3">
+              <div class="d-flex align-items-center justify-content-between p-2 change__password-option-header">
+                <h6 class="p-theme-color m-0">Change Password
+                  <span><i class="bi bi-key"></i></span>
+                  </h6>
                 <span><i class="fa fa-chevron-right"></i></span>
               </div>
               <%- include("../partial/dropdown_password_options") %>
@@ -63,9 +68,12 @@
       </div>
       <div class="modal-footer --nav-list">
         <button type="button" class="btn__global btn__cancel fw_600" data-bs-dismiss="modal">Close</button>
-        <label for="saveProfileSettings" role="button" class="btn__global btn__ fw_600">Save Changes
+    <% if(format(new Date(),'EEEE, MMMM dd, yyyy') === format(user.user_updated_at, 'EEEE, MMMM dd, yyyy' )) { %>
+        <label for="saveProfileSettings" role="button" class="btn__global btn__ fw_600 btn__update-profile-info">Save Changes
           <span class="spinner-border spinner-border-sm d-none loading-spinner" role="status" aria-hidden="true"></span>
         </label>
+    <% } %>
+        
       </div>
     </div>
   </div>

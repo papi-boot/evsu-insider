@@ -21,10 +21,10 @@
         </li>
         <li class="--nav-item">
           <div class="btn-group">
-            <button class="--nav-link dropdown-toggle --acc-option-btn gap-1" type="button" data-bs-toggle="dropdown">
-              <div class="user__profile-picture-container">
-                <img class="user__profile-image" src="<%= user_profile_image[0].profile_image_url %> " alt="profile-image" loading="lazy">
-              </div>
+            <div class="user__profile-picture-container">
+              <img class="user__profile-image" src="<%= user_profile_image[0].profile_image_url %> " alt="profile-image" loading="lazy">
+            </div>
+            <button class="--nav-link dropdown-toggle --acc-option-btn mx-1" type="button" data-bs-toggle="dropdown">
               Account 
               <% if (user.user_state == 2){ %>
                 <sup class="badge bg-success f_size-4">

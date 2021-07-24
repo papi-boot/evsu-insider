@@ -1,16 +1,28 @@
 window.addEventListener("DOMContentLoaded", () => {
-  const resetPasswordBtn = document.querySelector(".reset__pass-option-header");
-  const resetPasswordContainer = document.querySelector(
-    ".reset__password-option"
+  require("./change-password");
+  const changePasswordBtnDropDown = document.querySelector(
+    ".change__password-option-header"
   );
+  const changePasswordContainer = document.querySelector(
+    ".change__password-option"
+  );
+  const btnUpdateProfileSettings = document.querySelector(
+    ".btn__update-profile-info"
+  ); //btn to update information not password
   let imageFile;
   let isOpen = false;
-  resetPasswordBtn.addEventListener("click", () => {
+  changePasswordBtnDropDown.addEventListener("click", () => {
     if (!isOpen) {
-      resetPasswordContainer.classList.add("open");
+      changePasswordContainer.classList.add("open");
+      btnUpdateProfileSettings
+        ? btnUpdateProfileSettings.classList.add("d-none")
+        : "";
       isOpen = true;
     } else {
-      resetPasswordContainer.classList.remove("open");
+      changePasswordContainer.classList.remove("open");
+      btnUpdateProfileSettings
+        ? btnUpdateProfileSettings.classList.remove("d-none")
+        : "";
       isOpen = false;
     }
   });
@@ -68,11 +80,17 @@ window.addEventListener("DOMContentLoaded", () => {
       ".profile__settings-fullname"
     ),
     profileSettingsEmail = document.querySelector(".profile__settings-email"),
-    loadingSpinner = document.querySelector(".loading-spinner");
+    loadingSpinner = document.querySelector(".loading-spinner"),
+    loadingProfileSettings = document.querySelector(
+      ".loading__profile-settings"
+    );
 
   formProfileSettings.addEventListener("submit", (e) => {
     e.preventDefault();
     loadingSpinner.classList.remove("d-none");
+    loadingProfileSettings.classList.remove("d-none");
+    btnUpdateProfileSettings.removeAttribute("for");
+    btnUpdateProfileSettings.removeAttribute("role");
     const profileSettingsFormData = new FormData(formProfileSettings),
       PROFILE_IMAGE = "profile_image";
     profileSettingsFormData.append(PROFILE_IMAGE, imageFile);
@@ -83,7 +101,7 @@ window.addEventListener("DOMContentLoaded", () => {
       const UPDATE_INFO_URL = "/profile-info-update";
       const response = await fetch(UPDATE_INFO_URL, {
         method: "PUT",
-        mode: "cors", 
+        mode: "cors",
         cache: "no-cache",
         body: profileSettingsFormData,
       });
@@ -94,7 +112,7 @@ window.addEventListener("DOMContentLoaded", () => {
     };
     updateProfileInformation()
       .then((res) => {
-        console.log(res);
+        window.location.href = res.url;
       })
       .catch((err) => console.error(err));
   });

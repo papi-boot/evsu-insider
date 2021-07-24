@@ -12,7 +12,13 @@ const {
 const { send404_PageNotFound } = require("../middleware/page_not_found");
 const { deleteOnePost } = require("../query/delete_data"); //Delete specific data
 const { updateOnePost, updatePostPin } = require("../query/update_data");
-const { formatDistanceToNow, format, add } = require("date-fns");
+const {
+  formatDistanceToNow,
+  format,
+  formatDistance,
+  formatRelative,
+  add,
+} = require("date-fns");
 const data = require("../db_api/data_config"); //COVERS A LOT OF DATA MANIPULATION.
 
 // -- GET HTTP REQUEST : get dashboard/main page
@@ -75,6 +81,7 @@ const getHomeDashboard = async (req, res) => {
         pin_post_comment_count: pinPostCommentResultFound,
         formatDistanceToNow,
         format,
+        formatRelative,
         add,
       });
     } else {
@@ -133,6 +140,7 @@ const getSpecificPost = async (req, res) => {
           firstSemester: firstSemester,
           secondSemester: secondSemester,
           formatDistanceToNow,
+          formatRelative,
           format,
           add,
         });
@@ -182,13 +190,26 @@ const getSpecificSubjectAndPost = async (req, res) => {
       const filterRelatedPost = (await fetchSelectedSubject(req)).filter(
         (item) => item.post_subject === req.query.subject_id
       );
-      let postCommentResultFound = []; // comment/discussion found
+      const commentFilterRelatedPost = await data.data_fetchAllComments();
+      let comment = [];
       for (let i = 0; i < filterRelatedPost.length; i++) {
-        postCommentResultFound.push(
-          await data.data_fetchPostCommentCount(filterRelatedPost[i].post_id)
-        );
+        comment.push({
+          post_id: filterRelatedPost[i].post_id,
+          post_title: filterRelatedPost[i].post_title,
+          comment: commentFilterRelatedPost.filter((item) => {
+            if (item.comment_from_post === filterRelatedPost[i].post_id) {
+              return item;
+            }
+          }),
+          comment_count: commentFilterRelatedPost.filter(
+            (item, index, array) => {
+              if (item.comment_from_post === filterRelatedPost[i].post_id) {
+                return array.length;
+              }
+            }
+          ),
+        });
       }
-      console.log(postCommentResultFound);
       if (subject.length > 0) {
         res.header("Service-Worker-Allowed", "/");
         await res.render("dashboard/show_subject", {
@@ -207,9 +228,11 @@ const getSpecificSubjectAndPost = async (req, res) => {
             (post_one, post_two) =>
               post_two.post_created_at - post_one.post_created_at
           ),
-          comment_count: postCommentResultFound,
+          comment: comment,
           formatDistanceToNow,
+          formatRelative,
           format,
+          add,
         });
       } else {
         send404_PageNotFound(req, res);
@@ -238,6 +261,25 @@ const getProfilePage = async (req, res) => {
           return item;
         }
       });
+      let comment = [];
+      for (let i = 0; i < getMyAllPost.length; i++) {
+        comment.push({
+          post_id: getMyAllPost[i].post_id,
+          post_title: getMyAllPost[i].post_title,
+          comment: getMyAllComment.filter((item) => {
+            if (item.comment_from_post === getMyAllPost[i].post_id) {
+              return item;
+            }
+          }),
+          comment_count: getMyAllComment.filter(
+            (item, index, array) => {
+              if (item.comment_from_post === getMyAllPost[i].post_id) {
+                return array.length;
+              }
+            }
+          ),
+        });
+      }
       res.render("dashboard/profile", {
         user: req.user,
         doc_title: `Profile | ${req.user.user_fullname}`,
@@ -245,6 +287,12 @@ const getProfilePage = async (req, res) => {
         current_user: req.user.user_id,
         my_all_post: getMyAllPost,
         my_all_comment: getMyAllComment,
+        comment: comment,
+        formatDistanceToNow,
+        formatDistance,
+        formatRelative,
+        format,
+        add,
       });
     } else {
       checkNotAuthenticated(req, res);

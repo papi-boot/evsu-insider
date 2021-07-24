@@ -3,7 +3,7 @@
 window.addEventListener("load", () => {
   const notifStorage = localStorage;
   const vapid_public_key =
-    "BM4QqLKxL9RhWVYVQwNgLuymsS4XH6PSP89x45tl8vkfeIFANGiBG5dmbSFzxEgA68KdtQr0O11qsjkdgAk5d2U";
+    "BHz_dI7oKkwqEiMTig6CilgaUgWzs1v41znrEWLQQp7isOf-STOine-tUAqGNDvb0BaIXyZPGFNQt03N2twJAyU";
   const getNotifiedBanner = document.querySelector(".notification__permission");
   const btnGetNotify = document.querySelector(".btn__get-notified");
   const loadingSpinner = document.querySelector(".loading-spinner");

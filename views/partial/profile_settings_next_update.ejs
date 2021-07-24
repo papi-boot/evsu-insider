@@ -1,0 +1,10 @@
+<% if(format(new Date(),'EEEE, MMMM dd, yyyy') != format(user.user_updated_at, 'EEEE, MMMM dd, yyyy' )) { %>
+  <div class="profile__banner-next-update d-flex align-items-center justify-content-center position-absolute top-0 w-100
+  z-index-p1">
+    <div class="content__info bg-primary p-2">
+      <p class="f_size-2 m-0 text-white">
+        Next update for your Profile information is <%= formatDistance(user.user_updated_at, new Date(), {addSuffix: true,}) %>
+      </p>
+    </div>
+  </div>
+<% } %>

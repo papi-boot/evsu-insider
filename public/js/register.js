@@ -40,7 +40,7 @@ window.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     passwordChecker.classList.remove("d-none");
 
-    if (e.target.value.length > 8) {
+    if (e.target.value.length >= 8) {
       passwordChecker.classList.remove("text-danger");
       passwordChecker.classList.add("text-success");
       checkIcon[0].classList.remove("d-none");

@@ -8,11 +8,11 @@
   <body id="profileBody">
     <div class="divider div-primary-bg-color"></div>
     <%- include("../partial/navbar") %>
-      <div class="divider div-second-bg-color"></div>
-
-      <div class="container">
+    <%- include("../partial/success_alert") %>
+    <%- include("../partial/error_alert") %> 
+      <div class="container my-5">
         <%- include("../partial/dialog_profile_settings") %>
-          <header class="profile__header ">
+          <header class="profile__header">
             <div class="card card-profile">
               <section class="sec__profile">
                 <div class="edit__profile">
@@ -20,7 +20,7 @@
                   <button class="edit__profile-btn bi bi-pen" type="button" data-bs-toggle="modal"
                     data-bs-target="#dialogProfileSettings" title="Edit Your Information"></button>
                 </div>
-                <h5 class="profile__heading text-black-50 d-flex align-items-center justify-content-between">Profile
+                <h5 class="profile__heading text-black-50 d-flex align-items-center justify-content-between">My Profile
                 </h5>
                 <div class="profile__information">
                   <div class="position-relative">
@@ -35,7 +35,7 @@
                           Admin
                         </div>
                       </div>
-                      <% } %>
+                    <% } %>
                   </div>
                   <h2 class="profile__username text-center">
                     <%= user.user_fullname %>
@@ -44,13 +44,13 @@
                     <div class="number__of-post me-3">
                       <h6 class="post__count text-black-50" title="Your all Post">
                         <%- include("../svg/post_count")%>
-                          <%= my_all_post.length %>
+                        <%= my_all_post.length %>
                       </h6>
                     </div>
                     <div class="number__of-comment ms-3 text-black-50" title="Your all comment">
                       <h6 class="comment__count">
                         <%- include("../svg/comment_count")%>
-                          <%= my_all_comment.length %>
+                        <%= my_all_comment.length %>
                       </h6>
                     </div>
                   </div>
@@ -58,6 +58,16 @@
               </section>
             </div>
           </header>
+          <div class="card card-allpost my-4 p-3">
+            <section class="sec_post">
+              <h5 class="profile__heading text-black-50 d-flex align-items-center justify-content-between">My Post</h5>
+              <div class="my__all-post">
+                <div class="row">
+                  <%- include("../data/user_all_post") %> 
+                </div>
+              </div> 
+            </section>
+          </div>
       </div>
       <%- include("../partial/script") %>
   </body>

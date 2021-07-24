@@ -32,10 +32,15 @@
               <i class="bi bi-person-fill f_size-1 p-theme-color"></i>&nbsp;<span class="fw_700 p-theme-color"><%= item.user_fullname %></span>,
               </h6>
               <h6 class="post__created f_size-3 mx-1 fw_600">
-                <i class="bi bi-clock f_size-1 p-theme-color"></i> <%= formatDistanceToNow(item.post_created_at, { addSuffix: true }) %>
+                <i class="bi bi-clock f_size-1 p-theme-color"></i> <%= formatDistanceToNow(add(item.post_created_at, {hours: 8}), { addSuffix: true }) %>&nbsp;•&nbsp;
+                <%= formatRelative(add(item.post_created_at, {hours: 8}), new Date()) %> 
               </h6>
-            <% if (comment_count[index][0].count !== "0") { %>
-              <h6 class="post__created f_size-3 mx-1 fw_600 p-theme-color"><i class="bi bi-chat-fill"></i> (<%= comment_count[index][0].count %>)</h6>
+            <% if(comment.length > 0) { %>
+              <% comment.forEach((item_comment) => { %>
+                <% if(item_comment.post_id === item.post_id && item_comment.comment.length > 0 ){ %>
+                  <h6 class="post__created f_size-3 mx-1 fw_600 p-theme-color"><i class="bi bi-chat-fill"></i> (<%= item_comment.comment.length %>)</h6>
+                <% } %>
+              <% }) %>
             <% } %>
             </div>
           </div>
