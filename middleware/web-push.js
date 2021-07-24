@@ -9,6 +9,12 @@ const { fetchAllSubscription } = require("../query/fetch_data");
 const publicKey = process.env.HEROKU_VAPID_PUBLIC_KEY,
   privateKey = process.env.HEROKU_VAPID_PRIVATE_KEY;
 
+webpush.setVapidDetails(
+  "mailto:support.team@insiderhub.tech",
+  publicKey,
+  privateKey
+);
+
 webpush_notification.post("/subscription", async (req, res) => {
   try {
     const subscription = req.body;
@@ -22,31 +28,26 @@ webpush_notification.post("/subscription", async (req, res) => {
 
 webpush_notification.get("/send-notification", async (req, res) => {
   try {
-    const vapidOption = {
-      vapidDetails: {
-        subject: "mailto:support.team@insiderhub.tech",
-        publicKey: publicKey,
-        privateKey: privateKey,
-      },
-    };
-    console.log(req.user);
     const payload = JSON.stringify({
       title: "Insider Hub Notification",
     });
-    const loadSubscription = await fetchAllSubscription();
-    for (let i = 0; i < loadSubscription.length; i++) {
-      let parseSubscription = JSON.parse(loadSubscription[i].subscription);
-      console.log(parseSubscription);
-      webpush
-        .sendNotification(parseSubscription, payload, vapidOption)
-        .then((res) => {
-          res.statusCode = 200;
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-      res.json({ message: "notification sent", url: "/dashboard" });
-    }
+    fetchAllSubscription()
+      .then((loadSubscription) => {
+        for (let i = 0; i < loadSubscription.length; i++) {
+          let parseSubscription = JSON.parse(loadSubscription[i].subscription);
+          console.log(parseSubscription);
+          webpush
+            .sendNotification(parseSubscription, payload)
+            .then((res) => {
+              res.statusCode = 200;
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+          res.json({ message: "notification sent", url: "/dashboard" });
+        }
+      })
+      .catch((err) => console.error(err));
   } catch (err) {
     console.error(err);
   }
