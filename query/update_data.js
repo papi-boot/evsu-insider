@@ -2,6 +2,7 @@
 const { sequelize, QueryTypes } = require("../config/db.connect");
 const domPurify = require("dompurify");
 const { JSDOM } = require("jsdom");
+const bcrypt = require("bcrypt");
 
 const updateOnePost = async (req, res) => {
   try {
@@ -112,7 +113,7 @@ const updatePostPin = async (req) => {
         "UPDATE posts SET post_pin = $1, post_pin_time = DEFAULT WHERE post_id = $2",
         {
           type: QueryTypes.UPDATE,
-          bind: [pin_post,  post_id],
+          bind: [pin_post, post_id],
         }
       );
       return results[1];
@@ -122,7 +123,133 @@ const updatePostPin = async (req) => {
   }
 };
 
+const updateProfileInformation = async (req, res) => {
+  try {
+    const date = new Date();
+    const addTwoWeeks = date.setDate(date.getDate() + 7);
+    const { fullname, email } = req.body;
+    const htmlPurify = domPurify(new JSDOM().window);
+    const cleanFullname = htmlPurify.sanitize(fullname),
+      cleanEmail = htmlPurify.sanitize(email);
+    const checkInfo = await sequelize.query(
+      "SELECT * FROM users WHERE user_id = $1",
+      { type: QueryTypes.SELECT, bind: [req.user.user_id] }
+    );
+
+    const resultsProfileInformation = await sequelize.query(
+      "UPDATE users SET user_fullname = $1, user_email = $2, user_updated_at = $3 WHERE user_id = $4;",
+      {
+        type: QueryTypes.UPDATE,
+        bind: [
+          checkInfo.user_fullname === cleanFullname
+            ? checkInfo.user_fullname
+            : cleanFullname,
+          checkInfo.user_email === cleanEmail
+            ? checkInfo.user_email
+            : cleanEmail,
+          new Date(addTwoWeeks),
+          req.user.user_id,
+        ],
+      }
+    );
+    if (resultsProfileInformation[1]) {
+      if (req.files.length > 0) {
+        const DEFAULT_IMAGE =
+          "https://insiderhub.blob.core.windows.net/profile-image/male_predef_image.jpg";
+        const resultsImageUpload = await sequelize.query(
+          "UPDATE user_profile_images SET profile_image_url = $1 WHERE profile_image_belongs_to = $2;",
+          {
+            type: QueryTypes.UPDATE,
+            bind: [
+              req.files[0].url ? req.files[0].url : DEFAULT_IMAGE,
+              req.user.user_id,
+            ],
+          }
+        );
+        return resultsImageUpload;
+      } else {
+        return resultsProfileInformation;
+      }
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const updateRequestChangePassword = async (req, res) => {
+  try {
+    const { current_password, new_password, confirm_new_password } = req.body;
+    const htmlPurify = domPurify(new JSDOM().window);
+    const cleanCurrentPassword = htmlPurify.sanitize(current_password),
+      cleanNewPassword = htmlPurify.sanitize(new_password),
+      cleanConfirmNewPassword = htmlPurify.sanitize(confirm_new_password);
+    const checkUserInfo = await sequelize.query(
+      "SELECT * FROM users WHERE user_id = $1",
+      {
+        type: QueryTypes.SELECT,
+        bind: [req.user.user_id],
+      }
+    );
+    //check if info is present
+    if (checkUserInfo.length > 0) {
+      //compare the current password
+      bcrypt.compare(
+        cleanCurrentPassword,
+        checkUserInfo[0].user_password,
+        async (error, passwordMatched) => {
+          if (error) {
+            return res.status(401).json({ error_message: error.message });
+          }
+          if (passwordMatched) {
+            const hashNewPassword = await bcrypt.hash(cleanNewPassword, 10);
+            if (cleanNewPassword === cleanConfirmNewPassword) {
+              const resultsChangePassword = await sequelize.query(
+                "UPDATE users SET user_password = $1 WHERE user_id = $2",
+                {
+                  type: QueryTypes.UPDATE,
+                  bind: [hashNewPassword, req.user.user_id],
+                }
+              );
+              if (resultsChangePassword[1]) {
+                return res.status(200).json({
+                  success_message: "Password was successfully changed.",
+                  success: 1,
+                });
+              } else {
+                return res.status(401).json({
+                  error_message:
+                    "Something went wrong when changing your password, Please try again",
+                  error: 1,
+                });
+              }
+            } else {
+              return res.status(401).json({
+                error_message:
+                  "New password and confirm password do not matched. Please tyr again.",
+                error: 1,
+              });
+            }
+          } else {
+            return res.status(401).json({
+              error_message: "Current Password was incorrect.",
+              error: 1,
+            });
+          }
+        }
+      );
+    } else {
+      return res.status(401).json({
+        error_message: "Something went wrong. Please reload the page",
+      });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   updateOnePost,
   updatePostPin,
+  updateProfileInformation,
+  updateRequestChangePassword,
 };

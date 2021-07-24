@@ -1,0 +1,80 @@
+<div class="modal fade" id="dialogProfileSettings" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Profile Settings <span><i class="bi bi-gear-fill"></i></span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body profile__settings-dialog">
+        <%- include("../partial/loading_profile_settings") %>
+          <form class="form__profile-settings position-relative" enctype="multipart/form-data">
+            <%- include("../partial/profile_settings_next_update") %>
+            <%- include("../partial/alert_profile_settings") %>
+              <!-- Display Picture -->
+              <div class="settings__display-picture my-3">
+                <label class="form-label w-100 fw_600 m-0 text-black-50 dialog__settings-heading"
+                  for="displayPicture">Display
+                  Picture</label>
+                <div class="edit__profile-image-container my-0">
+                  <image type="image" class="edit__profile-image preview__profile-image"
+                    src="<%= user_profile_image[0].profile_image_url %>" loading="lazy"
+                    id="displayPicture">
+                </div>
+                <label class="upload__profile-image-btn" for="changeProfile" title="Upload Profile Picture">
+                  <input class="w-50 d-block mx-auto my-2 upload__profile-image-picker" type="file"
+                    name="user_profile_image" id="changeProfile" value="" accept=".jpg, .png, .webp, .jpeg, .gif">
+                  <%- include("../svg/camera") %>
+                </label>
+                <%- include("../partial/info_image_upload") %>
+              </div>
+              <!-- Display Name -->
+              <div class="settings__profile-display-name my-3">
+                <label class="form-label w-100 fw_600 m-0 text-black-50 dialog__settings-heading"
+                  for="displayPicture">Fullname</label>
+                <div class="input-group flex-nowrap my-2">
+                  <span class="input-group-text primary-bg-color text-white"><i class="bi bi-person"></i></span>
+                  <input type="text" class="form-control input__settings-focus profile__settings-fullname"
+                    value="<%= user.user_fullname%>" required>
+                </div>
+              </div>
+              <!-- Display Email -->
+              <div class="settings__profile-display-email my-3">
+                <label class="form-label w-100 fw_600 m-0 text-black-50 dialog__settings-heading"
+                  for="displayPicture">Email</label>
+                <div class="input-group flex-nowrap my-2">
+                  <span class="input-group-text primary-bg-color text-white"><i class="bi bi-envelope"></i></span>
+                  <input type="email" class="form-control input__settings-focus profile__settings-email"
+                    value="<%= user.user_email%>" required>
+                </div>
+              </div>
+            <% if(format(new Date(),'EEEE, MMMM dd, yyyy') === format(user.user_updated_at, 'EEEE, MMMM dd, yyyy' )) { %>
+              <input type="submit" class="d-none save__profile-settings" id="saveProfileSettings">
+            <% } %>
+          </form>
+          <!-- end here -->
+          <!-- Password Options -->
+          <div class="settings__profile-display-password-option my-3">
+            <label class="form-label w-100 fw_600 m-0 text-black-50 dialog__settings-heading">Password Options</label>
+            <div class="change__password-option my-3">
+              <div class="d-flex align-items-center justify-content-between p-2 change__password-option-header">
+                <h6 class="p-theme-color m-0">Change Password
+                  <span><i class="bi bi-key"></i></span>
+                  </h6>
+                <span><i class="fa fa-chevron-right"></i></span>
+              </div>
+              <%- include("../partial/dropdown_password_options") %>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer --nav-list">
+        <button type="button" class="btn__global btn__cancel fw_600" data-bs-dismiss="modal">Close</button>
+    <% if(format(new Date(),'EEEE, MMMM dd, yyyy') === format(user.user_updated_at, 'EEEE, MMMM dd, yyyy' )) { %>
+        <label for="saveProfileSettings" role="button" class="btn__global btn__ fw_600 btn__update-profile-info">Save Changes
+          <span class="spinner-border spinner-border-sm d-none loading-spinner" role="status" aria-hidden="true"></span>
+        </label>
+    <% } %>
+        
+      </div>
+    </div>
+  </div>
+</div>

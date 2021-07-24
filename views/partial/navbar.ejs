@@ -21,10 +21,10 @@
         </li>
         <li class="--nav-item">
           <div class="btn-group">
-            <button class="--nav-link dropdown-toggle --acc-option-btn gap-1" type="button" data-bs-toggle="dropdown">
-              <div class="user__profile-picture-container">
-                <img class="user__profile-image" src="https://www.gannett-cdn.com/presto/2020/09/25/USAT/f4d10bd0-7f11-413f-9d69-c67d8e7d7f03-Arif_Zahir.jpg" alt="profile-image">
-              </div>
+            <div class="user__profile-picture-container">
+              <img class="user__profile-image" src="<%= user_profile_image[0].profile_image_url %> " alt="profile-image" loading="lazy">
+            </div>
+            <button class="--nav-link dropdown-toggle --acc-option-btn mx-1" type="button" data-bs-toggle="dropdown">
               Account 
               <% if (user.user_state == 2){ %>
                 <sup class="badge bg-success f_size-4">
@@ -34,7 +34,10 @@
             </button>
             <ul class="dropdown-menu --acc-option p-1">
               <li class="--nav-item mx-1">
-                <a class="--nav-link dropdown-item" href="/profile">Profile</a>
+                <a class="--nav-link dropdown-item" href="/profile">Profile <span><i class="bi bi-person-fill f_size-1"></i></span></a>
+              </li>
+              <li class="--nav-item mx-1">
+                <a class="--nav-link dropdown-item" href="/profile">Settings <span><i class="bi bi-gear-fill f_size-1"></i></span></a>
               </li>
               <li class="--nav-item mx-1">
                 <a class="--nav-link dropdown-item" href="/sign-out">Sign Out <span><i

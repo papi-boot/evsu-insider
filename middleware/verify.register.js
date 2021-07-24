@@ -21,7 +21,7 @@ const initialize = async (req, res) => {
       validateFormMessage.push("Password field is required.");
     } else if (!confirm_password) {
       validateFormMessage.push("Password dont match.");
-    } else if (password.length < 6) {
+    } else if (password.length < 8) {
       validateFormMessage.push(
         "Password should be at least 8 characters long."
       );

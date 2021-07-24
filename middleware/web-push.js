@@ -8,6 +8,7 @@ const { fetchAllSubscription } = require("../query/fetch_data");
 
 const publicKey = process.env.HEROKU_VAPID_PUBLIC_KEY,
   privateKey = process.env.HEROKU_VAPID_PRIVATE_KEY;
+
 webpush.setVapidDetails(
   "mailto:support.team@insiderhub.tech",
   publicKey,

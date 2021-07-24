@@ -1,7 +1,35 @@
 "use strict";
 const { sequelize, QueryTypes } = require("../config/db.connect");
 
-// FETCH ALL POST/ANSWER
+const fetchOneUser = async (user_id) => {
+  try {
+    const results = await sequelize.query(
+      "SELECT * FROM users WHERE user_id = $1",
+      {
+        type: QueryTypes.SELECT,
+        bind: [user_id],
+      }
+    );
+    return results;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const fetchUserProfileImage = async (req) => {
+  try {
+    const results = await sequelize.query(
+      "SELECT * FROM user_profile_images WHERE profile_image_belongs_to = $1",
+      {
+        type: QueryTypes.SELECT,
+        bind: [req.user.user_id],
+      }
+    );
+    return results;
+  } catch (err) {
+    console.error(err);
+  }
+};
 const fetchAllPost = async () => {
   try {
     const results = await sequelize.query(
@@ -22,7 +50,7 @@ const fetchOnePost = async (req) => {
   try {
     const post_id = req.query.post_id;
     const results = await sequelize.query(
-      "SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_created_at, post_updated_at, user_fullname, user_state, subject_name, subject_id FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id WHERE post_id = $1;",
+      `SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_created_at, post_updated_at, user_fullname, user_state, subject_name, subject_id, profile_image_url FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id INNER JOIN user_profile_images ON user_profile_images.profile_image_belongs_to = users.user_id WHERE post_id = $1;`,
       {
         type: QueryTypes.SELECT,
         bind: [post_id],
@@ -118,7 +146,21 @@ const fetchPostCommentCount = async (post_id) => {
 
 const fetchAllSubscription = async () => {
   try {
-    const results = await sequelize.query("SELECT subscription FROM notifications", {
+    const results = await sequelize.query(
+      "SELECT subscription FROM notifications",
+      {
+        type: QueryTypes.SELECT,
+      }
+    );
+    return results;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const fetchAllComments = async () => {
+  try {
+    const results = await sequelize.query("SELECT * FROM comments", {
       type: QueryTypes.SELECT,
     });
     return results;
@@ -128,6 +170,8 @@ const fetchAllSubscription = async () => {
 };
 
 module.exports = {
+  fetchOneUser,
+  fetchUserProfileImage,
   fetchAllPost,
   fetchOnePost,
   fetchAllSubject,
@@ -135,5 +179,6 @@ module.exports = {
   fetchSubjectPostResult,
   fetchCommentForOnePost,
   fetchPostCommentCount,
-  fetchAllSubscription
+  fetchAllSubscription,
+  fetchAllComments,
 };
