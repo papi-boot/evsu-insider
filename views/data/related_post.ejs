@@ -31,7 +31,8 @@
             <i class="bi bi-person-fill f_size-1 p-theme-color"></i>&nbsp;<span class="fw_700 p-theme-color"><%= item.user_fullname %></span>,
             </h6>
             <h6 class="post__created f_size-3 mx-1 fw_600">
-              <i class="bi bi-clock f_size-1 p-theme-color"></i>&nbsp;<%= formatDistanceToNow(item.post_created_at, { addSuffix: true }) %>
+              <i class="bi bi-clock f_size-1 p-theme-color"></i> <%= formatDistanceToNow(item.post_created_at, { addSuffix: true }) %>&nbsp;•&nbsp;
+              <%= formatRelative(add(item.post_created_at, {hours: 8}), new Date()) %>
             </h6>
           </div>
         </div>
