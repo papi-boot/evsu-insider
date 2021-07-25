@@ -1,8 +1,9 @@
 /* eslint-disable no-useless-escape */
 
 const btnSubmitPost = document.querySelector(".btn__submit-post");
+const formCreatePost = document.querySelector(".form__create-post");
 
-btnSubmitPost.addEventListener("click", (e) => {
+formCreatePost.addEventListener("submit", (e) => {
   fetch("/send-notification", {
     method: "GET",
   })
