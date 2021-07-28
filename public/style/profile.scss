@@ -1,6 +1,7 @@
 @use "root" as root;
 
 @mixin circle-image-style {
+  background: rgb(240, 240, 240);
   clip-path: circle(50% at 50%);
   height: 10rem;
   margin: root.$mar-1 auto;
@@ -170,7 +171,26 @@
   transition: all 1s ease;
   width: 100%;
 
-  > .change__password-option-header {
+  > .dropdown__profile-info-option-toggler {
+    border-radius: 5px;
+    transition: root.$transition-1;
+    &:hover {
+      background-color: root.$bg-hover-primary;
+    }
+  }
+  &.open {
+    height: max-content;
+  }
+}
+
+.change__email-option {
+  cursor: pointer;
+  height: 2.5rem;
+  overflow: hidden;
+  transition: all 1s ease;
+  width: 100%;
+
+  > .dropdown__profile-info-option-toggler {
     border-radius: 5px;
     transition: root.$transition-1;
     &:hover {

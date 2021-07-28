@@ -3,7 +3,7 @@ const { sequelize, QueryTypes } = require("../config/db.connect");
 
 const deleteOnePost = async (req) => {
   try {
-    const post_id =  req.query.post_id;
+    const post_id = req.query.post_id;
     const results = await sequelize.query(
       "DELETE FROM posts WHERE post_id = $1",
       {
@@ -17,6 +17,16 @@ const deleteOnePost = async (req) => {
   }
 };
 
+setInterval(async () => {
+  const deletePasswordResetToken = await sequelize.query(
+    "DELETE FROM password_resets WHERE $1 > password_reset_expiration",
+    {
+      type: QueryTypes.DELETE,
+      bind: [new Date()]
+    }
+  );
+}, 1000);
+
 module.exports = {
-  deleteOnePost
-}
+  deleteOnePost,
+};

@@ -127,26 +127,22 @@ const updateProfileInformation = async (req, res) => {
   try {
     const date = new Date();
     const addTwoWeeks = date.setDate(date.getDate() + 7);
-    const { fullname, email } = req.body;
+    const { fullname } = req.body;
     const htmlPurify = domPurify(new JSDOM().window);
-    const cleanFullname = htmlPurify.sanitize(fullname),
-      cleanEmail = htmlPurify.sanitize(email);
+    const cleanFullname = htmlPurify.sanitize(fullname);
     const checkInfo = await sequelize.query(
       "SELECT * FROM users WHERE user_id = $1",
       { type: QueryTypes.SELECT, bind: [req.user.user_id] }
     );
 
     const resultsProfileInformation = await sequelize.query(
-      "UPDATE users SET user_fullname = $1, user_email = $2, user_updated_at = $3 WHERE user_id = $4;",
+      "UPDATE users SET user_fullname = $1, user_updated_at = $2 WHERE user_id = $3;",
       {
         type: QueryTypes.UPDATE,
         bind: [
           checkInfo.user_fullname === cleanFullname
             ? checkInfo.user_fullname
             : cleanFullname,
-          checkInfo.user_email === cleanEmail
-            ? checkInfo.user_email
-            : cleanEmail,
           new Date(addTwoWeeks),
           req.user.user_id,
         ],
@@ -178,7 +174,8 @@ const updateProfileInformation = async (req, res) => {
 
 const updateRequestChangePassword = async (req, res) => {
   try {
-    const { current_password, new_password, confirm_new_password } = req.body;
+    const { current_password, new_password, confirm_new_password } =
+      await req.body;
     const htmlPurify = domPurify(new JSDOM().window);
     const cleanCurrentPassword = htmlPurify.sanitize(current_password),
       cleanNewPassword = htmlPurify.sanitize(new_password),
@@ -190,57 +187,183 @@ const updateRequestChangePassword = async (req, res) => {
         bind: [req.user.user_id],
       }
     );
+
     //check if info is present
     if (checkUserInfo.length > 0) {
-      //compare the current password
-      bcrypt.compare(
-        cleanCurrentPassword,
-        checkUserInfo[0].user_password,
-        async (error, passwordMatched) => {
-          if (error) {
-            return res.status(401).json({ error_message: error.message });
-          }
-          if (passwordMatched) {
-            const hashNewPassword = await bcrypt.hash(cleanNewPassword, 10);
-            if (cleanNewPassword === cleanConfirmNewPassword) {
-              const resultsChangePassword = await sequelize.query(
-                "UPDATE users SET user_password = $1 WHERE user_id = $2",
-                {
-                  type: QueryTypes.UPDATE,
-                  bind: [hashNewPassword, req.user.user_id],
+      if (new_password.length > 8) {
+        //compare the current password
+        bcrypt.compare(
+          cleanCurrentPassword,
+          checkUserInfo[0].user_password,
+          async (error, passwordMatched) => {
+            if (error) {
+              return res.status(401).json({ error_message: error.message });
+            }
+            if (passwordMatched) {
+              const hashNewPassword = await bcrypt.hash(cleanNewPassword, 10);
+              if (cleanNewPassword === cleanConfirmNewPassword) {
+                const resultsChangePassword = await sequelize.query(
+                  "UPDATE users SET user_password = $1 WHERE user_id = $2",
+                  {
+                    type: QueryTypes.UPDATE,
+                    bind: [hashNewPassword, req.user.user_id],
+                  }
+                );
+                if (resultsChangePassword[1]) {
+                  return res.status(200).json({
+                    success_message: "Password was successfully changed.",
+                    success: 1,
+                  });
+                } else {
+                  return res.status(401).json({
+                    error_message:
+                      "Something went wrong when changing your password, Please try again",
+                    error: 1,
+                  });
                 }
-              );
-              if (resultsChangePassword[1]) {
-                return res.status(200).json({
-                  success_message: "Password was successfully changed.",
-                  success: 1,
-                });
               } else {
                 return res.status(401).json({
                   error_message:
-                    "Something went wrong when changing your password, Please try again",
+                    "New password and confirm password do not matched. Please tyr again.",
                   error: 1,
                 });
               }
             } else {
               return res.status(401).json({
-                error_message:
-                  "New password and confirm password do not matched. Please tyr again.",
+                error_message: "Current Password was incorrect.",
                 error: 1,
               });
             }
-          } else {
-            return res.status(401).json({
-              error_message: "Current Password was incorrect.",
-              error: 1,
-            });
           }
-        }
-      );
+        );
+      } else {
+        return res.status(226).json({
+          error_message: "Password lenght should be 8 characters long.",
+          error: 1,
+        });
+      }
     } else {
       return res.status(401).json({
         error_message: "Something went wrong. Please reload the page",
+        error: 1,
       });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const updatePasswordResetRequest = async (req, res) => {
+  try {
+    const { new_password, confirm_new_password, prt, prs } = req.body;
+    const checkPRT = await sequelize.query(
+      "SELECT * FROM password_resets WHERE password_reset_token = $1",
+      {
+        type: QueryTypes.SELECT,
+        bind: [prt],
+      }
+    );
+    //Check if Password Reset Token is present
+    if (checkPRT.length > 0) {
+      //check if password match
+      if (new_password.length >= 8 && new_password === confirm_new_password) {
+        //check the bcrypt and prs
+        bcrypt.compare(
+          prs,
+          checkPRT[0].password_reset_secret,
+          async (error, passwordMatched) => {
+            if (error) {
+              return res.status(401).json({ error });
+            }
+            if (passwordMatched) {
+              const htmlPurify = domPurify(new JSDOM().window);
+              const cleanPassword = htmlPurify.sanitize(new_password);
+              const hashNewPassword = await bcrypt.hash(cleanPassword, 10);
+
+              const updateResetPassword = await sequelize.query(
+                "UPDATE users SET user_password = $1 WHERE user_email = $2",
+                {
+                  type: QueryTypes.UPDATE,
+                  bind: [hashNewPassword, checkPRT[0].password_reset_for_email],
+                }
+              );
+              if (updateResetPassword[1]) {
+                const deletePRT = await sequelize.query(
+                  "DELETE FROM password_resets WHERE password_reset_token = $1",
+                  {
+                    type: QueryTypes.DELETE,
+                    bind: [checkPRT[0].password_reset_token],
+                  }
+                );
+                if (deletePRT) {
+                  res.status(200).json({
+                    success_message: "Password has been successfully reset.",
+                    url: "/sign-in",
+                    success: 1,
+                  });
+                }
+              }
+            } else {
+              return res.status(404).render("not_found/password_reset_404", {
+                doc_title: "Reset Password Token Expired",
+              });
+            }
+          }
+        );
+      } else {
+        return res.status(409).json({
+          error_message:
+            "Something wrong with your password. Please fill it up again.",
+          error: 1,
+        });
+      }
+    } else {
+      return res.status(404).render("not_found/password_reset_404", {
+        doc_title: "Reset Password Token Expired",
+      });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const updateChangeEmailRequest = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const checkEmail = await sequelize.query(
+      "SELECT * FROM users WHERE user_email = $1",
+      {
+        type: QueryTypes.SELECT,
+        bind: [email],
+      }
+    );
+    if (checkEmail.length > 0) {
+      return res
+        .status(409)
+        .json({ error_message: "Email was already taken", error: 1 });
+    } else {
+      const htmlPurify = domPurify(new JSDOM().window);
+      const cleanEmail = htmlPurify.sanitize(email);
+      const updateEmail = await sequelize.query(
+        "UPDATE users SET user_email = $1 WHERE user_id = $2",
+        {
+          type: QueryTypes.UPDATE,
+          bind: [cleanEmail, req.user.user_id],
+        }
+      );
+      if (updateEmail[1]) {
+        return res.status(200).json({
+          success_message: "Email was successfully change.",
+          success: 1,
+        });
+      } else {
+        return res
+          .status(409)
+          .json({
+            error_message: "Something went wrong, Please try again",
+            error: 1,
+          });
+      }
     }
   } catch (err) {
     console.error(err);
@@ -252,4 +375,6 @@ module.exports = {
   updatePostPin,
   updateProfileInformation,
   updateRequestChangePassword,
+  updatePasswordResetRequest,
+  updateChangeEmailRequest,
 };

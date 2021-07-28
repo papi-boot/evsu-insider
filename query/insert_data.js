@@ -2,6 +2,15 @@
 const { sequelize, QueryTypes } = require("../config/db.connect");
 const domPurify = require("dompurify");
 const { JSDOM } = require("jsdom");
+const {
+  passwordResetSecretHash,
+  passwordResetTokenHash,
+  generateHashToken,
+} = require("../middleware/encrypted_data");
+const { add } = require("date-fns");
+const {
+  sendContentEmailResetPassword,
+} = require("../middleware/send_email_reset_password");
 
 const submitAnswer = async (req, res) => {
   //Create Post
@@ -235,10 +244,102 @@ const checkProfileImage = async (req) => {
   }
 };
 
+const forgotPasswordSendReset = async (req, res) => {
+  try {
+    const { recovery_email } = await req.body;
+    const checkEmail = await sequelize.query(
+      "SELECT * FROM users WHERE user_email = $1",
+      {
+        type: QueryTypes.SELECT,
+        bind: [recovery_email],
+      }
+    );
+    const htmlPurify = domPurify(new JSDOM().window);
+    const cleanEmail = htmlPurify.sanitize(recovery_email);
+    //check if email is exist
+    if (checkEmail.length > 0) {
+      const checkPasswordResetTokenRequest = await sequelize.query(
+        "SELECT * FROM password_resets WHERE password_reset_for_email = $1",
+        {
+          type: QueryTypes.SELECT,
+          bind: [cleanEmail],
+        }
+      );
 
+      if (checkPasswordResetTokenRequest.length > 0) {
+        return res.status(226).json({
+          success_message:
+            "Password reset request already pending. Wait after 30 minutes to request again",
+          success: 1
+        });
+      } else if (
+        new Date() ===
+        checkPasswordResetTokenRequest.password_reset_expiration
+      ) {
+        const deletePasswordResetRequest = await sequelize.query(
+          "DELETE FROM password_resets WHERE password_reset_for_email = $1",
+          {
+            type: QueryTypes.DELETE,
+            bind: [cleanEmail],
+          }
+        );
+        console.log(deletePasswordResetRequest);
+      } else {
+        const generateSHA1 = await generateHashToken();
+        const passwordResetToken = await passwordResetTokenHash(generateSHA1);
+        console.log("FIRST ROUND: ",passwordResetToken);
+        console.log("SECOND ROUND: ",passwordResetToken.toString().replace(/\+/g, "j"));
+        const passwordResetSecret = await passwordResetSecretHash(generateSHA1);
+        const insertDataPasswordToken = await sequelize.query(
+          `INSERT INTO password_resets
+        (password_reset_for_email,
+          password_reset_token,
+          password_reset_secret,
+          password_reset_expiration,
+          password_reset_created_at,
+          password_reset_updated_at)
+        VALUES($1, $2, $3, $4, $5, $6)`,
+          {
+            type: QueryTypes.INSERT,
+            bind: [
+              cleanEmail,
+              passwordResetToken.toString().replace(/\+/g, "j"),
+              passwordResetSecret,
+              add(new Date(), { minutes: 30 }),
+              new Date(),
+              new Date(),
+            ],
+          }
+        );
+        console.log(generateSHA1, passwordResetSecret)
+        if (insertDataPasswordToken) {
+          await sendContentEmailResetPassword(
+            cleanEmail,
+            passwordResetToken.toString().replace(/\+/g, "j"),
+            generateSHA1,
+            res
+          );
+        } else {
+          return res.status(401).json({
+            error_message:
+              "Something went wrong when sending reset password authorization to this account. Please try again",
+            error: 1,
+          });
+        }
+      }
+    } else {
+      return res
+        .status(401)
+        .json({ error_message: "Email/User does not exist", error: 1 });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
 module.exports = {
   submitAnswer,
   postComment,
   webPushSubscription,
   checkProfileImage,
+  forgotPasswordSendReset,
 };

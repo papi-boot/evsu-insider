@@ -14,6 +14,7 @@ const {
 const signInConfig = require("./sign-in_route");
 const { webpush_notification } = require("../middleware/web-push");
 const { account_settings_routes } = require("../middleware/account_settings");
+const { password_reset_routes } = require("../middleware/reset_password");
 
 /* -- ALL GET HTTP REQUEST -- */
 
@@ -39,6 +40,13 @@ routes.get(
   "/sign-up",
   checkAuthenticated,
   authenticationController.getRegisterForm
+);
+
+// -- GET: forgot password form
+routes.get(
+  "/forgot-password",
+  checkAuthenticated,
+  authenticationController.getForgotPasswordForm
 );
 
 // -- GET: dashboard when authenticated
@@ -72,6 +80,9 @@ routes.post("/sign-up", authenticationController.postRegisterForm);
 
 // -- POST: sign in user and verify
 routes.use(signInConfig);
+
+// -- POST: forgot password check email
+routes.use(password_reset_routes);
 
 //-- POST: create post
 routes.post("/create-post", dashboardController.postShareAnswer);

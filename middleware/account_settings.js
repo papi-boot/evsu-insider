@@ -14,6 +14,7 @@ const uploadStrategy = multer({
 const {
   updateProfileInformation,
   updateRequestChangePassword,
+  updateChangeEmailRequest,
 } = require("../query/update_data");
 const data = require("../db_api/data_config");
 const { checkNotAuthenticated } = require("../middleware/check.authenticated");
@@ -63,6 +64,18 @@ account_settings_routes.put("/profile-info-update", (req, res) => {
           }
         }
       });
+    } else {
+      checkNotAuthenticated(req, res);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+account_settings_routes.put("/change-email", async (req, res) => {
+  try {
+    if (req.user) {
+      await updateChangeEmailRequest(req, res);
     } else {
       checkNotAuthenticated(req, res);
     }

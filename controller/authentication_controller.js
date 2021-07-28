@@ -30,6 +30,17 @@ const getRegisterForm = async (req, res) => {
   }
 };
 
+// --GET HTTP Request: get forgot password form
+const getForgotPasswordForm = async (req, res) => {
+  try {
+    await res.render("password_reset/forgot_password", {
+      doc_title: "Recover my Account"
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 // -- POST HTTP REQUEST: verifying account to sign up
 const postRegisterForm = verifyRegister.initialize;
 
@@ -46,4 +57,5 @@ module.exports = {
   getLoginForm,
   postRegisterForm,
   postLoginForm,
+  getForgotPasswordForm,
 };

@@ -9,11 +9,12 @@
   box-shadow: root.$shadow-2;
 }
 
-.spec__post-user-image-container{
+.spec__post-user-image-container {
+  background: rgb(240, 240, 240);
   clip-path: circle(50% at 50%);
   height: 2.5rem;
   width: 2.5rem;
-  > .spec__post-user-image{
+  > .spec__post-user-image {
     border: 3px solid root.$background_body;
     border-radius: 50%;
     height: 100%;

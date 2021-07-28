@@ -169,6 +169,22 @@ const fetchAllComments = async () => {
   }
 };
 
+const fetchPasswordResetToken = async (req, res) => {
+  try {
+    const prt = req.query.prt;
+    const checkPasswordToken = await sequelize.query(
+      "SELECT * FROM password_resets WHERE password_reset_token::text = $1",
+      {
+        type: QueryTypes.SELECT,
+        bind: [prt],
+      }
+    );
+    return checkPasswordToken;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   fetchOneUser,
   fetchUserProfileImage,
@@ -181,4 +197,5 @@ module.exports = {
   fetchPostCommentCount,
   fetchAllSubscription,
   fetchAllComments,
+  fetchPasswordResetToken
 };
