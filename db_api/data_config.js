@@ -10,6 +10,7 @@ const {
   fetchCommentForOnePost,
   fetchPostCommentCount,
   fetchAllComments,
+  fetchPasswordResetToken,
 } = require("../query/fetch_data");
 const { checkProfileImage } = require("../query/insert_data");
 
@@ -77,6 +78,11 @@ const data_fetchAllComments = async () => {
   return results;
 };
 
+const data_fetchPasswordToken = async (req, res) => {
+  const results = await fetchPasswordResetToken(req, res);
+  return results;
+};
+
 module.exports = {
   data_fetchOneUser,
   data_checkUserProfileImage,
@@ -90,4 +96,5 @@ module.exports = {
   data_sliceRecentPost,
   data_allSubject,
   data_fetchAllComments,
+  data_fetchPasswordToken,
 };

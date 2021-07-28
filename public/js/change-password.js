@@ -54,15 +54,16 @@ passwordInputField[2].addEventListener("input", (e) => {
   e.preventDefault();
   passwordCheckerInfo[1].classList.remove("d-none");
 
-  if (e.target.value === passwordInputField[1].value) {
+  if (e.target.value === passwordInputField[1].value && e.target.value.length >= 8) {
     passwordCheckerInfo[1].classList.remove("text-danger");
     passwordCheckerInfo[1].classList.add("text-success");
     passwordCheckerInfo[1].innerHTML = `Password matched. <i class="bi bi-check-circle-fill f_size-1"></i>`;
     changePasswordBtn.removeAttribute("disabled");
   } else {
+    
     passwordCheckerInfo[1].classList.remove("text-success");
     passwordCheckerInfo[1].classList.add("text-danger");
-    passwordCheckerInfo[1].innerHTML = `Password matched.`;
+    passwordCheckerInfo[1].innerHTML = e.target.value >= 8 ? `Password matched` : `Password should be at least 8 characters long.`;
     changePasswordBtn.setAttribute("disabled", "true");
   }
 });

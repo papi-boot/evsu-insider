@@ -18,7 +18,11 @@ if (document.querySelector(".btn__delete-answer")) {
 if (document.querySelector(".btn__update-answer")) {
   require("./js/options_post");
 }
+if (document.querySelector(".password_reset__loading")) {
+  require("./js/reset-password");
+}
 
+require("./js/forgot-password");
 require("./js/image-load");
 require("./js/option_post_toggle");
 require("./bootstrap/js/bootstrap.min");
@@ -28,7 +32,6 @@ require("./js/copy-code");
 require("./js/notification/notification_api");
 require("./js/profile_settings");
 require("./js/create-post");
-// require("./js/tinymce.form");
 
 /* STYLE */
 require("./bootstrap/css/bootstrap.min.css");

@@ -8,68 +8,72 @@
   <body id="profileBody">
     <div class="divider div-primary-bg-color"></div>
     <%- include("../partial/navbar") %>
-    <%- include("../partial/success_alert") %>
-    <%- include("../partial/error_alert") %> 
-      <div class="container my-5">
-        <%- include("../partial/dialog_profile_settings") %>
-          <header class="profile__header">
-            <div class="card card-profile">
-              <section class="sec__profile">
-                <div class="edit__profile">
-                  <!-- Button to edit Profile Information -->
-                  <button class="edit__profile-btn bi bi-pen" type="button" data-bs-toggle="modal"
-                    data-bs-target="#dialogProfileSettings" title="Edit Your Information"></button>
-                </div>
-                <h5 class="profile__heading text-black-50 d-flex align-items-center justify-content-between">My Profile
-                </h5>
-                <div class="profile__information">
-                  <div class="position-relative">
-                    <div class="display__picture-container position-relative">
-                      <img class="profile__image"
-                        src="<%= user_profile_image[0].profile_image_url %>"
-                        alt="profile-image" loading="lazy">
+      <%- include("../partial/success_alert") %>
+        <%- include("../partial/error_alert") %>
+          <div class="container my-5">
+            <%- include("../partial/dialog_profile_settings") %>
+              <header class="profile__header">
+                <div class="card card-profile">
+                  <section class="sec__profile">
+                    <div class="edit__profile">
+                      <!-- Button to edit Profile Information -->
+                      <button class="edit__profile-btn bi bi-pen" type="button" data-bs-toggle="modal"
+                        data-bs-target="#dialogProfileSettings" title="Edit Your Information"></button>
                     </div>
-                    <% if (user.user_state==2) { %>
-                      <div class="tag__position d-flex justify-content-center">
-                        <div class="admin__tag badge bg-success ">
-                          Admin
+                    <h5 class="profile__heading text-black-50 d-flex align-items-center justify-content-between">My
+                      Profile
+                    </h5>
+                    <div class="profile__information">
+                      <div class="position-relative">
+                        <div class="display__picture-container position-relative">
+                          <img class="profile__image" src="<%= user_profile_image[0].profile_image_url %>"
+                            loading="lazy">
+                        </div>
+                        <% if (user.user_state==2) { %>
+                          <div class="tag__position d-flex justify-content-center">
+                            <div class="admin__tag badge bg-success ">
+                              Admin
+                            </div>
+                          </div>
+                          <% } %>
+                      </div>
+                      <h2 class="profile__username text-center">
+                        <%= user.user_fullname %>
+                      </h2>
+                      <h6 class="profile__useremail text-black-50 text-center">
+                        <%= user.user_email %>
+                      </h6>
+                      <div class="d-flex align-items-center justify-content-center contribute__count mt-4">
+                        <div class="number__of-post me-3">
+                          <h6 class="post__count text-black-50" title="Your all Post">
+                            <%- include("../svg/post_count")%>
+                              <%= my_all_post.length %>
+                          </h6>
+                        </div>
+                        <div class="number__of-comment ms-3 text-black-50" title="Your all comment">
+                          <h6 class="comment__count">
+                            <%- include("../svg/comment_count")%>
+                              <%= my_all_comment.length %>
+                          </h6>
                         </div>
                       </div>
-                    <% } %>
-                  </div>
-                  <h2 class="profile__username text-center">
-                    <%= user.user_fullname %>
-                  </h2>
-                  <div class="d-flex align-items-center justify-content-center contribute__count mt-4">
-                    <div class="number__of-post me-3">
-                      <h6 class="post__count text-black-50" title="Your all Post">
-                        <%- include("../svg/post_count")%>
-                        <%= my_all_post.length %>
-                      </h6>
                     </div>
-                    <div class="number__of-comment ms-3 text-black-50" title="Your all comment">
-                      <h6 class="comment__count">
-                        <%- include("../svg/comment_count")%>
-                        <%= my_all_comment.length %>
-                      </h6>
+                  </section>
+                </div>
+              </header>
+              <div class="card card-allpost my-4 p-3">
+                <section class="sec_post">
+                  <h5 class="profile__heading text-black-50 d-flex align-items-center justify-content-between">My Post
+                  </h5>
+                  <div class="my__all-post">
+                    <div class="row">
+                      <%- include("../data/user_all_post") %>
                     </div>
                   </div>
-                </div>
-              </section>
-            </div>
-          </header>
-          <div class="card card-allpost my-4 p-3">
-            <section class="sec_post">
-              <h5 class="profile__heading text-black-50 d-flex align-items-center justify-content-between">My Post</h5>
-              <div class="my__all-post">
-                <div class="row">
-                  <%- include("../data/user_all_post") %> 
-                </div>
-              </div> 
-            </section>
+                </section>
+              </div>
           </div>
-      </div>
-      <%- include("../partial/script") %>
+          <%- include("../partial/script") %>
   </body>
 
 </html>

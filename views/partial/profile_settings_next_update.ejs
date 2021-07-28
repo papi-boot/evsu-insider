@@ -1,4 +1,4 @@
-<% if(format(new Date(),'EEEE, MMMM dd, yyyy') != format(user.user_updated_at, 'EEEE, MMMM dd, yyyy' )) { %>
+<% if(!(new Date() > user.user_updated_at)) { %>
   <div class="profile__banner-next-update d-flex align-items-center justify-content-center position-absolute top-0 w-100
   z-index-p1">
     <div class="content__info bg-primary p-2">
@@ -7,4 +7,6 @@
       </p>
     </div>
   </div>
+<% } else { %>
+
 <% } %>

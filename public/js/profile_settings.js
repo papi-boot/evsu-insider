@@ -1,17 +1,40 @@
 window.addEventListener("DOMContentLoaded", () => {
-  require("./change-password");
-  const changePasswordBtnDropDown = document.querySelector(
-    ".change__password-option-header"
+  if (document.querySelector(".show__password")) {
+    require("./change-password");
+  }
+  require("./change-email");
+  const profileInformationBtnDropDown = document.querySelectorAll(
+    ".dropdown__profile-info-option-toggler"
   );
   const changePasswordContainer = document.querySelector(
     ".change__password-option"
   );
+  const changeEmailContainer = document.querySelector(".change__email-option");
   const btnUpdateProfileSettings = document.querySelector(
     ".btn__update-profile-info"
   ); //btn to update information not password
   let imageFile;
   let isOpen = false;
-  changePasswordBtnDropDown.addEventListener("click", () => {
+
+  //for Email option dropdown
+  profileInformationBtnDropDown[0].addEventListener("click", () => {
+    if (!isOpen) {
+      changeEmailContainer.classList.add("open");
+      btnUpdateProfileSettings
+        ? btnUpdateProfileSettings.classList.add("d-none")
+        : "";
+      isOpen = true;
+    } else {
+      changeEmailContainer.classList.remove("open");
+      btnUpdateProfileSettings
+        ? btnUpdateProfileSettings.classList.remove("d-none")
+        : "";
+      isOpen = false;
+    }
+  });
+
+  //for Password Options Dropdown
+  profileInformationBtnDropDown[1].addEventListener("click", () => {
     if (!isOpen) {
       changePasswordContainer.classList.add("open");
       btnUpdateProfileSettings
@@ -79,7 +102,6 @@ window.addEventListener("DOMContentLoaded", () => {
     profileSettingsFullname = document.querySelector(
       ".profile__settings-fullname"
     ),
-    profileSettingsEmail = document.querySelector(".profile__settings-email"),
     loadingSpinner = document.querySelector(".loading-spinner"),
     loadingProfileSettings = document.querySelector(
       ".loading__profile-settings"
@@ -95,7 +117,6 @@ window.addEventListener("DOMContentLoaded", () => {
       PROFILE_IMAGE = "profile_image";
     profileSettingsFormData.append(PROFILE_IMAGE, imageFile);
     profileSettingsFormData.append("fullname", profileSettingsFullname.value);
-    profileSettingsFormData.append("email", profileSettingsEmail.value);
 
     const updateProfileInformation = async () => {
       const UPDATE_INFO_URL = "/profile-info-update";
