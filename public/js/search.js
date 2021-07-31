@@ -173,9 +173,6 @@ window.addEventListener("DOMContentLoaded", () => {
           ADD_SUFFIX: {
             addSuffix: true,
           },
-          HOURS: {
-            hours: 8,
-          },
         };
 
         const isPin = () => {
@@ -228,7 +225,7 @@ window.addEventListener("DOMContentLoaded", () => {
           parseISO(result.results[i].post_created_at),
           dateOption.ADD_SUFFIX
         )}</h6>•<h6 class="f_size-3 fw_500 mx-1 m-0">${formatRelative(
-          add(parseISO(result.results[i].post_created_at), dateOption.HOURS),
+          add(parseISO(result.results[i].post_created_at)),
           new Date()
         )}</h6>
           </div>

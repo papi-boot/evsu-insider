@@ -60,7 +60,7 @@
                       <% if (subj.subject_id === req.query.subject_id) { %>
                         selected
                       <% } %>>
-                        <%= subj.subject_name %>
+                        <span class="fw_600"><%= subj.subject_name %></span> - <%= subj.subject_description %> 
                       </option>
                     <% }) %>
                   </select>
