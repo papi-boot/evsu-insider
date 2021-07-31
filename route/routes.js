@@ -87,6 +87,9 @@ routes.use(password_reset_routes);
 //-- POST: create post
 routes.post("/create-post", dashboardController.postShareAnswer);
 
+//-- POST: get search result
+routes.post("/search-result", dashboardController.postSearchResult)
+
 //-- POST: use to upload image for post
 routes.use(routeImageUpload);
 

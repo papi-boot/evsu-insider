@@ -84,6 +84,10 @@
   -webkit-animation-name: placeholderShimmer;
   -webkit-animation-timing-function: linear;
 }
+
+.post__result-float {
+  animation: 0.5s float-in ease-in;
+}
 @keyframes lds-ellipsis1 {
   0% {
     transform: scale(0);
@@ -168,5 +172,13 @@
   100% {
     background-size: cover;
     background-position: 468px 0;
+  }
+}
+@keyframes float-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

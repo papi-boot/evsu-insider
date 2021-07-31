@@ -8,6 +8,7 @@ const {
   fetchOnePost,
   fetchSelectedSubject,
   fetchCommentForOnePost,
+  fetchSearchRequest
 } = require("../query/fetch_data"); //Fetch all data method
 const { send404_PageNotFound } = require("../middleware/page_not_found");
 const { deleteOnePost } = require("../query/delete_data"); //Delete specific data
@@ -97,7 +98,7 @@ const getCreateAnswerForm = async (req, res) => {
   try {
     if (req.user) {
       await res.render("dashboard/create_answer", {
-        doc_title: "Share Answer⭐",
+        doc_title: "Create Post",
         req: req,
         user: req.user,
         auth_link: "",
@@ -126,7 +127,7 @@ const getSpecificPost = async (req, res) => {
         const filterRelatedPost = (await fetchSelectedSubject(req)).filter(
           (item) => item.post_id !== req.query.post_id
         );
-        const sliceRelatedPost = filterRelatedPost.slice(0, 3);
+        const sliceRelatedPost = filterRelatedPost.slice(0, 5);
         res.header("Service-Worker-Allowed", "/");
         await res.render("dashboard/show", {
           doc_title: `${one_post[0].post_title} | ${one_post[0].post_tag} - ${one_post[0].subject_name}`,
@@ -271,13 +272,11 @@ const getProfilePage = async (req, res) => {
               return item;
             }
           }),
-          comment_count: getMyAllComment.filter(
-            (item, index, array) => {
-              if (item.comment_from_post === getMyAllPost[i].post_id) {
-                return array.length;
-              }
+          comment_count: getMyAllComment.filter((item, index, array) => {
+            if (item.comment_from_post === getMyAllPost[i].post_id) {
+              return array.length;
             }
-          ),
+          }),
         });
       }
       res.render("dashboard/profile", {
@@ -296,6 +295,17 @@ const getProfilePage = async (req, res) => {
       });
     } else {
       checkNotAuthenticated(req, res);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// -- GET HTTP REQUEST: get the search reqeust
+const postSearchResult = async (req, res) => {
+  try {
+    if (req.user) {
+      await fetchSearchRequest(req, res);
     }
   } catch (err) {
     console.error(err);
@@ -374,6 +384,7 @@ module.exports = {
   getOptionForm,
   getSpecificSubjectAndPost,
   getProfilePage,
+  postSearchResult,
   postShareAnswer,
   postAddComment,
   updateSpecificPost,

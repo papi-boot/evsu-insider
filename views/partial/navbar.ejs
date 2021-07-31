@@ -11,18 +11,18 @@
     <div class="--nav-list-container flex-grow-0" id="navContainer">
       <ul class="--navbar-list d-lg-flex align-items-center justify-content-between m-0 p-0">
         <li class="--nav-item">
-          <a class="--nav-link" href="/dashboard">Home</a>
+          <a class="--nav-link align-nav-icon" href="/dashboard">Home&nbsp;<%- include("../svg/home", {width: 16, height: 16}) %></a>
         </li>
         <li class="--nav-item">
-          <a class="--nav-link" href="/create-post">Create Post</a>
+          <a class="--nav-link align-nav-icon" href="/create-post">Create Post&nbsp;<%- include("../svg/create", {width: 16, height: 16}) %>  </a>
         </li>
         <li class="--nav-item">
-          <a class="--nav-link" href="/">Explore</a>
+          <button type="button" class="--nav-link align-nav-icon remove__bg-btn search__toggle-btn">Search&nbsp;<%- include("../svg/search", {width: 16, height: 16}) %> </button>
         </li>
         <li class="--nav-item">
           <div class="btn-group">
             <div class="user__profile-picture-container">
-              <img class="user__profile-image shine" src="<%= user_profile_image[0].profile_image_url %> " loading="lazy">
+              <img class="user__profile-image zoom__image-able shine" src="<%= user_profile_image[0].profile_image_url %> " loading="lazy">
             </div>
             <button class="--nav-link dropdown-toggle --acc-option-btn mx-1" type="button" data-bs-toggle="dropdown">
               Account 

@@ -12,6 +12,7 @@
   </head>
 
   <body id="showPost">
+    <%- include("../partial/search") %> 
     <div class="divider div-primary-bg-color"></div>
     <%- include("../partial/navbar") %>
       <div class="container my-5">
@@ -27,10 +28,6 @@
           </div>  
           <div class="col-lg-3">
             <aside class="aside__specific-quick-links aside__quick-links border px-2 mb-3">
-              <h6 class="mt-4">Explore more</h6>
-              <div class="subject_list">
-                <%- include("../data/subject_list") %>
-              </div>
               <div class="related__post my-4 border p-3">
                 <h6 class="fw_700 primary-heading">More on > <span><a class="p-theme-color" href="/subjects?subject_id=<%= req.query.subject_id %>"><%= post[0].subject_name %></span></a></h6>
                 <%- include("../data/related_post") %>

@@ -1,6 +1,6 @@
 "use strict";
 const { sequelize, QueryTypes } = require("../config/db.connect");
-
+const { searchWorker } = require("./search_query");
 const fetchOneUser = async (user_id) => {
   try {
     const results = await sequelize.query(
@@ -91,6 +91,31 @@ const fetchSelectedSubject = async (req) => {
     );
 
     return results;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+//FETCH search request
+const fetchSearchRequest = async (req, res) => {
+  try {
+    const { search_params, search_by } = req.body;
+    console.log(req.body);
+    let key = ["post_title", "user_fullname", "subject_name", "post_tag"];
+    switch (search_by) {
+      case "key_title":
+        await searchWorker(search_params, key[0], res);
+        break;
+      case "key_user":
+        await searchWorker(search_params, key[1], res);
+        break;
+      case "key_subject":
+        await searchWorker(search_params, key[2], res);
+        break;
+      case "key_tag":
+        await searchWorker(search_params, key[3], res);
+        break;
+    }
   } catch (err) {
     console.error(err);
   }
@@ -190,6 +215,7 @@ module.exports = {
   fetchUserProfileImage,
   fetchAllPost,
   fetchOnePost,
+  fetchSearchRequest,
   fetchAllSubject,
   fetchSelectedSubject,
   fetchSubjectPostResult,
@@ -197,5 +223,5 @@ module.exports = {
   fetchPostCommentCount,
   fetchAllSubscription,
   fetchAllComments,
-  fetchPasswordResetToken
+  fetchPasswordResetToken,
 };

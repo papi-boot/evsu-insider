@@ -1,0 +1,68 @@
+@use "root" as root;
+
+.zoom__image-container {
+  background: rgb(100, 100, 100, 0.8);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1040;
+  > .zoom__layout {
+    height: 100%;
+    position: relative;
+    width: 100%;
+  }
+  > .zoom__close-btn-wrapper {
+    padding: 0.5rem;
+    position: absolute;
+    width: 100%;
+    z-index: 1001;
+  }
+}
+
+.zoom__layout {
+  > .zoom__image-wrapper {
+    margin: 0 auto;
+    object-fit: scale-down;
+    overflow: hidden;
+    width: 100%;
+  }
+}
+.zoom__close-btn-wrapper {
+  > .zoom__close-btn {
+    background: root.$white;
+    border: none;
+    border-radius: 50%;
+    clip-path: circle(43% at 51%);
+    color: root.$black;
+    margin: 0 .3rem;
+    object-fit: cover;
+    outline: none;
+    padding: 0.5rem;
+  }
+  > .zoom__download-btn {
+    background: root.$white;
+    border: none;
+    border-radius: 50%;
+    clip-path: circle(43% at 50%);
+    color: root.$black;
+    margin: 0 .3rem;
+    object-fit: cover;
+    outline: none;
+    padding: 0.5rem;
+  }
+}
+.zoom__image-wrapper {
+  > .zoom__main-image {
+    display: block;
+    height: 100%;
+    margin: 0 auto;
+    width: 100%;
+    object-fit: contain;
+  }
+}
+.zoom__image-able {
+  cursor: pointer;
+}

@@ -6,6 +6,7 @@
   </head>
 
   <body id="profileBody">
+    <%- include("../partial/search") %> 
     <div class="divider div-primary-bg-color"></div>
     <%- include("../partial/navbar") %>
       <%- include("../partial/success_alert") %>
@@ -26,7 +27,7 @@
                     <div class="profile__information">
                       <div class="position-relative">
                         <div class="display__picture-container position-relative">
-                          <img class="profile__image" src="<%= user_profile_image[0].profile_image_url %>"
+                          <img class="profile__image zoom__image-able" src="<%= user_profile_image[0].profile_image_url %>"
                             loading="lazy">
                         </div>
                         <% if (user.user_state==2) { %>
