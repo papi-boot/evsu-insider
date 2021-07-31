@@ -32,7 +32,7 @@
           </h6>
           <h6 class="post__created f_size-3 mx-1 fw_600">
             <i class="bi bi-clock f_size-1 p-theme-color"></i> <%= formatDistanceToNow(item.post_created_at, { addSuffix: true }) %>&nbsp;•&nbsp;
-            <%= formatRelative(item.post_created_at, new Date()) %> 
+            <%= formatRelative(add(item.post_created_at, {hours: 8}), add(new Date(), {hours: 8})) %>
           </h6>
       <%- include("./pin_comment_count", { pin_post_item: item, pin_post_item_index: index }) %>
         </div>
