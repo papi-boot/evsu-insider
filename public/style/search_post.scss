@@ -1,0 +1,56 @@
+@use "root" as root;
+
+.post__result-article {
+  background: root.$white;
+  border-radius: 5px;
+  margin: root.$mar-2 0;
+  padding: root.$pad-3;
+  box-shadow: root.$shadow-1;
+  &:hover {
+    background: rgb(255, 233, 233);
+    cursor: pointer;
+  }
+}
+
+.post__result-image-container {
+  background: rgb(240, 240, 240);
+  clip-path: circle(50% at 50%);
+  height: 1.7rem;
+  width: 1.7rem;
+  > .post__result-user-image {
+    height: 100%;
+    object-fit: scale-down;
+    width: 100%;
+  }
+}
+.post__result-admin-tag {
+  border: solid 1px root.$white;
+  border-radius: 5px;
+  font-size: 0.4rem;
+}
+
+.post__result-sub-header {
+  margin: root.$mar-4 0;
+  > .post__result-tag {
+    background-color: root.$primary-color;
+    border-radius: 5px;
+    color: root.$white;
+    padding: 0.1rem 0.2rem;
+  }
+  > .post__result-subject {
+    background-color: root.$white;
+    border-radius: 5px;
+    color: root.$primary-color;
+    padding: 0.1rem 0.2rem;
+  }
+}
+
+.loading__search-result {
+  border: 5px solid transparent;
+  border-bottom: 5px solid root.$white;
+  border-radius: 50%;
+  border-top: 5px solid root.$white;
+  height: 2rem;
+  margin: 1rem auto;
+  width: 2rem;
+}

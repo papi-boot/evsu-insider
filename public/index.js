@@ -23,7 +23,9 @@ if (document.querySelector(".password_reset__loading")) {
 }
 
 require("./js/forgot-password");
+require("./js/search");
 require("./js/image-load");
+require("./js/zoom_image");
 require("./js/option_post_toggle");
 require("./bootstrap/js/bootstrap.min");
 require("./js/navburger.anim");

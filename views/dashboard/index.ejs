@@ -7,6 +7,7 @@
 
   <body>
     <!-- navbar -->
+    <%- include("../partial/search") %> 
     <div class="divider div-primary-bg-color"></div>
     <%- include("../partial/navbar") %>
     <div class="divider div-second-bg-color"></div>
@@ -45,16 +46,8 @@
     <% } %>
     </div>
   <% } %>
-
-  <% if (subject.length > 0) { %>
-    <div class="divider div-second-bg-color my-3"></div>
-    <div class="container my-3">
-      <h2 class="primary-heading fw_700">Explore by Subject</h2>
-      <%- include("../data/subject") %>
-    </div>
-  <% } %>
-    <div class="divider div-second-bg-color my-3"></div>
-    <%- include("../partial/notif_permission") %> 
+    <div class="divider div-second-bg-color my-3"></div> 
+    <%- include("../partial/notif_permission") %>
     <%- include("../partial/script") %>
     <script src="/service-worker.js"></script>
   </body>

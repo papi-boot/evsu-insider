@@ -53,6 +53,15 @@
     border: 0;
     outline: 0;
   }
+  .align-nav-icon {
+    align-items: center;
+    display: flex;
+  }
+  .remove__bg-btn {
+    background: none;
+    border: none;
+    outline: none;
+  }
 }
 
 .--acc-option-btn {

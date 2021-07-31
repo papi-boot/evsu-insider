@@ -1,0 +1,30 @@
+<div class="search__field-container">
+  <div class="position-sticky top-0 primary-bg-color z-index-p1">
+    <form id="searchField" class="form__search-field container position-relative">
+      <button class="search__btn-close">
+        <%- include("../svg/close", {width: 24, height: 24}) %>
+      </button>
+      <h1 class="text-white m-0 py-3">Find something</h1>
+      <div class="search__field-group pt-3">
+        <input class="search__input-field fw_600" type="search" name="search_field" id="searchField" 
+          placeholder="Type keywords..." required>
+        <div class="search-by-group">
+          <button class="search__by-btn search__toggler" type="button">Search <%- include("../svg/search", {width: 20,
+              height: 20}) %>
+          </button>
+          <div class="search-by-dialog border d-none">
+            <button type="button" class="search__by-title">Search by Title</button>
+            <button type="button" class="search__by-user">Search by User</button>
+            <button type="button" class="search__by-subject">Search by subject</button>
+            <button type="button" class="search__by-tag">Search by Tag</button>
+          </div>
+        </div>
+      </div>
+      <p class="f_size-3 text-white fw_600">Enter keywords by: Title, Person, Subject, Tag. • Leave it blank to show all post. </p>
+    </form>
+  </div>
+  <div class="container">
+    <div class="post__results-container">
+    </div>
+  </div>
+</div>

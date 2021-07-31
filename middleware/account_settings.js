@@ -7,7 +7,7 @@ const MulterAzureStorage = require("multer-azure-storage");
 const uploadStrategy = multer({
   storage: new MulterAzureStorage({
     azureStorageConnectionString: process.env.AZURE_STORAGE_CONNECTION_STRING,
-    containerName: "profile-image",
+    containerName: "images",
     containerSecurity: "blob",
   }),
 }).any();

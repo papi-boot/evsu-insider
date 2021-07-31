@@ -19,6 +19,7 @@ window.addEventListener("DOMContentLoaded", () => {
   let optionIsOpen = false; // for toggle options
   for (let i = 0; i < toggleOptionBtn.length; i++) {
     toggleOptionBtn[i].addEventListener("click", (e) => {
+      optionContainer[i].classList.add("d-none");
       if (!optionIsOpen) {
         optionContainer[i].classList.remove("d-none");
         optionIsOpen = true;

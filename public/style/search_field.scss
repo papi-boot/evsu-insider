@@ -1,0 +1,115 @@
+@use "root" as root;
+
+@mixin search-input {
+  border: none;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  padding: root.$pad-4;
+  width: 100%;
+  &:focus-within {
+    border: none;
+    outline: none;
+  }
+}
+@mixin search-by {
+  background: root.$white;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  outline: none;
+  padding: root.$pad-4;
+  width: max-content;
+  &:focus-within {
+    border: none;
+    outline: none;
+  }
+}
+
+.search__field-container {
+  display: flex;
+  background: root.$primary-color;
+  bottom: 0;
+  flex-direction: column;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  overflow-x: hidden;
+  position: fixed;
+  right: 0;
+  transition: root.$transition-2;
+  transform: translateY(0);
+  width: 100%;
+  z-index: -1;
+  &.open {
+    opacity: 1;
+    z-index: 1003;
+    // transform: translateY(0);
+  }
+  &.close {
+    // transform: translateY(100%);
+    opacity: 0;
+    z-index: -1;
+  }
+}
+.search__btn-close {
+  background: transparent;
+  border: none;
+  color: root.$white;
+  outline: none;
+  outline: none;
+  right: 1.5rem;
+  position: absolute;
+  top: 1.2rem;
+}
+
+.search__field-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-items: center;
+  width: 100%;
+}
+
+.search__field-group {
+  align-items: stretch;
+  display: flex;
+  justify-content: space-around;
+  > .search__input-field {
+    @include search-input;
+  }
+}
+
+.search-by-group {
+  position: relative;
+  > .search-by-dialog {
+    align-items: start;
+    background: root.$white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: root.$pad-4;
+    position: absolute;
+    right: 0;
+    top: 2.5rem;
+    width: max-content;
+  }
+}
+.search-by-dialog {
+  > button[class*="search__by"]:hover {
+    background: root.$bg-hover-primary;
+  }
+}
+
+button[class*="search__by"] {
+  @include search-by;
+}
+button[class*="search__by"] {
+  &.search__toggler {
+    background: rgb(212, 212, 212);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}

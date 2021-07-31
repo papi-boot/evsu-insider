@@ -4,6 +4,7 @@ const {
   fetchUserProfileImage,
   fetchAllPost,
   fetchOnePost,
+  fetchSearchRequest,
   fetchAllSubject,
   fetchSelectedSubject,
   fetchSubjectPostResult,
@@ -44,6 +45,11 @@ const data_filterPinPost = async () => {
     (post) => post.post_pin === true
   );
   return results;
+};
+
+const data_fetchSearchRequest = async (req, res) => {
+  const result = await fetchSearchRequest(req, res);
+  return result;
 };
 
 const data_allSubject = async () => {
@@ -90,6 +96,7 @@ module.exports = {
   data_allPost,
   data_fetchPostCommentCount,
   data_fetchSubjectPostResult,
+  data_fetchSearchRequest,
   data_filterPinPost,
   data_firstSemester,
   data_secondSemester,
