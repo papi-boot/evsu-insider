@@ -224,10 +224,7 @@ window.addEventListener("DOMContentLoaded", () => {
             }<span>${isAdmin()}</span></h6>•<h6 class="f_size-3 fw_500 mx-1 m-0">${formatDistanceToNow(
           parseISO(result.results[i].post_created_at),
           dateOption.ADD_SUFFIX
-        )}</h6>•<h6 class="f_size-3 fw_500 mx-1 m-0">${formatRelative(
-          add(parseISO(result.results[i].post_created_at)),
-          new Date()
-        )}</h6>
+        )}</h6>•<h6 class="f_size-3 fw_500 mx-1 m-0">${formatRelative(parseISO(result.results[i].post_created_at),new Date())}</h6>
           </div>
           <div class="post__result-sub-header d-flex align-items-center flex-wrap">
             <div class="post__result-tag fw_600 mx-1 f_size-3">${
