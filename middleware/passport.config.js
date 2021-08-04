@@ -2,6 +2,7 @@
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 const { sequelize, QueryTypes } = require("../config/db.connect");
+const { checkNotAuthenticated } = require("./check.authenticated");
 
 const initializePassport = (passport) => {
   try {
@@ -65,8 +66,10 @@ const initializePassport = (passport) => {
           type: QueryTypes.SELECT,
         }
       );
-      if (results) {
+      if (results.length > 0) {
         return done(null, results[0]);
+      } else {
+        return done(null, false);
       }
     });
   } catch (err) {

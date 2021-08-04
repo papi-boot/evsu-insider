@@ -18,11 +18,14 @@ const submitAnswer = async (req, res) => {
     const { post_title, post_subject, post_tag, post_body } = await req.body;
     // -- cleaning the html input to prevent XSS
     if (!post_title && !post_subject && !post_tag && !post_body) {
-      req.flash("error", "All fields must be fulfilled with content");
-      console.log("No data");
+      return res.send(400).json({
+        error_message: "All fields must be fulfilled with content",
+        error: 1,
+      });
     } else if (!post_body) {
-      req.flash("error", "You don't have any post content.");
-      return res.redirect("/create-post");
+      return res
+        .status(400)
+        .json({ error_message: "You don't have any post content", error: 1 });
     } else {
       const htmlPurify = domPurify(new JSDOM().window);
       const cleanTitle = htmlPurify.sanitize(post_title);
@@ -94,11 +97,21 @@ const submitAnswer = async (req, res) => {
           ],
         }
       );
+      console.log(results);
       if (results) {
-        req.flash("success", "Answer successfully shared.");
-        res.redirect("/dashboard");
+        req.flash("success", "Post was successfully published");
+        return res.status(200).json({
+          success_message: "Post was successfully published",
+          success: 1,
+          url: "/dashboard"
+        });
+      } else {
+        return res.status(400).json({
+          error_message:
+            "Something went wrong when publishing your Post, please try again",
+          error: 1,
+        });
       }
-      return results[1];
     }
   } catch (err) {
     console.error(err);
@@ -270,11 +283,10 @@ const forgotPasswordSendReset = async (req, res) => {
         return res.status(226).json({
           success_message:
             "Password reset request already pending. Wait after 30 minutes to request again",
-          success: 1
+          success: 1,
         });
       } else if (
-        new Date() ===
-        checkPasswordResetTokenRequest.password_reset_expiration
+        new Date() === checkPasswordResetTokenRequest.password_reset_expiration
       ) {
         const deletePasswordResetRequest = await sequelize.query(
           "DELETE FROM password_resets WHERE password_reset_for_email = $1",
@@ -287,8 +299,11 @@ const forgotPasswordSendReset = async (req, res) => {
       } else {
         const generateSHA1 = await generateHashToken();
         const passwordResetToken = await passwordResetTokenHash(generateSHA1);
-        console.log("FIRST ROUND: ",passwordResetToken);
-        console.log("SECOND ROUND: ",passwordResetToken.toString().replace(/\+/g, "j"));
+        console.log("FIRST ROUND: ", passwordResetToken);
+        console.log(
+          "SECOND ROUND: ",
+          passwordResetToken.toString().replace(/\+/g, "j")
+        );
         const passwordResetSecret = await passwordResetSecretHash(generateSHA1);
         const insertDataPasswordToken = await sequelize.query(
           `INSERT INTO password_resets
@@ -311,7 +326,7 @@ const forgotPasswordSendReset = async (req, res) => {
             ],
           }
         );
-        console.log(generateSHA1, passwordResetSecret)
+        console.log(generateSHA1, passwordResetSecret);
         if (insertDataPasswordToken) {
           await sendContentEmailResetPassword(
             cleanEmail,

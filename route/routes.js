@@ -15,6 +15,8 @@ const signInConfig = require("./sign-in_route");
 const { webpush_notification } = require("../middleware/web-push");
 const { account_settings_routes } = require("../middleware/account_settings");
 const { password_reset_routes } = require("../middleware/reset_password");
+const { subject_config_route } = require("./subject_route_api");
+const { route } = require("./sign-in_route");
 
 /* -- ALL GET HTTP REQUEST -- */
 
@@ -74,6 +76,9 @@ routes.get("/subjects", dashboardController.getSpecificSubjectAndPost);
 //-- GET: get profile page
 routes.get("/profile", dashboardController.getProfilePage);
 
+//--GET: subject information
+routes.use(subject_config_route);
+
 /* --ALL POST REQUEST */
 // -- POST: verify and register account
 routes.post("/sign-up", authenticationController.postRegisterForm);
@@ -88,7 +93,7 @@ routes.use(password_reset_routes);
 routes.post("/create-post", dashboardController.postShareAnswer);
 
 //-- POST: get search result
-routes.post("/search-result", dashboardController.postSearchResult)
+routes.post("/search-result", dashboardController.postSearchResult);
 
 //-- POST: use to upload image for post
 routes.use(routeImageUpload);

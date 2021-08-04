@@ -32,7 +32,7 @@
             </h6>
             <h6 class="post__created f_size-3 mx-1 fw_600">
               <i class="bi bi-clock f_size-1 p-theme-color"></i> <%= formatDistanceToNow(item.post_created_at, { addSuffix: true }) %>&nbsp;•&nbsp;
-              <%= formatRelative(add(item.post_created_at, {hours: 8}), new Date()) %>
+              <%= formatRelative(add(item.post_created_at, {hours: 8}), add(new Date(), {hours: 8})) %>
             </h6>
           </div>
         </div>
@@ -75,5 +75,5 @@
     <% } %>
   <% }) %>
 <% } else { %>
-    <h6 class="text-black-50 f_size-2 my-4">No related Post was found <%- include("../svg/telescope") %>  , <a href="/create-post?subject_id=<%= req.query.subject_id %> ">Click here to share one.</a> </h6>
+    <h6 class="text-black-50 f_size-2 my-4">No related Post was found, <a href="/create-post?subject_id=<%= req.query.subject_id %> ">Click here to share one.</a> </h6>
 <% } %> 

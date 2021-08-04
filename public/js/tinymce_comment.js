@@ -2,6 +2,7 @@ import tinymce from "tinymce";
 const { imageUploadHandler } = require("./tinymce_work/image_fallback");
 window.addEventListener("load", async () => {
   const loadingCommentForm = document.querySelector(".loading__comment-form");
+  const btnComment = document.querySelector(".btn__comment");
 
   tinymce
     .init({
@@ -70,13 +71,10 @@ window.addEventListener("load", async () => {
         theme: "silver",
         menubar: false,
         plugins:
-          "quickbars autoresize fullscreen blockqoute emoticons charmap wordcount codesample image lists advlist table hr autolink link fullscreen autolink",
+          "quickbars autoresize fullscreen blockqoute emoticons charmap wordcount codesample image lists advlist table hr link fullscreen",
         toolbar:
           "undo redo fullscreen styleselect bold italic blockquote forecolor backcolor alignleft aligncenter bullist numlist table image codesample emoticons charmap link",
         toolbar_sticky: true,
-        quickbars_selection_toolbar:
-          "bold italic forecolor backcolor | formatselect | quicklink blockquote",
-
         quickbars_insert_toolbar: false,
         quickbars_image_toolbar: true,
         resize: false,

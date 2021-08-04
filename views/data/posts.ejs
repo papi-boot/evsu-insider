@@ -19,24 +19,27 @@
               <%= item.post_title %>
             </h6>
           </div>
-          <div class="post__header d-flex align-item-center gap-2 flex-wrap">
-            <h6 class="post__tag f_size-3 ">
+          <div class="post__header d-flex align-item-center flex-wrap">
+            <h6 class="post__tag f_size-3 me-1">
               <%= item.post_tag %>
             </h6>
-            <h6 class="post__subject fw_700 f_size-3">
+            <h6 class="post__subject fw_700 f_size-3 ms-1">
               <%= item.subject_name %> ⭐
             </h6>
           </div>
-          <div class="post__sub-header d-flex align-items-center text-dark">
-            <h6 class="post__author f_size-3">
-            <i class="bi bi-person-fill f_size-1 p-theme-color"></i>&nbsp;<span class="fw_700 p-theme-color"><%= item.user_fullname %></span>,
-            </h6>
-            <h6 class="post__created f_size-3 mx-1 fw_600">
+          <div class="post__sub-header d-flex align-items-center text-dark flex-wrap">
+            <div class="post__user-image-container">
+              <input class="post__user-image" type="image" src="<%= item.profile_image_url %>">
+            </div>
+            <h6 class="post__author m-0 f_size-3"><%= item.user_fullname %></h6>
+          </div>
+          <div class="post__time-info d-flex align-items-center text-dark flex-wrap">
+            <h6 class="post__created f_size-3 m-0 mx-1 fw_600">
               <i class="bi bi-clock f_size-1 p-theme-color"></i> <%= formatDistanceToNow(item.post_created_at, { addSuffix: true }) %>&nbsp;•&nbsp;
               <%= formatRelative(add(item.post_created_at, {hours: 8}), add(new Date(), {hours: 8})) %>
             </h6>
           <% if(comment_count[index][0].count !== "0") { %>
-            <h6 class="post__created f_size-3 mx-1 fw_600 p-theme-color"><i class="bi bi-chat-fill"></i> (<%= comment_count[index][0].count %>)</h6>
+            <h6 class="post__created f_size-3 mx-1 fw_600 p-theme-color m-0"><i class="bi bi-chat-fill"></i> (<%= comment_count[index][0].count %>)</h6>
           <% } %>
           </div>
         </div>
@@ -49,7 +52,7 @@
               <h5 class="delete__dialog-header">Warning!</h5>
               <hr>
               <div class="delete__dialog-body">
-                This procedure can not be undone, Are your sure you want <br> to delete this precious answer?
+                This procedure can not be undone, Are your sure you want <br> to delete this Post?
               </div>
               <div class="delete__dialog-btn d-flex align-items-center justify-content-end --nav-list mt-4">
                 <button type="button" class="btn__global btn__cancel fw_600 me-2 custom__dialog-btn-cancel">Close</button>

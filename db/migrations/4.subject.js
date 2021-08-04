@@ -8,19 +8,35 @@ module.exports = {
         unique: true,
         primaryKey: true,
         type: DataTypes.UUID,
-        defaultValue: Sequelize.literal("uuid_generate_v4()")
+        defaultValue: Sequelize.literal("uuid_generate_v4()"),
       },
       subject_name: {
-        allowNUll: false,
+        allowNull: false,
         type: DataTypes.STRING(100),
       },
       subject_description: {
         allowNull: false,
-        type: DataTypes.STRING(100)
+        type: DataTypes.STRING(100),
       },
-      subject_quarter: {
+      subject_for_semester: {
+        type: DataTypes.UUID,
         allowNull: false,
-        type: DataTypes.INTEGER
+        references: {
+          model: "semesters",
+          key: "semester_id",
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      },
+      subject_for_year_level: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: {
+          model: "year_levels",
+          key: "year_level_id",
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
       subject_created_at: {
         allowNull: false,

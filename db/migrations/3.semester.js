@@ -1,43 +1,41 @@
 "use strict";
 const { DataTypes } = require("sequelize");
-const DEFAULT_IMAGE =
-  "https://insiderhub.blob.core.windows.net/images/male_predef_image.jpg";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("user_profile_images", {
-      profile_image_id: {
-        type: DataTypes.UUID,
+    await queryInterface.createTable("semesters", {
+      semester_id: {
         allowNull: false,
         unique: true,
         primaryKey: true,
+        type: DataTypes.UUID,
         defaultValue: Sequelize.literal("uuid_generate_v4()"),
       },
-      profile_image_url: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-        defaultValue: DEFAULT_IMAGE,
-      },
-      profile_image_belongs_to: {
+      semester_for_year_level: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: "users",
-          key: "user_id",
+          model: "year_levels",
+          key: "year_level_id",
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
-      profile_image_created_at: {
+      semester_year_count: {
+        allowNull: false,
+        unique: true,
+        type: DataTypes.INTEGER,
+      },
+      semester_created_at: {
         allowNull: false,
         type: DataTypes.DATE,
       },
-      profile_image_updated_at: {
+      semester_updated_at: {
         allowNull: false,
         type: DataTypes.DATE,
       },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("user_profile_images");
+    await queryInterface.dropTable("semesters");
   },
 };

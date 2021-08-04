@@ -1,0 +1,40 @@
+<div class="modal fade" id="dialogCreatePostSubject" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Subject</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="my-3">
+          <h6>Year</h6>
+          <select class="form-select create__post-select-year">
+          </select>
+        </div>
+        <div class="my-3">
+          <h6>Semester</h6>
+          <select class="form-select create__post-select-semester"></select>
+          <div class="d-flex align-items-center">
+            <span class="spinner-border spinner-border-sm loading-spinner d-none message__indicator-spinner"
+              role="status" aria-hidden="true"></span>
+            <p class="message__indicator d-none fw_600 my-1 f_size-3"></p>
+          </div>
+        </div>
+        <div class="my-3">
+          <h6>Subject</h6>
+          <select class="form-select create__post-select-subject "></select>
+          <div class="d-flex align-items-center">
+            <span class="spinner-border spinner-border-sm loading-spinner d-none message__indicator-spinner"
+              role="status" aria-hidden="true"></span>
+            <p class="message__indicator d-none fw_600 my-1 f_size-3"></p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer --nav-list">
+        <button type="button" class="btn__global btn__cancel fw_600 f_size-2" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn__global fw_600 text-decoration-none f_size-2 confirm__subject-name">Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

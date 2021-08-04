@@ -8,7 +8,7 @@ const {
   fetchOnePost,
   fetchSelectedSubject,
   fetchCommentForOnePost,
-  fetchSearchRequest
+  fetchSearchRequest,
 } = require("../query/fetch_data"); //Fetch all data method
 const { send404_PageNotFound } = require("../middleware/page_not_found");
 const { deleteOnePost } = require("../query/delete_data"); //Delete specific data
@@ -38,8 +38,6 @@ const getHomeDashboard = async (req, res) => {
       );
     }
     // SUBJECT Config
-    const firstSemester = await data.data_firstSemester();
-    const secondSemester = await data.data_secondSemester();
 
     let postCommentResultFound = []; // comment/discussion found
     for (let i = 0; i < allPost.length; i++) {
@@ -76,8 +74,6 @@ const getHomeDashboard = async (req, res) => {
         all_post: allPost,
         subject: await data.data_allSubject(),
         results_post_subject: resultPostFound,
-        firstSemester: firstSemester,
-        secondSemester: secondSemester,
         comment_count: postCommentResultFound,
         pin_post_comment_count: pinPostCommentResultFound,
         formatDistanceToNow,
@@ -115,12 +111,6 @@ const getCreateAnswerForm = async (req, res) => {
 // -- GET HTTP REQUEST: get and show specific/one post
 const getSpecificPost = async (req, res) => {
   try {
-    const firstSemester = (await data.data_allSubject()).filter(
-      (item) => item.subject_quarter === 1
-    );
-    const secondSemester = (await data.data_allSubject()).filter(
-      (item) => item.subject_quarter === 2
-    );
     if (req.user) {
       const one_post = await fetchOnePost(req);
       if (one_post && one_post.length > 0) {
@@ -138,8 +128,6 @@ const getSpecificPost = async (req, res) => {
           subject: await data.data_allSubject(),
           comments: await fetchCommentForOnePost(req),
           related_post: sliceRelatedPost,
-          firstSemester: firstSemester,
-          secondSemester: secondSemester,
           formatDistanceToNow,
           formatRelative,
           format,
