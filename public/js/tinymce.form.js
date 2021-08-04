@@ -9,9 +9,10 @@ window.addEventListener("load", async () => {
       selector: "#shareAnswerForm",
       content_css: "../style/prism.css, ../style/tinymce_field.css",
       plugins:
-        "quickbars autoresize blockquote anchor code emoticons charmap wordcount codesample lists advlist table hr pagebreak nonbreaking print image media imagetools autolink link preview fullscreen visualblocks spellchecker visualchars autolink help searchreplace",
-      menubar: "insert view format",
+        "quickbars autosave autoresize blockquote anchor code emoticons charmap wordcount codesample lists advlist table hr pagebreak nonbreaking print image media imagetools autolink link preview fullscreen visualblocks spellchecker visualchars autolink help searchreplace",
+      menubar: "file insert view format",
       menu: {
+        file: { title: "File", items: "newdocument restoredraft" },
         view: {
           title: "View",
           items:
@@ -28,10 +29,11 @@ window.addEventListener("load", async () => {
             "bold italic underline strikethrough superscript subscript codeformat | formats blockformats fontsizes align lineheight | forecolor backcolor | removeformat",
         },
       },
+      autosave_restore_when_empty: true,
       min_height: 600,
       max_width: "50%",
       toolbar:
-        "fullscreen undo redo | bold italic blockquote forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify bullist numlist table outdent indent image media codesample emoticons charmap link anchor hr pagebreak nonbreaking help addTab",
+        "fullscreen undo redo restoredraft | bold italic blockquote forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify bullist numlist table outdent indent image media codesample emoticons charmap link anchor hr pagebreak nonbreaking help addTab",
       toolbar_mode: "sliding",
       quickbars_selection_toolbar:
         "bold italic forecolor backcolor formatselect quicklink blockquote",
@@ -78,15 +80,13 @@ window.addEventListener("load", async () => {
       },
       //for Mobile
       mobile: {
-        theme: "silver",
         menubar: true,
         plugins:
-          "quickbars autoresize blockquote fullscreen emoticons charmap wordcount codesample image lists advlist table hr autolink link fullscreen autolink",
+          "quickbars autosave autoresize blockquote fullscreen emoticons charmap wordcount codesample image lists advlist table hr link fullscreen",
         toolbar:
-          "undo redo fullscreen styleselect  bold italic blockquote forecolor backcolor fontsizeselect alignleft aligncenter alignright alignjustify bullist numlist table indent codesample image emoticons charmap link hr",
-        quickbars_selection_toolbar:
-          "bold italic forecolor backcolor formatselect quicklink blockquote",
+          "undo redo restoredraft fullscreen styleselect bold italic blockquote forecolor backcolor fontsizeselect alignleft aligncenter alignright alignjustify bullist numlist table indent codesample image emoticons charmap link hr",
         quickbars_insert_toolbar: false,
+        autosave_restore_when_empty: true,
         toolbar_sticky: true,
         resize: false,
         object_resizing: true,

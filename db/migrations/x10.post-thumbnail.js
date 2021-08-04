@@ -1,43 +1,39 @@
 "use strict";
 const { DataTypes } = require("sequelize");
-const DEFAULT_IMAGE =
-  "https://insiderhub.blob.core.windows.net/images/male_predef_image.jpg";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("user_profile_images", {
-      profile_image_id: {
-        type: DataTypes.UUID,
+    await queryInterface.createTable("post_thumbnails", {
+      post_thumbnail_id: {
         allowNull: false,
         unique: true,
         primaryKey: true,
+        type: DataTypes.UUID,
         defaultValue: Sequelize.literal("uuid_generate_v4()"),
       },
-      profile_image_url: {
+      post_thumbnail_image_url: {
         type: DataTypes.TEXT,
-        allowNull: false,
-        defaultValue: DEFAULT_IMAGE,
       },
-      profile_image_belongs_to: {
+      post_thumbnail_created_at: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
+      post_thumbnail_belongs_to: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: "users",
-          key: "user_id",
+          model: "posts",
+          key: "post_id",
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
-      profile_image_created_at: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
-      profile_image_updated_at: {
+      post_thumbnail_updated_at: {
         allowNull: false,
         type: DataTypes.DATE,
       },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("user_profile_images");
+    await queryInterface.dropTable("post_thumbnails");
   },
 };

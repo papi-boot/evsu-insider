@@ -27,7 +27,7 @@
 .pin__indicator {
   position: absolute;
   right: 0;
-  top: -.8rem;
+  top: -0.8rem;
   z-index: 997;
 }
 
@@ -69,6 +69,23 @@
 .post__sub-header {
   word-wrap: break-word;
   flex-wrap: wrap;
+
+  > .post__user-image-container {
+    background: rgb(240, 240, 240);
+    clip-path: circle(50% at 50%);
+    height: 2rem;
+    overflow: hidden;
+    object-fit: contain;
+    width: 2rem;
+    .post__user-image {
+      border: 2px solid root.$background_body;
+      border-radius: 50%;
+      height: 100%;
+      object-fit: scale-down;
+      padding: 0.1rem;
+      width: 100%;
+    }
+  }
 }
 
 .post__option {
@@ -81,7 +98,7 @@
     padding: 0 4px;
     transition: root.$transition-1;
 
-    &:focus-within{
+    &:focus-within {
       box-shadow: 0 0 0 3px rgba(root.$black, 0.2);
     }
   }

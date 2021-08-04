@@ -12,6 +12,9 @@ const {
   fetchPostCommentCount,
   fetchAllComments,
   fetchPasswordResetToken,
+  fetchYearLevels,
+  fetchSemesterForYearLevel,
+  fetchSubjectForSemesterAndYearLevel,
 } = require("../query/fetch_data");
 const { checkProfileImage } = require("../query/insert_data");
 
@@ -32,7 +35,6 @@ const data_fetchUserProfileImage = async (req) => {
 
 const data_sliceRecentPost = async () => {
   const results = (await fetchAllPost()).slice(0, 8);
-
   return results;
 };
 const data_allPost = async () => {
@@ -62,18 +64,6 @@ const data_fetchSubjectPostResult = async (subject_id) => {
   return results;
 };
 
-const data_firstSemester = async () => {
-  const results = await fetchAllSubject();
-  const first_sem = results.filter((item) => item.subject_quarter === 1);
-  return first_sem;
-};
-
-const data_secondSemester = async () => {
-  const results = await fetchAllSubject();
-  const second_sem = results.filter((item) => item.subject_quarter === 2);
-  return second_sem;
-};
-
 const data_fetchPostCommentCount = async (post_id) => {
   const results = await fetchPostCommentCount(post_id);
   return results;
@@ -89,6 +79,30 @@ const data_fetchPasswordToken = async (req, res) => {
   return results;
 };
 
+const data_fetchYearLevels = async () => {
+  const results = await fetchYearLevels();
+  return results;
+};
+const data_fetcheSemesterForYearLevel = async (year_level_id) => {
+  const results = await fetchSemesterForYearLevel(year_level_id);
+  return results;
+};
+
+const data_fetchSubjectForSemesterAndYearLevel = async (
+  semester_id,
+  year_level_id
+) => {
+  try {
+    const results = await fetchSubjectForSemesterAndYearLevel(
+      semester_id,
+      year_level_id
+    );
+    return results;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   data_fetchOneUser,
   data_checkUserProfileImage,
@@ -98,10 +112,11 @@ module.exports = {
   data_fetchSubjectPostResult,
   data_fetchSearchRequest,
   data_filterPinPost,
-  data_firstSemester,
-  data_secondSemester,
   data_sliceRecentPost,
   data_allSubject,
   data_fetchAllComments,
   data_fetchPasswordToken,
+  data_fetchYearLevels,
+  data_fetcheSemesterForYearLevel,
+  data_fetchSubjectForSemesterAndYearLevel
 };

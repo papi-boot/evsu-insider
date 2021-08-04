@@ -66,7 +66,7 @@
   border-radius: 5px;
   outline: none;
   position: absolute;
-  right: root.$mar-4;
+  right: 3rem;
   top: root.$mar-4;
 
   &:focus {
@@ -76,10 +76,98 @@
     background: #f1f1f1;
   }
 }
+.zoom__code-snippet {
+  background: root.$white;
+  border: 5px;
+  border-bottom: 5px solid #d1d1d1;
+  border-radius: 5px;
+  outline: none;
+  position: absolute;
+  right: root.$mar-4;
+  top: root.$mar-4;
+}
+.zoom__code-wrapper {
+  background: #20201d;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1041;
 
+  > .zoom__code-item {
+    background: #20201d;
+    height: 100%;
+    padding: 2.5rem root.$pad-2;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    width: 100%;
+  }
+}
+
+.zoom__code-item {
+  .zoom__btn-zoom-out {
+    background: root.$white;
+    border: 5px;
+    border-bottom: 5px solid #d1d1d1;
+    border-radius: 5px;
+    &:focus {
+      border-bottom: 0;
+    }
+    &:hover {
+      background: #f1f1f1;
+    }
+  }
+  .font__size-add {
+    background: root.$white;
+    border: 5px;
+    border-bottom: 5px solid #d1d1d1;
+    border-radius: 5px;
+    &:focus {
+      border-bottom: 0;
+    }
+    &:hover {
+      background: #f1f1f1;
+    }
+  }
+  .font__size-subtract {
+    background: root.$white;
+    border: 5px;
+    border-bottom: 5px solid #d1d1d1;
+    border-radius: 5px;
+    &:focus {
+      border-bottom: 0;
+    }
+    &:hover {
+      background: #f1f1f1;
+    }
+  }
+
+  .fix__code {
+    background: root.$white;
+    border: 5px;
+    border-bottom: 5px solid #d1d1d1;
+    border-radius: 5px;
+
+    &:focus {
+      border-bottom: 0;
+    }
+    &:hover {
+      background: #f1f1f1;
+    }
+  }
+}
 @mixin speicific-post-max-576px {
   .copy__code-snippet {
-    bottom: -1rem;
+    bottom: -0.5rem;
+    position: absolute;
+    right: 3.1rem;
+    top: unset;
+  }
+  .zoom__code-snippet {
+    bottom: -0.5rem;
     position: absolute;
     right: root.$mar-4;
     top: unset;

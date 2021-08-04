@@ -26,7 +26,8 @@
       <% } else { %>
         <div></div>
       <% } %>
-        <form class="form__create-post" method="POST" action="/create-post">
+        <form class="form__create-post">
+        <%- include("../partial/create_post_dialog") %> 
           <div class="--nav-item d-flex justify-content-start align-items-center w-100 my-3 mx-1">
             <a class="text-decoration-none --nav-link f_size-2" href="/dashboard">&leftarrow; Back to
               Dashboard</a>
@@ -40,10 +41,10 @@
               <div class="group">
                 <% if (subject.length > 0 ) { %>
                   <label class="form-label" for="postTitle">Title</label>
-                  <input class="form-control" type="text" name="post_title" id="postTitle" required>
+                  <input class="form-control fw_600 create__post-title-field" type="text" name="post_title" id="postTitle" placeholder="Required *" required>
                 <% } else { %>
                   <label class="form-label">Title</label>
-                  <input class="form-control" type="text" name="post_title" disabled>
+                  <input class="form-control fw_600" type="text" name="post_title" placeholder="Required *" disabled>
                 <% } %> 
                 <span class="bar"></span>
                 
@@ -54,16 +55,10 @@
               <div class="group">
                 <% if (subject.length > 0 ) { %>
                 <label class="form-label" for="postSubject">Subject</label>
-                  <select class="form-select" name="post_subject" id="postSubject" required>
-                    <% subject.forEach(subj=> { %>
-                      <option value="<%= subj.subject_id %>" 
-                      <% if (subj.subject_id === req.query.subject_id) { %>
-                        selected
-                      <% } %>>
-                        <span class="fw_600"><%= subj.subject_name %></span> - <%= subj.subject_description %> 
-                      </option>
-                    <% }) %>
-                  </select>
+                <div class="create__post-subject d-flex align-items-center justify-content-between position-relative">
+                  <input class="form-control fw_600 create__post-subject-field" type="text" name="post_subject" placeholder="Subject" required>
+                  <button class="create__post-subject-dialog-toggler" type="button" data-bs-toggle="modal" data-bs-target="#dialogCreatePostSubject"><%- include("../svg/chevron-down", {height: 20, width: 20}) %></button>
+                </div>
                   <span class="bar"></span>
                 <% } else { %>
                     <label class="form-label" for="postSubject">Subject</label>
@@ -83,15 +78,16 @@
               <div class="group">
                 <% if (subject.length > 0 ) { %>
                   <label class="form-label">Tag/Unit</label>
-                  <input class="form-control" type="text" name="post_tag" required>
+                  <input class="form-control fw_600 create__post-tag-field" type="text" name="post_tag" placeholder="Required *" required>
                 <% } else { %>
                 <label class="form-label">Tag/Unit</label>
-                  <input class="form-control" type="text" name="post_tag" disabled>
+                  <input class="form-control fw_600 " type="text" name="post_tag" disabled>
                 <% } %> 
                 <span class="bar"></span>
               </div>
             </div>
           </div>
+
           <!-- load-content -->
           <div class="loading-container">
             <img class="logo" alt="Evsu Insider">
@@ -106,7 +102,7 @@
           <div class="d-flex justify-content-lg-start justify-content-center align-items-center w-100 my-2 mx-1">
             <% if (subject.length > 0) { %>
               <button class="btn__global form-control-sm mx-1 my-2 fw_600 f_size-2 btn__submit-post" type="submit">
-                Share Answer <span><i class="bi bi-check-circle-fill f_size-1"></i></span>
+                Publish Post <span class="spinner-border spinner-border-sm d-none publish__post-spinner" role="status" aria-hidden="true"></span>
               </button>
             <% } else { %>
               <div class="d-block">

@@ -31,12 +31,11 @@ account_settings_routes.put("/profile-info-update", (req, res) => {
               "Something went wrong when uploading the image. Please try again or later.",
           });
         } else {
-          const { fullname, email } = await req.body;
+          const { fullname } = await req.body;
           const checkInfo = await data.data_fetchOneUser(req.user.user_id);
           if (checkInfo.length > 0) {
             if (
               checkInfo[0].user_fullname === fullname &&
-              checkInfo[0].user_email === email &&
               !req.files.length > 0
             ) {
               console.log("DATA NOT MODIFIED");

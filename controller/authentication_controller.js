@@ -2,8 +2,12 @@
 const verifyRegister = require("../middleware/verify.register");
 const passport = require("passport");
 const passportConfig = require("../middleware/passport.config.js"); //Require the passport config;
+const { checkNotAuthenticated } = require("../middleware/check.authenticated");
+const express = require("express");
+const app = express();
 
 /* @TODO: initialize the passport */
+
 passportConfig.initializePassport(passport);
 
 // -- GET HTTP REQUEST: get login form
@@ -34,7 +38,7 @@ const getRegisterForm = async (req, res) => {
 const getForgotPasswordForm = async (req, res) => {
   try {
     await res.render("password_reset/forgot_password", {
-      doc_title: "Recover my Account"
+      doc_title: "Recover my Account",
     });
   } catch (err) {
     console.error(err);

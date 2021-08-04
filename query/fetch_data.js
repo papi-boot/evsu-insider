@@ -33,7 +33,7 @@ const fetchUserProfileImage = async (req) => {
 const fetchAllPost = async () => {
   try {
     const results = await sequelize.query(
-      "SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_pin_time, post_created_at, post_updated_at, user_fullname, subject_name, subject_id FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id ORDER BY post_created_at DESC;",
+      "SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_pin_time, post_created_at, post_updated_at, user_fullname, subject_name, subject_id, profile_image_url FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id LEFT JOIN user_profile_images ON posts.post_author = user_profile_images.profile_image_belongs_to ORDER BY post_created_at DESC;",
       {
         type: QueryTypes.SELECT,
       }
@@ -50,7 +50,7 @@ const fetchOnePost = async (req) => {
   try {
     const post_id = req.query.post_id;
     const results = await sequelize.query(
-      `SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_created_at, post_updated_at, user_fullname, user_state, subject_name, subject_id, profile_image_url FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id INNER JOIN user_profile_images ON user_profile_images.profile_image_belongs_to = users.user_id WHERE post_id = $1;`,
+      `SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_created_at, post_updated_at, user_fullname, user_state, subject_name, subject_id, subject_description, profile_image_url FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id INNER JOIN user_profile_images ON user_profile_images.profile_image_belongs_to = users.user_id WHERE post_id = $1;`,
       {
         type: QueryTypes.SELECT,
         bind: [post_id],
@@ -83,7 +83,7 @@ const fetchSelectedSubject = async (req) => {
   try {
     const { subject_id } = req.query;
     const results = await sequelize.query(
-      "SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_created_at, post_updated_at, user_fullname, subject_id, subject_name, subject_description, subject_quarter FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id WHERE subject_id::text = $1 ORDER BY subject_created_at ASC;",
+      "SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_created_at, post_updated_at, user_fullname, subject_id, subject_name, subject_description FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id WHERE subject_id::text = $1 ORDER BY subject_created_at ASC;",
       {
         type: QueryTypes.SELECT,
         bind: [subject_id.toString()],
@@ -125,7 +125,7 @@ const fetchSearchRequest = async (req, res) => {
 const fetchSubjectPostResult = async (subject_id) => {
   try {
     const results = await sequelize.query(
-      "SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_created_at, post_updated_at, user_fullname, subject_id, subject_name, subject_description, subject_quarter FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id WHERE subject_id::text = $1 ORDER BY subject_created_at DESC;",
+      "SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_created_at, post_updated_at, user_fullname, subject_id, subject_name, subject_description FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id WHERE subject_id::text = $1 ORDER BY subject_created_at DESC;",
       {
         type: QueryTypes.SELECT,
         bind: [subject_id.toString()],
@@ -210,6 +210,51 @@ const fetchPasswordResetToken = async (req, res) => {
   }
 };
 
+const fetchYearLevels = async () => {
+  try {
+    const results = await sequelize.query("SELECT * FROM year_levels", {
+      type: QueryTypes.SELECT,
+    });
+    return results;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const fetchSemesterForYearLevel = async (year_level_id) => {
+  try {
+    const results = await sequelize.query(
+      `SELECT semester_id, semester_for_year_level, semester_year_count, year_level_id FROM semesters
+        INNER JOIN year_levels yl ON semesters.semester_for_year_level = yl.year_level_id
+        WHERE semester_for_year_level = $1`,
+      {
+        type: QueryTypes.SELECT,
+        bind: [year_level_id],
+      }
+    );
+    return results;
+  } catch (err) {
+    console.error(err);
+  }
+};
+const fetchSubjectForSemesterAndYearLevel = async (
+  semester_id,
+  year_level_id
+) => {
+  try {
+    const results = await sequelize.query(
+      "SELECT * FROM subjects WHERE subject_for_semester = $1 AND subject_for_year_level = $2",
+      {
+        type: QueryTypes.SELECT,
+        bind: [semester_id, year_level_id],
+      }
+    );
+    return results;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   fetchOneUser,
   fetchUserProfileImage,
@@ -224,4 +269,7 @@ module.exports = {
   fetchAllSubscription,
   fetchAllComments,
   fetchPasswordResetToken,
+  fetchYearLevels,
+  fetchSemesterForYearLevel,
+  fetchSubjectForSemesterAndYearLevel,
 };
