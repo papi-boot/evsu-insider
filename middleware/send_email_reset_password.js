@@ -49,6 +49,7 @@ const sendContentEmailResetPassword = async (
     <p>If you dont request this, you can safely ignore this message and the link will expire soon</p>
     <br/>
     <p><strong>Thanks</strong>
+    <p style="font-size: .6rem;">The link might be suspicious, but it's alright. Unfortunately the site dont have enough resource to purchase a domain.</p>
     `,
     };
 
