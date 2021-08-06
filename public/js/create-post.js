@@ -215,6 +215,10 @@ window.addEventListener("DOMContentLoaded", () => {
           localStorage.setItem("notif_state", NOTIF_STATE);
           window.location.href = res.url;
         }
+        if (res.error === 1) {
+          alert(res.error_message);
+          window.location.reload();
+        }
       })
       .catch((err) => console.error(err));
   });

@@ -1,0 +1,64 @@
+<body>
+  <article class="post__article container">
+    <h1 class="my-3 fw_700" style="margin: .1rem 0; font-weight: 700;">
+      <%= post_title %>
+    </h1>
+    <div class="post__sub-header">
+      <table>
+        <tbody>
+          <th style="clip-path: circle(43% at 55%)">
+            <div class="profile__image-container mx-1"
+              style="clip-path: circle(45% at 55%);height:2rem;overflow:hidden;object-fit:contain;width: 2rem;">
+              <img class="profile__image-src" src="<%= profile_image_url %> "
+                style="border-radius:50%;height: 100%;object-fit:scale-down;width: 100%;">
+            </div>
+          </th>
+          <th>
+            <h6 class="user__name m-0 f_size-3 mx-1" style="font-size: .8rem; margin: 0 .1rem;">
+              <%= user_fullname %>,
+            </h6>
+          </th>
+          <th>
+            <h6 class="date__creation" style="font-size: .7rem; margin: 0 .1rem;">
+              <%= format(add(date_creation, {hours: 8}), 'EEE, MMMM dd, yyyy' ) %>
+            </h6>
+          </th>
+        </tbody>
+      </table>
+      <table>
+        <tbody>
+          <th>
+            <h6 class="m-0 post__tag f_size-3 mx-1"
+              style="margin: .2rem; background: #730000;border-radius: 5px;color: #fff;padding: .1rem .2rem;">
+              <%= post_tag %>
+            </h6>
+          </th>
+          <th>
+            <h6 class="m-0 post__subject-name f_size-3 mx-1"
+              style="margin: .2rem;  border: 1px #730000 solid;border-radius: 5px;color: #730000;padding: .1rem .2rem;">
+              <%= subject_name %>
+            </h6>
+          </th>
+        </tbody>
+      </table>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <div class="content" style="height: 80px; overflow: hidden;">
+                <%- post_content %>
+              </div>
+            </td>
+        </tbody>
+      </table>
+      <table>
+        <tbody>
+          <th>
+            <a style="text-decoration: none; padding: .2rem;color: #730000; border: 1px solid #730000;border-radius: 5px;" href="<%= url %>">View Post</a>
+            <p style="font-size: .6rem;">The link might be suspicious, but it's alright. Unfortunately the site dont have enough resource to purchase a domain. Thanks.</p>
+          </th>
+        </tbody>
+      </table>
+    </div>
+  </article>
+</body>
