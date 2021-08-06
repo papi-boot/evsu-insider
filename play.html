@@ -1,51 +1,179 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+      :root {
+        --border-radius: 5px;
+        --pad-1: 1rem;
+        --pad-2: .8rem;
+        --pad-3: .6rem;
+        --pad-4: .1rem;
+        --primary-color: #730000;
+        --white: #fff;
+      }
 
-    <style>
-      .loading-container {
+      body {
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .profile__image-container {
+        background: rgb(240, 240, 240);
+        clip-path: circle(50% at 50%);
+        height: 2rem;
+        overflow: hidden;
+        object-fit: contain;
+        width: 2rem;
+      }
+
+      .profile__image-container>.profile__image-src {
+        border-radius: 50%;
+        height: 100%;
+        object-fit: scale-down;
+        padding: 0.1rem;
+        width: 100%;
+      }
+
+      .post__tag {
+        background: #730000;
+        border-radius: 5px;
+        color: #fff;
+        padding: .1rem .3rem;
+      }
+
+      .post__subject-name {
+        border: 1px #730000 solid;
+        border-radius: 5px;
+        color: #730000;
+        padding: .1rem .3rem;
+      }
+
+      .post__content-wrapper {
+        height: 170px;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+      }
+
+      .post__content-wrapper::after {
+        background-image: linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, .9), rgba(255, 255, 255));
+        bottom: 0;
+        content: "";
+        height: 50px;
+        position: absolute;
+        width: 100%;
+      }
+
+      .view__post-link {
         background: #fff;
+        border: 1px #730000 solid;
+        border-radius: 5px;
+        color: #730000;
+        display: block;
+        margin: 0 auto;
+        padding: .1rem .3rem;
+        text-decoration: none;
         width: max-content;
       }
-
-      .loading-container>.loading-circle {
-        animation: loading linear infinite 800ms;
-        animation-play-state: running;
-        border: 5px solid #fff;
-        border-radius: 50%;
-        border-bottom: 5px solid #730000;
-        border-top: 5px solid #730000;
-        margin: 5px auto;
-        height: 30px;
-        width: 30px;
+      .view__post-link:hover{
+        background: var(--primary-color);
+        color: var(--white);
       }
 
-      @keyframes loading {
-        from {
-          transform: rotate(0);
-        }
-
-        to {
-          transform: rotate(360deg);
-        }
+      .f_size-3 {
+        font-size: .8rem;
       }
-    </style>
-  </head>
 
-  <body>
-    <!-- <div class="loading-container">
-      <div class="loading-circle"></div>
-      <div class="loading-text">Loading...</div>
-    </div> -->
+      .fw_700 {
+        font-weight: 700;
+      }
 
-    <a href="https://insiderhub.blob.core.windows.net/profile-image/male_predef_image.jpg?sp=racwd&st=2021-07-28T20:00:15Z&se=2021-07-29T04:00:15Z&sv=2020-08-04&sr=c&sig=A35kevmApEC95TcZODn2%2FaBlczPBwgQkE2akHb0VxN8%3D"
-      download="Try.jpg">download</a>
-    <!-- <script src="https://gist.github.com/papi-boot/d0cff4c0f5ce19135071e6e74057c906.js"></script> -->
-  </body>
+      .stack-1 {
+        z-index: 1040;
+      }
+    </style> -->
 
-</html>
+
+<body>
+  <article class="post__article container">
+    <h1 class="my-3 fw_700" style="margin: .1rem 0; font-weight: 700;">Title here</h1>
+    <div class="post__sub-header">
+      <table>
+        <tbody>
+          <th>
+            <div class="profile__image-container mx-1" style="background: rgb(240, 240, 240);
+              clip-path: circle(50% at 50%);
+              height: 2rem;
+              overflow: hidden;
+              object-fit: contain;
+              width: 2rem;">
+              <img class="profile__image-src" src="" alt="" style=" border-radius: 50%;
+                height: 100%;
+                object-fit: scale-down;
+                padding: 0.1rem;
+                width: 100%;">
+            </div>
+          </th>
+          <th>
+            <h6 class="m-0 f_size-3 mx-1" style="font-size: .8rem; margin: 0 .5rem;">Jason Evangelista,</h6>
+          </th>
+          <th>
+            <h6 class="date__creation" style="font-size: .8rem; margin:.1rem 0;">Aug 8, 2021</h6>
+          </th>
+        </tbody>
+      </table>
+      <table>
+        <tbody>
+          <th>
+            <h6 class="m-0 post__tag f_size-3 mx-1"
+              style="margin: .5rem; background: #730000;border-radius: 5px;color: #fff;padding: .1rem .3rem;">#Hash
+              your
+              Password</h6>
+          </th>
+          <th>
+            <h6 class="m-0 post__subject-name f_size-3 mx-1"
+              style="margin: .3rem;  border: 1px #730000 solid;border-radius: 5px;color: #730000;padding: .1rem .3rem;">
+              IT
+              213</h6>
+          </th>
+        </tbody>
+      </table>
+    </div>
+    <table>
+      <tr>
+        <td>
+          <div class="content" style="height: 100px; overflow: hidden;">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti eligendi repellat maxime? Consequuntur
+            commodi, quam quisquam minima corrupti debitis ea ab officiis, sint voluptate dolorum necessitatibus hic
+            delectus, accusamus numquam eum magnam molestias? Pariatur, autem vero aliquid repellat minus odit laborum
+            voluptatibus animi ducimus ipsam necessitatibus maxime corrupti cumque rem, saepe error quasi nulla nobis
+            ad?
+            Expedita perferendis similique nam animi illum quo dolor! Nihil vel nam corporis, deleniti debitis dolorum
+            distinctio eveniet. Possimus hic tenetur libero quas. Ut ipsa optio in praesentium voluptates itaque.
+            Distinctio, assumenda fugit cupiditate qui repellat itaque eligendi adipisci reiciendis amet eos iure id
+            blanditiis voluptate quibusdam veritatis? Quos incidunt aliquid nulla error non vero, vel esse modi adipisci
+            voluptas dolorem doloremque repellendus reprehenderit nisi laboriosam ea tempore aspernatur id. Et autem
+            impedit asperiores fugit esse error deleniti repellendus ipsam sed debitis doloribus cum officia rem
+            molestias
+            iusto facere quaerat hic tempore praesentium, quidem quos magnam. Placeat ea vel dignissimos delectus et, in
+            non repudiandae nostrum nulla. Porro illo consectetur laborum laboriosam ullam vitae tempore sed maiores
+            libero sunt est ad voluptates, laudantium velit tenetur eveniet! Et commodi dicta maiores aperiam tenetur
+            iure
+            expedita vitae soluta voluptate dolores? Provident nihil accusantium deleniti, reprehenderit veritatis
+            culpa!
+          </div>
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tbody>
+        <th>
+          <a href="">
+            View Post
+          </a>
+        </th>
+      </tbody>
+    </table>
+  </article>
+</body>

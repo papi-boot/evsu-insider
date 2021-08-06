@@ -29,7 +29,7 @@ const sendContentEmailResetPassword = async (
       `http://localhost:3030/reset-password?prt=${password_reset_token}&prs=${password_reset_secret}`,
     ];
     const body_message = {
-      from:`Insider Hub Reset password ${process.env.MAILER_USER}`,
+      from:`Insider Hub Reset Password ${process.env.MAILER_USER}`,
       to: this_email,
       subject: "Reset Password - Insider Hub",
       headers: {

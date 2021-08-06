@@ -11,6 +11,7 @@ const { add } = require("date-fns");
 const {
   sendContentEmailResetPassword,
 } = require("../middleware/send_email_reset_password");
+const { sendEmailNewPost } = require("../middleware/send_email_new_post");
 
 const submitAnswer = async (req, res) => {
   //Create Post
@@ -18,7 +19,7 @@ const submitAnswer = async (req, res) => {
     const { post_title, post_subject, post_tag, post_body } = await req.body;
     // -- cleaning the html input to prevent XSS
     if (!post_title && !post_subject && !post_tag && !post_body) {
-      return res.send(400).json({
+      return res.status(400).json({
         error_message: "All fields must be fulfilled with content",
         error: 1,
       });
@@ -83,7 +84,7 @@ const submitAnswer = async (req, res) => {
 
       // @TODO: after the cleaning -- proceed to query to add the content in database
       const results = await sequelize.query(
-        "INSERT INTO posts(post_title, post_author, post_subject, post_tag, post_body, post_created_at, post_updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+        "INSERT INTO posts(post_title, post_author, post_subject, post_tag, post_body, post_created_at, post_updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;",
         {
           type: QueryTypes.INSERT,
           bind: [
@@ -97,14 +98,8 @@ const submitAnswer = async (req, res) => {
           ],
         }
       );
-      console.log(results);
       if (results) {
-        req.flash("success", "Post was successfully published");
-        return res.status(200).json({
-          success_message: "Post was successfully published",
-          success: 1,
-          url: "/dashboard"
-        });
+        await sendEmailNewPost(results, req, res);
       } else {
         return res.status(400).json({
           error_message:

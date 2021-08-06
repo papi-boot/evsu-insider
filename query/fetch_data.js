@@ -254,6 +254,24 @@ const fetchSubjectForSemesterAndYearLevel = async (
     console.error(err);
   }
 };
+const fetchPostForNotification = async (post_id) => {
+  try {
+    const results = await sequelize.query(
+      `SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_created_at, post_updated_at, user_fullname, user_state, subject_name, subject_id, subject_description, profile_image_url FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id INNER JOIN user_profile_images ON user_profile_images.profile_image_belongs_to = users.user_id WHERE post_id = $1;`,
+      {
+        type: QueryTypes.SELECT,
+        bind: [post_id],
+      }
+    );
+    if (results) {
+      return results;
+    } else {
+      return 0;
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 module.exports = {
   fetchOneUser,
@@ -272,4 +290,5 @@ module.exports = {
   fetchYearLevels,
   fetchSemesterForYearLevel,
   fetchSubjectForSemesterAndYearLevel,
+  fetchPostForNotification
 };
