@@ -131,7 +131,22 @@
     right: 0;
   }
 }
-
+.create__post-thumbnail-wrapper {
+  border-radius: 10px;
+  overflow: hidden;
+  > .create__post-thumbnail-preview {
+    background: root.$white;
+    object-fit: cover;
+    transition: root.$transition-1;
+    width: 100%;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+  &.preview__thumbnail {
+    height: 20rem;
+  }
+}
 @mixin answer-form-mobile {
   .group {
     margin: root.$mar-2 auto;
@@ -141,6 +156,23 @@
   .__material-input {
     width: 100%;
   }
+  .create__post-thumbnail-wrapper {
+  border-radius: 10px;
+  overflow: hidden;
+  > .create__post-thumbnail-preview {
+    background: root.$white;
+    object-fit: cover;
+    transition: root.$transition-1;
+    width: 100%;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+  &.preview__thumbnail {
+    height: max-content;
+  }
+}
+
 }
 
 //MEDIA QUERY

@@ -30,7 +30,6 @@ require("./js/option_post_toggle");
 require("./bootstrap/js/bootstrap.min");
 require("./js/navburger.anim");
 require("./js/subject_dropdown");
-require("./js/copy-code");
 require("./js/notification/notification_api");
 require("./js/profile_settings");
 require("./js/create-post");

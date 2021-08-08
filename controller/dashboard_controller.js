@@ -59,7 +59,7 @@ const getHomeDashboard = async (req, res) => {
     // Comment Config
     if (req.user) {
       res.header("Service-Worker-Allowed", "/");
-      await res.render("dashboard/index", {
+      await res.render("dashboard/index_v2", {
         doc_title: "Insider Hub | Dashboard",
         user: req.user,
         user_profile_image: await data.data_fetchUserProfileImage(req),

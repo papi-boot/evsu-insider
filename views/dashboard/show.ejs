@@ -17,26 +17,30 @@
     <%- include("../partial/navbar") %>
       <div class="container my-5">
         <div class="row">
-          <div class="col-lg-9">
-            <main class="main__specific-post border px-3 px-xl-4 mb-3">
+          <div class="col-lg-3"></div>
+          <div class="col-lg-6">
+            <main class="main__specific-post px-3 px-xl-4 mb-3">
+              <% if(post[0].post_thumbnail_image_url) { %>
+              <div class="spec__post-thumbnail-wrapper">
+                <img class="spec__post-thumbnail-image-src" loading="lazy" src="<%= post[0].post_thumbnail_image_url %>">
+              </div>
+              <% } %>
               <%- include("../data/specific_post") %>
               <div class="comment__section position-relative my-4">
                 <h4 class="my-2 secodnary-heading">Leave a comment.</h4>
                 <%- include("../data/comment") %> 
               </div>
             </main>
+            <div class="related__post my-4 border p-3">
+              <h6 class="fw_700 primary-heading">More on > <span><a class="p-theme-color" href="/subjects?subject_id=<%= req.query.subject_id %>"><%= post[0].subject_name %></span></a></h6>
+              <%- include("../data/related_post") %>
+            </div>
           </div>  
           <div class="col-lg-3">
-            <aside class="aside__specific-quick-links aside__quick-links border px-2 mb-3">
-              <div class="related__post my-4 border p-3">
-                <h6 class="fw_700 primary-heading">More on > <span><a class="p-theme-color" href="/subjects?subject_id=<%= req.query.subject_id %>"><%= post[0].subject_name %></span></a></h6>
-                <%- include("../data/related_post") %>
-              </div>
-            </aside>
           </div>
         </div>
-        
       </div>
+      <script src="/js/copy-code.js"></script>
       <%- include("../partial/script") %>
       <script src="/dist/prism.compiled.js" async></script>
   </body>

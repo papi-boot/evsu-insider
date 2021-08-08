@@ -1,4 +1,14 @@
 "use strict";
+require("dotenv").config({ path: "../.env" }).parsed;
+const multer = require("multer");
+const MulterAzureStorage = require("multer-azure-storage");
+const uploadStrategy = multer({
+  storage: new MulterAzureStorage({
+    azureStorageConnectionString: process.env.AZURE_STORAGE_CONNECTION_STRING,
+    containerName: "images",
+    containerSecurity: "blob",
+  }),
+}).any();
 const { sequelize, QueryTypes } = require("../config/db.connect");
 const domPurify = require("dompurify");
 const { JSDOM } = require("jsdom");
@@ -15,102 +25,133 @@ const { sendEmailNewPost } = require("../middleware/send_email_new_post");
 
 const submitAnswer = async (req, res) => {
   //Create Post
-  try {
-    const { post_title, post_subject, post_tag, post_body } = await req.body;
-    // -- cleaning the html input to prevent XSS
-    if (!post_title && !post_subject && !post_tag && !post_body) {
+  uploadStrategy(req, res, async (err) => {
+    if (err) {
       return res.status(400).json({
-        error_message: "All fields must be fulfilled with content",
-        error: 1,
+        error_message:
+          "Something went wrong when uploading post thumbnail image",
       });
-    } else if (!post_body) {
-      return res
-        .status(400)
-        .json({ error_message: "You don't have any post content", error: 1 });
     } else {
-      const htmlPurify = domPurify(new JSDOM().window);
-      const cleanTitle = htmlPurify.sanitize(post_title);
-      const cleanSubject = htmlPurify.sanitize(post_subject);
-      const cleanTag = htmlPurify.sanitize(post_tag);
-      const cleanBody = htmlPurify.sanitize(post_body, {
-        ALLOWED_TAGS: [
-          "iframe",
-          "img",
-          "p",
-          "strong",
-          "em",
-          "blockquote",
-          "underline",
-          "span",
-          "del",
-          "sup",
-          "sub",
-          "code",
-          "pre",
-          "h1",
-          "h2",
-          "h3",
-          "h4",
-          "h5",
-          "h6",
-          "ol",
-          "ul",
-          "li",
-          "a",
-          "video",
-          "table",
-          "tbody",
-          "tr",
-          "td",
-          "br",
-        ],
-        ALLOWED_ATTR: [
-          "src",
-          "title",
-          "frameborder",
-          "allow",
-          "allowfullscreen",
-          "style",
-          "alt",
-          "href",
-          "id",
-          "target",
-          "class",
-          "width",
-          "height",
-          "loading",
-        ],
-      });
+      try {
+        const { post_title, post_subject, post_tag, post_body } =
+          await req.body;
+        // -- cleaning the html input to prevent XSS
+        if (
+          !post_title[1] &&
+          !post_subject[1] &&
+          !post_tag[1] &&
+          !post_body[1]
+        ) {
+          return res.status(400).json({
+            error_message: "All fields must be fulfilled with content",
+            error: 1,
+          });
+        } else if (!post_body[1]) {
+          return res.status(400).json({
+            error_message: "You don't have any post content",
+            error: 1,
+          });
+        } else {
+          const htmlPurify = domPurify(new JSDOM().window);
+          const cleanTitle = htmlPurify.sanitize(post_title[1]);
+          const cleanSubject = htmlPurify.sanitize(post_subject[1]);
+          const cleanTag = htmlPurify.sanitize(post_tag[1]);
+          const cleanBody = htmlPurify.sanitize(post_body[1], {
+            ALLOWED_TAGS: [
+              "iframe",
+              "img",
+              "p",
+              "strong",
+              "em",
+              "blockquote",
+              "underline",
+              "span",
+              "del",
+              "sup",
+              "sub",
+              "code",
+              "pre",
+              "h1",
+              "h2",
+              "h3",
+              "h4",
+              "h5",
+              "h6",
+              "ol",
+              "ul",
+              "li",
+              "a",
+              "video",
+              "table",
+              "tbody",
+              "tr",
+              "td",
+              "br",
+            ],
+            ALLOWED_ATTR: [
+              "src",
+              "title",
+              "frameborder",
+              "allow",
+              "allowfullscreen",
+              "style",
+              "alt",
+              "href",
+              "id",
+              "target",
+              "class",
+              "width",
+              "height",
+              "loading",
+            ],
+          });
 
-      // @TODO: after the cleaning -- proceed to query to add the content in database
-      const results = await sequelize.query(
-        "INSERT INTO posts(post_title, post_author, post_subject, post_tag, post_body, post_created_at, post_updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;",
-        {
-          type: QueryTypes.INSERT,
-          bind: [
-            cleanTitle,
-            req.user.user_id,
-            cleanSubject,
-            cleanTag,
-            cleanBody.trim(),
-            new Date(),
-            new Date(),
-          ],
+          // @TODO: after the cleaning -- proceed to query to add the content in database
+          const results = await sequelize.query(
+            "INSERT INTO posts(post_title, post_author, post_subject, post_tag, post_body, post_created_at, post_updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;",
+            {
+              type: QueryTypes.INSERT,
+              bind: [
+                cleanTitle,
+                req.user.user_id,
+                cleanSubject,
+                cleanTag,
+                cleanBody.trim(),
+                new Date(),
+                new Date(),
+              ],
+            }
+          );
+          if (results) {
+            //check post thumbnail if presenst
+            if (req.files.length > 0) {
+              const insertPostThumbnail = await sequelize.query(
+                "INSERT INTO post_thumbnails(post_thumbnail_image_url, post_thumbnail_created_at, post_thumbnail_belongs_to, post_thumbnail_updated_at)VALUES($1, $2, $3, $4) RETURNING *;",
+                {
+                  type: QueryTypes.INSERT,
+                  bind: [
+                    req.files[0].url,
+                    new Date(),
+                    results[0][0].post_id,
+                    new Date(),
+                  ],
+                }
+              );
+            }
+            await sendEmailNewPost(results, req, res);
+          } else {
+            return res.status(400).json({
+              error_message:
+                "Something went wrong when publishing your Post, please try again",
+              error: 1,
+            });
+          }
         }
-      );
-      if (results) {
-        await sendEmailNewPost(results, req, res);
-      } else {
-        return res.status(400).json({
-          error_message:
-            "Something went wrong when publishing your Post, please try again",
-          error: 1,
-        });
+      } catch (err) {
+        console.error(err);
       }
     }
-  } catch (err) {
-    console.error(err);
-  }
+  });
 };
 
 const postComment = async (req, res) => {

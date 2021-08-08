@@ -22,7 +22,7 @@
                   <label class="upload__profile-image-btn" for="changeProfile" title="Upload Profile Picture">
                     <input class="w-50 d-block mx-auto my-2 upload__profile-image-picker" type="file"
                       name="user_profile_image" id="changeProfile" value="" accept=".jpg, .png, .webp, .jpeg, .gif">
-                    <%- include("../svg/camera") %>
+                    <%- include("../svg/camera", {width: 30, height: 30}) %>
                   </label>
                   <%- include("../partial/info_image_upload") %>
                 </div>

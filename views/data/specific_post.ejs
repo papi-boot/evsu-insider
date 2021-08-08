@@ -1,18 +1,18 @@
 <% if (post) { %>
   <article class="specific__post-article">
-    <div class="spec__post-detail my-4">
+    <div class="spec__post-detail mb-4 <%= post[0].post_thumbnail_image_url ? "spec__margin-21" : "mt-4" %>">
       <h1 class="spec__post-title secondary-heading fw_700">
         <%= post[0].post_title %>
         <% if (post[0].post_pin) { %>
             <sup class="badge bg-primary f_size-3">Pinned<i class="bi bi-pin-angle-fill ms-1"></i></sup>
         <% } %>
       </h1>
-      <div class="d-flex align-items-center flex-wrap ">
+      <div class="d-flex align-items-center flex-wrap">
         <h6 class="spec__post-tag m-0 primary-heading f_size-2 fw_600 mx-1">
           <%= post[0].post_tag %>
         </h6>
         <h6 class="spec__post-subject m-0 primary-heading f_size-2 fw_600 mx-1 mx-sm-2 my-2">
-          <%= post[0].subject_name %>
+          <%= post[0].subject_name %> - <%= post[0].subject_description %> 
         </h6>
       </div>
       <div class="spec-sub-heading d-flex align-items-center justify-content-start flex-wrap my-2">
