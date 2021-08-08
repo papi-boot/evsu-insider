@@ -1,5 +1,12 @@
 @use "root" as root;
 
+.section__pinned-post {
+  padding: 0 root.$pad-2;
+  position: sticky;
+  top: 5rem;
+}
+
+
 .subject__dropdown-header {
   .subject__dropdown-btn {
     background: transparent;

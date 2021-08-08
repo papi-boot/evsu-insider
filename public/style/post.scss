@@ -51,19 +51,19 @@
 .post__header {
   margin-top: 2.5rem;
   position: static;
-  > .post__tag {
-    background: rgba(root.$primary-color, 0.9);
-    border: 1.5px solid root.$primary-color;
-    border-radius: 7px;
-    color: root.$white;
-    padding: 2px 5px;
-    vertical-align: middle;
-  }
-  > .post__subject {
-    border: 1.5px solid root.$primary-color;
-    border-radius: 7px;
-    padding: 2px 5px;
-  }
+}
+.post__tag {
+  background: rgba(root.$primary-color, 0.9);
+  border: 1.5px solid root.$primary-color;
+  border-radius: 7px;
+  color: root.$white;
+  padding: 2px 5px;
+  vertical-align: middle;
+}
+.post__subject {
+  border: 1.5px solid root.$primary-color;
+  border-radius: 7px;
+  padding: 2px 5px;
 }
 
 .post__sub-header {
@@ -106,12 +106,13 @@
     background: root.$white;
     border-radius: 5px;
     border: 1px solid root.$bg-hover-primary;
+    bottom: 1rem;
     box-shadow: root.$shadow-1;
-    right: 1.5rem;
+    height: max-content;
+    right: 1.8rem;
     padding: root.$pad-3;
     position: absolute;
     transition: root.$transition-1;
-    top: -7.9rem;
     z-index: 998;
   }
 }
@@ -156,8 +157,8 @@
 @mixin post-max-576px {
   .post__option {
     > .option-container {
+      bottom: 1rem;
       right: 2rem;
-      top: -9rem;
       z-index: 999;
     }
   }

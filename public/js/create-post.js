@@ -28,7 +28,17 @@ window.addEventListener("DOMContentLoaded", () => {
     confirmSubjectNameBtn = document.querySelector(".confirm__subject-name"),
     publishPostBtnLoadingSpinner = document.querySelector(
       ".publish__post-spinner"
+    ),
+    postThumbnailPicker = document.querySelector(
+      ".create__post-thumbnail-picker"
+    ),
+    postThumbnailPreview = document.querySelector(
+      ".create__post-thumbnail-preview"
+    ),
+    postThumbnailPreviewWrapper = document.querySelector(
+      ".create__post-thumbnail-wrapper"
     );
+  let postThumbNailImage;
   //Retrieve lost title and tag when accidentally leave/back
   createPostTitleField.value = recoverTitle.getItem(RECOVER_POST_TITLE);
   createPostTagField.value = recoverTag.getItem("recover_post_tag");
@@ -49,6 +59,25 @@ window.addEventListener("DOMContentLoaded", () => {
   createPostTagField.addEventListener("input", (e) => {
     e.preventDefault();
     recoverTitle.setItem(RECOVER_POST_TAG, e.target.value);
+  });
+
+  // Pick image thumbnail
+  postThumbnailPicker.addEventListener("change", (e) => {
+    const file = postThumbnailPicker.files[0];
+    const imageReader = new FileReader();
+
+    imageReader.addEventListener(
+      "load",
+      async (e) => {
+        postThumbnailPreviewWrapper.classList.add("preview__thumbnail");
+        postThumbnailPreview.src = imageReader.result;
+        postThumbNailImage = file;
+      },
+      false
+    );
+    if (file) {
+      imageReader.readAsDataURL(file);
+    }
   });
 
   /* FETCH AND SERVE ON SELECT */
@@ -181,19 +210,22 @@ window.addEventListener("DOMContentLoaded", () => {
   formCreatePost.addEventListener("submit", (e) => {
     e.preventDefault();
     publishPostBtnLoadingSpinner.classList.remove("d-none");
-    console.log("IS IT ON YESSS");
+    const createPostFormData = new FormData(formCreatePost);
+    createPostFormData.append("post_title", createPostTitleField.value);
+    createPostFormData.append(
+      "post_subject",
+      createPostSubjectField.dataset.subjectId
+    );
+    createPostFormData.append("post_tag", createPostTagField.value);
+    createPostFormData.append(
+      "post_body",
+      tinymce.get("shareAnswerForm").getContent()
+    );
+    createPostFormData.append("post_thumbnail", postThumbNailImage);
     const sendCreatePost = async () => {
       const response = await fetch("/create-post", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          post_title: createPostTitleField.value,
-          post_subject: createPostSubjectField.dataset.subjectId,
-          post_tag: createPostTagField.value,
-          post_body: tinymce.get("shareAnswerForm").getContent(),
-        }),
+        body: createPostFormData,
         mode: "cors",
         cache: "no-cache",
       });

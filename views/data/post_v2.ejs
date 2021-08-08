@@ -1,5 +1,5 @@
-<% if (my_all_post.length> 0) { %>
-  <% my_all_post.forEach((item, index) => { %>
+<% if (post.length> 0) { %>
+  <% post.forEach((item, index) => { %>
       <article class="post__article my-4">
         <div class="post__card-v2 <%= item.post_thumbnail_image_url ? "height__29" : "height__max-content"%>">
           <% if(item.post_thumbnail_image_url) { %>
@@ -33,8 +33,11 @@
             </h6>
           </div>
           <div class="content__hider d-flex align-items-center justify-content-between px-4">
-            <div class="post__footer-options">
+            <div class="post__footer-options d-flex align-items-center">
               <a class="read__post f_size-3 fw_600" href="/post?post_id=<%= item.post_id %>&subject_id=<%= item.subject_id %>">Read Post</a>
+              <% if(comment_count[index][0].count !== "0") { %>
+              <h6 class="post__created f_size-3 mx-1 fw_600 p-theme-color m-0"><i class="bi bi-chat-fill"></i> (<%= comment_count[index][0].count %>)</h6>
+              <% } %>
             </div>
             <div class="toggle-options">
               <%- include("../data/post_toggle_options", {item: item}) %> 

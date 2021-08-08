@@ -26,7 +26,7 @@
       <% } else { %>
         <div></div>
       <% } %>
-        <form class="form__create-post">
+        <form class="form__create-post" enctype="multipart/form-data">
         <%- include("../partial/create_post_dialog") %> 
           <div class="--nav-item d-flex justify-content-start align-items-center w-100 my-3 mx-1">
             <a class="text-decoration-none --nav-link f_size-2" href="/dashboard">&leftarrow; Back to
@@ -94,6 +94,14 @@
             <div class="loading-circle loading-content"></div>
             <div class="loading-text">Loading...</div>
           </div>
+          <!-- Post thumbnail -->
+          <div class="create__post-thumbnail-wrapper my-2">
+            <img class="create__post-thumbnail-preview" src="" alt="">
+          </div>
+          <label for="postThumbnail">
+            <input class="d-none create__post-thumbnail-picker" type="file" id="postThumbnail" accept=".jpg, .png, .webp, .jpeg, .gif" value="">
+            <%- include("../svg/camera.ejs", {width: 26, height: 26}) %> <span class="f_size-2">Add thumbnail</span> 
+            </label>
           <!-- Body -->
           <% if (subject.length > 0 ) { %>
             <textarea class="--share-answer-form-create" name="post_body" id="shareAnswerForm"></textarea>

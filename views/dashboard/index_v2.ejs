@@ -2,11 +2,31 @@
 <html lang="en">
 
   <head>
-
+    <%- include("../partial/head") %>
+    <link rel="stylesheet" href="/dist/prism.css">
   </head>
 
-  <body>
-
+  <body id="dashboard">
+    <%- include("../partial/navbar") %>
+    <%- include("../partial/search") %>
+    <%- include("../partial/success_alert") %>
+      <div class="container">
+        <section class="recent__post">
+          <div class="row">
+            <!-- RECENT POST -->
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+              <div class="date-today my-2">
+                <h2 class="primary-heading fw_700">Recent Post</h2><span class="fw_600 f_size-2 secondary-heading p-theme-color mx-1"><%= format(add(new Date(Date.now()), {hours: 8}), 'EEEE, MMMM dd, yyyy')%></span>
+              </div>
+              <%- include("../data/post_v2") %> 
+            </div>
+            <!-- PINNED POST -->
+            <div class="col-lg-3"></div>
+          </div>
+        </section>
+      </div>
+      <%- include("../partial/script") %>
   </body>
 
 </html>

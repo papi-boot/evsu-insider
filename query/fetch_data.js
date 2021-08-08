@@ -33,7 +33,7 @@ const fetchUserProfileImage = async (req) => {
 const fetchAllPost = async () => {
   try {
     const results = await sequelize.query(
-      "SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_pin_time, post_created_at, post_updated_at, user_fullname, subject_name, subject_id, profile_image_url FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id LEFT JOIN user_profile_images ON posts.post_author = user_profile_images.profile_image_belongs_to ORDER BY post_created_at DESC;",
+      "SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_pin_time, post_created_at, post_updated_at, user_fullname, subject_name, subject_description, subject_id, profile_image_url, post_thumbnail_image_url FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id LEFT JOIN user_profile_images ON posts.post_author = user_profile_images.profile_image_belongs_to LEFT JOIN post_thumbnails ON posts.post_id = post_thumbnails.post_thumbnail_belongs_to ORDER BY post_created_at DESC;",
       {
         type: QueryTypes.SELECT,
       }
@@ -50,7 +50,7 @@ const fetchOnePost = async (req) => {
   try {
     const post_id = req.query.post_id;
     const results = await sequelize.query(
-      `SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_created_at, post_updated_at, user_fullname, user_state, subject_name, subject_id, subject_description, profile_image_url FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id INNER JOIN user_profile_images ON user_profile_images.profile_image_belongs_to = users.user_id WHERE post_id = $1;`,
+      `SELECT post_id, post_title, post_subject, post_tag, post_author, post_body, post_pin, post_created_at, post_updated_at, user_fullname, user_state, subject_name, subject_id, subject_description, profile_image_url, post_thumbnail_image_url FROM posts INNER JOIN users ON posts.post_author = users.user_id INNER JOIN subjects ON posts.post_subject = subjects.subject_id INNER JOIN user_profile_images ON user_profile_images.profile_image_belongs_to = users.user_id LEFT JOIN post_thumbnails ON posts.post_id = post_thumbnails.post_thumbnail_belongs_to WHERE post_id = $1;`,
       {
         type: QueryTypes.SELECT,
         bind: [post_id],

@@ -1,7 +1,7 @@
 <% if (post.length> 0) { %>
   <% post.forEach((item, index) => { %>
     <div class="col-lg-4">
-      <a href="/post?post_id=<%= item.post_id %>&subject_id=<%= item.subject_id %> " class="post-clickable text-decoration-none">
+      <a href="/post?post_id=<%= item.post_id %>&subject_id=<%= item.subject_id %>" class="post-clickable text-decoration-none">
         <div class="pin__indicator f_size-2">
           <div class="row g-1">
             <%- include("../data/update_tag", {post_item: item}) %>

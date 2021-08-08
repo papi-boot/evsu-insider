@@ -7,8 +7,30 @@
   background: root.$white;
   border-radius: 5px;
   box-shadow: root.$shadow-2;
+  overflow: hidden;
+  position: relative;
 }
-
+.specific__post-article {
+  position: relative;
+}
+.spec__post-thumbnail-wrapper {
+  height: 20rem;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  > .spec__post-thumbnail-image-src {
+    height: 100%;
+    object-fit: cover;
+    transition: root.$transition-1;
+    width: 100%;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
 .spec__post-user-image-container {
   background: rgb(240, 240, 240);
   clip-path: circle(50% at 50%);
@@ -30,6 +52,9 @@
   box-shadow: root.$shadow-2;
 }
 
+.spec__margin-21 {
+  margin-top: 21rem;
+}
 .spec__post-detail {
   overflow-x: auto;
   word-wrap: break-word;
@@ -56,6 +81,7 @@
 }
 
 .related__post {
+  background: root.$white;
   border-radius: 5px;
 }
 
@@ -160,6 +186,12 @@
   }
 }
 @mixin speicific-post-max-576px {
+  .spec__post-thumbnail-wrapper {
+    height: 15rem;
+  }
+  .spec__margin-21 {
+  margin-top: 16rem;
+}
   .copy__code-snippet {
     bottom: -0.5rem;
     position: absolute;

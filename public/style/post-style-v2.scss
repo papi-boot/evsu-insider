@@ -1,0 +1,105 @@
+@use "root" as root;
+#dashboard {
+  background: root.$background_body;
+}
+.post__article {
+  box-shadow: root.$shadow-2;
+  padding: 0;
+}
+.post__card-v2 {
+  background: root.$white;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: root.$pad-1;
+  position: relative;
+}
+.height__29 {
+  height: max-content;
+  padding-bottom: 3.5rem;
+}
+.height__max-content {
+  height: max-content;
+}
+.post__image-thumbnail-wrapper {
+  height: 12rem;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  > .post__image-thumbnail {
+    height: 15rem;
+    object-fit: cover;
+    transition: root.$transition-1;
+    width: 100%;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  &::after {
+    background-image: linear-gradient(
+      rgba(20, 20, 20, 0.0),
+      rgb(50, 50, 50),
+      rgb(10, 10, 10)
+    );
+    bottom: -4rem;
+    content: "";
+    height: 5.5rem;
+    left: 0;
+    position: absolute;
+    width: 100%;
+  }
+}
+.margin__12 {
+  margin-top: 12rem;
+}
+
+.profile__image-wrapper {
+  background: rgb(240, 240, 240);
+  clip-path: circle(50% at 50%);
+  height: 2.3rem;
+  overflow: hidden;
+  object-fit: contain;
+  width: 2.3rem;
+
+  > .profile__image-src {
+    border: 2px solid root.$background_body;
+    border-radius: 50%;
+    height: 100%;
+    object-fit: scale-down;
+    padding: 0.1rem;
+    width: 100%;
+  }
+}
+
+.post__content {
+  height: 4rem;
+  padding: root.$pad-1;
+}
+.content__hider {
+  bottom: 0;
+  height: 4rem;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.post__footer-options {
+  width: 100%;
+  > .read__post {
+    background: root.$white;
+    border-radius: 5px;
+    color: root.$primary-color;
+    padding: 0.2rem;
+    transition: root.$transition-1;
+    text-decoration: none;
+  }
+}
+.toggle-options {
+  width: 100%;
+}
+.max-content {
+  width: max-content;
+}
