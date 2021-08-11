@@ -7,7 +7,6 @@
     <meta name="description" content="<%= post[0].post_title %> | <%= post[0].post_tag %> | <%= post[0].subject_name %>">
     <meta name="keyword" content="<%= post[0].post_title %> | <%= post[0].post_tag %> | <%= post[0].subject_name %>">
     <link rel="stylesheet" href="/dist/prism.css">
-    <script data-cfasync="false" type="text/javascript" src="https://www.onclickperformance.com/a/display.php?r=4906267"></script>
     <script src="/tinymce/tinymce.min.js"></script>
     <script src="/dist/comment_form.compiled.js"></script>
   </head>
@@ -36,14 +35,8 @@
               <h6 class="fw_700 primary-heading">More on > <span><a class="p-theme-color" href="/subjects?subject_id=<%= req.query.subject_id %>"><%= post[0].subject_name %></span></a></h6>
               <%- include("../data/related_post") %>
             </div>
-            <div class="bottom-ads">
-              <%- include("../ads/native_ads-1") %> 
-            </div> 
           </div>  
           <div class="col-lg-3">
-            <div class="show__right-ads-2">
-              <%- include("../ads/native_ads-2") %> 
-            </div> 
           </div>
         </div>
       </div>
