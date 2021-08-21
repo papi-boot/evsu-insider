@@ -142,7 +142,7 @@ const fetchSubjectPostResult = async (subject_id) => {
 const fetchCommentForOnePost = async (req) => {
   try {
     const results = await sequelize.query(
-      "SELECT *, user_fullname, user_state FROM comments INNER JOIN users ON comments.comment_from_user = users.user_id WHERE comment_from_post::text = $1 ORDER BY comment_created_at DESC",
+      "SELECT *, user_fullname, user_state, profile_image_url FROM comments INNER JOIN users ON comments.comment_from_user = users.user_id LEFT JOIN user_profile_images ON users.user_id = user_profile_images.profile_image_belongs_to WHERE comment_from_post::text = $1 ORDER BY comment_created_at DESC",
       {
         type: QueryTypes.SELECT,
         bind: [req.query.post_id],

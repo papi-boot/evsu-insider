@@ -27,14 +27,19 @@
     <% comments.forEach((item) => { %>
       <div class="comment__body f_size-2 border" id="<%= item.comment_id %>">
         <div class="comment__header d-flex flex-wrap align-items-center justify-content-between border-bottom pb-1 mb-2 gap-2">
-          <h6 class="comment__person-name f_size-2 secondary-heading">
-            <%= item.user_fullname %>
-            <% if (item.user_state == 2){ %>
-                <sup class="badge bg-success f_size-4">
-                  Admin
-                </sup>
-            <% } %>
-          </h6>
+          <div class="comment__user-information d-flex align-items-center flex-wrap">
+            <div class="spec__post-user-image-container me-1">
+              <img class="spec__post-user-image zoom__image-able shine" src="<%= item.profile_image_url %> " loading="lazy">
+            </div>
+            <h6 class="comment__person-name f_size-3 secondary-heading m-0">
+              <%= item.user_fullname %>
+              <% if (item.user_state == 2){ %>
+                  <sup class="badge bg-success f_size-5">
+                    Admin
+                  </sup>
+              <% } %>
+            </h6>
+          </div>
           <h6 class="comment__time secondary-heading f_size-3 text-black-50">
             <i class="bi bi-clock"></i>&nbsp;<%= formatDistanceToNow(item.comment_created_at, { addSuffix: true }) %> •
             <%= format(add(item.comment_created_at, {hours: 8}), 'EEE, MMM dd, yy' ) %> 
