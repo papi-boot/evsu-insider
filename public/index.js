@@ -33,6 +33,7 @@ require("./js/subject_dropdown");
 require("./js/notification/notification_api");
 require("./js/profile_settings");
 require("./js/create-post");
+require("./js/status/status_check");
 
 /* STYLE */
 require("./bootstrap/css/bootstrap.min.css");

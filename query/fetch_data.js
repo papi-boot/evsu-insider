@@ -273,7 +273,27 @@ const fetchPostForNotification = async (post_id) => {
   }
 };
 
+const fetchAllUser = async (req, res) => {
+  try {
+    const { admin_key } = req.body;
+    const results = await sequelize.query(
+      "SELECT * FROM users LEFT JOIN user_profile_images ON users.user_id = user_profile_images.profile_image_belongs_to INNER JOIN user_status ON users.user_id = user_status.user_status_belongs_to ",
+      {
+        type: QueryTypes.SELECT,
+      }
+    );
+    if (admin_key === "admin_key_insiderhub") {
+      return res.status(200).json({ users: results });
+    } else {
+      return res.status(401).json({error_msg: "Not Authorize"});
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
+  fetchAllUser,
   fetchOneUser,
   fetchUserProfileImage,
   fetchAllPost,
@@ -290,5 +310,5 @@ module.exports = {
   fetchYearLevels,
   fetchSemesterForYearLevel,
   fetchSubjectForSemesterAndYearLevel,
-  fetchPostForNotification
+  fetchPostForNotification,
 };

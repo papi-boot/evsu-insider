@@ -3,7 +3,6 @@ require("dotenv").config({ path: "../.env" }).parsed;
 const express = require("express");
 const routes = express();
 
-
 const { routeImageUpload } = require("../middleware/image_upload");
 const dashboardController = require("../controller/dashboard_controller");
 const authenticationController = require("../controller/authentication_controller");
@@ -17,7 +16,7 @@ const { webpush_notification } = require("../middleware/web-push");
 const { account_settings_routes } = require("../middleware/account_settings");
 const { password_reset_routes } = require("../middleware/reset_password");
 const { subject_config_route } = require("./subject_route_api");
-
+const { insiderhub_status } = require("./status_api");
 
 /* -- ALL GET HTTP REQUEST -- */
 
@@ -89,6 +88,9 @@ routes.use(signInConfig);
 
 // -- POST: forgot password check email
 routes.use(password_reset_routes);
+
+// -- POST: Get all Users 
+routes.use(insiderhub_status);
 
 //-- POST: create post
 routes.post("/create-post", dashboardController.postShareAnswer);

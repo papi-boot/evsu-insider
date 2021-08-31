@@ -357,16 +357,29 @@ const updateChangeEmailRequest = async (req, res) => {
           success: 1,
         });
       } else {
-        return res
-          .status(409)
-          .json({
-            error_message: "Something went wrong, Please try again",
-            error: 1,
-          });
+        return res.status(409).json({
+          error_message: "Something went wrong, Please try again",
+          error: 1,
+        });
       }
     }
   } catch (err) {
     console.error(err);
+  }
+};
+
+const updateUserStatusOffline = async (user_id, line_status) => {
+  try {
+    const updateLineStatus = await sequelize.query(
+      "UPDATE user_status SET user_status_line = $1 WHERE user_status_belongs_to = $2",
+      {
+        type: QueryTypes.UPDATE,
+        bind: [line_status, user_id],
+      }
+    );
+    return updateLineStatus;
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -377,4 +390,5 @@ module.exports = {
   updateRequestChangePassword,
   updatePasswordResetRequest,
   updateChangeEmailRequest,
+  updateUserStatusOffline,
 };

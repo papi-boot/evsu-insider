@@ -14,6 +14,8 @@ const routes = require("./route/routes"); //get all the routes
 const passport = require("passport");
 const sessionConfig = require("./config/session.config");
 const { sequelize } = require("./config/db.connect");
+const data = require("./db_api/data_config");
+const user_status = require("./route/socket_user_status").User_Status;
 
 /* INITIALIZE MIDDLEWARE */
 app.use(express.static("public")); // initialize this to enable using static files such as css, assets, js module/files
@@ -23,9 +25,7 @@ app.use(express.urlencoded({ extended: false })); // parsing urlencoded bodies
 app.use(cors());
 app.use(morgan("dev")); // initialize for debugging http request method
 const sessionMiddleWare = session(sessionConfig);
-app.use(
-  sessionMiddleWare
-); //set cookies to save on local storage on the browser
+app.use(sessionMiddleWare); //set cookies to save on local storage on the browser
 sequelize.sync();
 app.use(flash());
 app.use(passport.initialize());
@@ -37,16 +37,8 @@ app.use(routes);
 //Config sockets cookie
 io.use((socket, next) => {
   sessionMiddleWare(socket.request, {}, next);
-})
-
-// socket io config
-io.on("connection", (socket) => {
-  console.log("user connected");
-  const session = socket.request.session;
-  // console.log(session);
-  session.connections++;
-  session.save();
-})
+});
+user_status.prototype.socket_init(io);
 
 /* LISTENING TO WEB SERVER */
 server.listen(PORT, () => {
