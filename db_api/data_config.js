@@ -1,5 +1,6 @@
 "use strict";
 const {
+  fetchAllUser,
   fetchOneUser,
   fetchUserProfileImage,
   fetchAllPost,
@@ -17,6 +18,11 @@ const {
   fetchSubjectForSemesterAndYearLevel,
 } = require("../query/fetch_data");
 const { checkProfileImage } = require("../query/insert_data");
+
+const data_fetchAllUser = async (req, res) => {
+  const results = await fetchAllUser(req, res);
+  return results;
+}
 
 const data_fetchOneUser = async (user_id) => {
   const results = await fetchOneUser(user_id);
@@ -104,6 +110,7 @@ const data_fetchSubjectForSemesterAndYearLevel = async (
 };
 
 module.exports = {
+  data_fetchAllUser,
   data_fetchOneUser,
   data_checkUserProfileImage,
   data_fetchUserProfileImage,

@@ -387,10 +387,45 @@ const forgotPasswordSendReset = async (req, res) => {
     console.error(err);
   }
 };
+const insertUserLineStatus = async (user_id, line_status) => {
+  try {
+    const checkUserLineStatus = await sequelize.query(
+      "SELECT * FROM user_status WHERE user_status_belongs_to = $1",
+      {
+        type: QueryTypes.SELECT,
+        bind: [user_id],
+      }
+    );
+    console.log(checkUserLineStatus);
+    if (checkUserLineStatus.length > 0) {
+      const updateLineStatus = await sequelize.query(
+        "UPDATE user_status SET user_status_line = $1, user_status_updated_at = $2 WHERE user_status_belongs_to = $3",
+        {
+          type: QueryTypes.UPDATE,
+          bind: [true, new Date(), user_id],
+        }
+      );
+      console.log("User Already inserted line status");
+      return updateLineStatus;
+    } else {
+      const results = await sequelize.query(
+        `INSERT INTO user_status(user_status_belongs_to, user_status_line, user_status_idle, user_status_created_at, user_status_updated_at)VALUES($1, $2, $3, $4, $5)`,
+        {
+          type: QueryTypes.INSERT,
+          bind: [user_id, line_status, "Idle", new Date(), new Date()],
+        }
+      );
+      return results;
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
 module.exports = {
   submitAnswer,
   postComment,
   webPushSubscription,
   checkProfileImage,
   forgotPasswordSendReset,
+  insertUserLineStatus,
 };
